@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CeMeOCore.Models
 {
-    class GuestUser
+    public class GuestUser
     {
         [Key]
         [Required]

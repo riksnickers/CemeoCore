@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CeMeOCore.Models
 {
-    class Location
+    public class Location
     {
         [Key]
         [Required]
