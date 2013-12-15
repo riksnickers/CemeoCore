@@ -10,8 +10,6 @@ namespace CeMeOCore.Models
     public class Appointment
     {
         [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int appointmentID { get; set; }
 
         [Required]

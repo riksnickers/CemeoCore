@@ -11,8 +11,6 @@ namespace CeMeOCore.Models
     public class UserProfile
     {
         [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
         [Required]

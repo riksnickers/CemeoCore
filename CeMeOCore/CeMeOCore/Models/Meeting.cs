@@ -10,8 +10,6 @@ namespace CeMeOCore.Models
     public class Meeting
     {
         [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int MeetingID { get; set; }
 
         [Required]

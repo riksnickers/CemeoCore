@@ -9,7 +9,6 @@ namespace CeMeOCore.Models
     public class GuestUser
     {
         [Key]
-        [Required]
         public int GuestUserID { get; set; }
 
         [Required]

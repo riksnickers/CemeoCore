@@ -10,8 +10,6 @@ namespace CeMeOCore.Models
     public class Location
     {
         [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int LocationID { get; set; }
 
         [Required]
@@ -25,7 +23,7 @@ namespace CeMeOCore.Models
         public String Number { get; set; }
 
         [StringLength(100)]
-        public int Addition { get; set; }
+        public String Addition { get; set; }
 
         [Required]
         public String Zip { get; set; }

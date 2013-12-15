@@ -10,8 +10,6 @@ namespace CeMeOCore.Models
     public class Calendar
     {
         [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int CalendarID { get; set; }
 
         [Required]

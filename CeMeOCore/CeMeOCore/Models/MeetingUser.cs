@@ -9,14 +9,11 @@ namespace CeMeOCore.Models
 {
     public class MeetingUser
     {
-        [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public UserProfile UserID { get; set; }
+        [Key, Column(Order = 0)]
+        public UserProfile UserId { get; set; }
 
-        [Key]
-        [Required]
-        public Meeting MeetingID { get; set; }
+        [Key, Column(Order = 1)]
+        public Meeting MeetingId { get; set; }
 
         [Required]
         public int Confirmed { get; set; }
