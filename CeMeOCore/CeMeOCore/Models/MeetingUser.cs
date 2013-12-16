@@ -23,11 +23,11 @@ namespace CeMeOCore.Models
             Declined = 2
         }
 
-        [Key, Column(Order = 1)]
-        public virtual Meeting MeetingID { get; set; }
+        [Key]
+        public virtual int MeetingId { get; set; }
 
-        [Key, Column(Order = 0)]
-        public virtual UserProfile UsersID { get; set; }
+        [Key]
+        public virtual int UserId { get; set; }
 
         [Required]
         [Range(0, 2, ErrorMessage = "Please enter valid presence option; 0 = Unconfirmed, 1 = Confirmed, 2 = Declined")]
@@ -48,6 +48,9 @@ namespace CeMeOCore.Models
         [Required]
         [StringLength(100)]
         public string Room { get; set; }
+
+        public virtual ICollection<UserProfile> users { get; set; }
+        public virtual ICollection<Meeting> meetings { get; set; }
 
     }
 }

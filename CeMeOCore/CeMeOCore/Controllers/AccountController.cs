@@ -24,6 +24,7 @@ namespace CeMeOCore.Controllers
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
+        private CeMeoContext _db = new CeMeoContext();
 
         public AccountController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
@@ -325,6 +326,18 @@ namespace CeMeOCore.Controllers
             {
                 UserName = model.UserName
             };
+
+            UserProfile profile = new UserProfile{
+                UserName = model.UserName,
+                aspUser = user.Id,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                EMail = model.EMail,
+                UserCalendar = new Calendar()
+            };
+
+            _db.Users.Add(profile);
+            _db.SaveChanges();
             
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             IHttpActionResult errorResult = GetErrorResult(result);
@@ -380,6 +393,11 @@ namespace CeMeOCore.Controllers
             if (disposing)
             {
                 UserManager.Dispose();
+            }
+
+            if (_db != null)
+            {
+                _db.Dispose();
             }
 
             base.Dispose(disposing);

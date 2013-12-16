@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,6 +13,9 @@ namespace CeMeOCore.Models
     {
         [Key]
         public int UserId { get; set; }
+
+        [Required]
+        public string aspUser { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -34,11 +38,11 @@ namespace CeMeOCore.Models
         [Required]
         public virtual Calendar UserCalendar { get; set; }
 
-        public virtual ICollection<Meeting> Meetings { get; set; }
+        public virtual ICollection<MeetingUser> MeetingUser { get; set; }
         
         public UserProfile()
         {
-            Meetings = new List<Meeting>();
+            MeetingUser = new List<MeetingUser>();
         }
     }
 }

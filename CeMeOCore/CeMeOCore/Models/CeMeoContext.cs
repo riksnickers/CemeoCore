@@ -25,28 +25,19 @@ namespace CeMeOCore.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Meeting>().
-                HasMany(c => c.Members).
-                WithMany(p => p.Meetings).
-                Map(
-                m =>
-                {
-                    m.MapLeftKey("MeetingID");
-                    m.MapRightKey("UserID");
-                    m.ToTable("MeetingUsers");
-                });
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<MeetingUser>()
+                .HasKey(mu => new { mu.MeetingId, mu.UserId });
 
-            modelBuilder.Entity<UserProfile>().
-                HasMany(c => c.Meetings).
-                WithMany(p => p.Members).
-                Map(
-                m =>
-                {
-                    m.MapLeftKey("UserID");
-                    m.MapRightKey("MeetingID");
-                    m.ToTable("MeetingUsers");
-                });
+            //modelBuilder.Entity<UserProfile>()
+            //    .HasMany(u => u.MeetingUser)
+            //    .WithRequired()
+            //    .HasForeignKey(mu => mu.UserId);
+
+            //modelBuilder.Entity<Meeting>()
+            //    .HasMany(m => m.MeetingUser)
+            //    .WithRequired()
+            //    .HasForeignKey(mu => mu.MeetingId);
+
             base.OnModelCreating(modelBuilder);
         }
     }
