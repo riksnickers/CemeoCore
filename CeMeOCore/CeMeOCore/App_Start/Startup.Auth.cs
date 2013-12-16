@@ -27,6 +27,23 @@ namespace CeMeOCore
                 var roleresult = RoleManager.Create(new IdentityRole(administratorRole));
             }
 
+            UserManager<IdentityUser> UserManager = UserManagerFactory();
+            
+            String administratorUser = "Admin";
+            String administratorPass = "superadmin";
+            if( UserManager.FindByName(administratorUser) == null )
+            {
+                IdentityUser adminUser = new IdentityUser()
+                {
+                    UserName = administratorUser
+                };
+                IdentityResult ir = UserManager.Create(adminUser, administratorPass);
+                UserManager.AddToRole(UserManager.FindByName(administratorUser).Id, administratorRole);
+            }
+           
+            
+            
+
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"),
