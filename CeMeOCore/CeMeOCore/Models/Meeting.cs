@@ -37,4 +37,45 @@ namespace CeMeOCore.Models
             MeetingUser = new List<MeetingUser>();
         }
     }
+
+    public class ScheduleMeetingBindingModel
+    {
+        [Required]
+        [Display(Name = "Creator")]
+        public int Creator { get; set; }
+
+        [Required]
+        [Display(Name = "Participants")]
+        public List<int> Participants { get; set; }
+
+        [Required]
+        [Display(Name = "Deadline")]
+        public int DeadlineWorkDays { get; set; }
+    }
+
+    public class CancelMeetingBindingModel
+    {
+        [Required]
+        [Display(Name = "MeetingID")]
+        public int MeetingID { get; set; }
+
+        [Required]
+        [Display(Name = "Reason")]
+        public string Reason { get; set; }
+
+        [Required]
+        [Display(Name = "CanceledBy")]
+        public int CanceledBy { get; set; }
+    }
+
+    public class ChangeDeadlineMeetingBindingModel
+    {
+        [Required]
+        [Display(Name = "MeetingID")]
+        public int MeetingID { get; set; }
+
+        [Required]
+        [Display(Name = "New Deadline Days")]
+        public int NewDeadLineDays  { get; set; }
+    }
 }
