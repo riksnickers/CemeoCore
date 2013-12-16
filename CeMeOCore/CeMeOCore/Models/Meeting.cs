@@ -29,5 +29,12 @@ namespace CeMeOCore.Models
         [Display(Name = "Current state")]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number as state")]
         public int State { get; set; }
+
+        public virtual ICollection<UserProfile> Members { get; set; }
+        
+        public Meeting()
+        {
+            Members = new List<UserProfile>();
+        }
     }
 }

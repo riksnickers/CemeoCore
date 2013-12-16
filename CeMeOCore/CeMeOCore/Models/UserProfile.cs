@@ -33,6 +33,12 @@ namespace CeMeOCore.Models
 
         [Required]
         public virtual Calendar UserCalendar { get; set; }
+
+        public virtual ICollection<Meeting> Meetings { get; set; }
         
+        public UserProfile()
+        {
+            Meetings = new List<Meeting>();
+        }
     }
 }
