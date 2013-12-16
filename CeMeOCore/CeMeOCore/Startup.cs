@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Owin;
 using Owin;
+using System.Web.Security;
 
 [assembly: OwinStartup(typeof(CeMeOCore.Startup))]
 

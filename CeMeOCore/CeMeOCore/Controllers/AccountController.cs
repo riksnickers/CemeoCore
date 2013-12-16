@@ -325,7 +325,7 @@ namespace CeMeOCore.Controllers
             {
                 UserName = model.UserName
             };
-
+            
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             IHttpActionResult errorResult = GetErrorResult(result);
 

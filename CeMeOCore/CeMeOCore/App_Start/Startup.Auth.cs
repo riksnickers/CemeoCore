@@ -18,6 +18,14 @@ namespace CeMeOCore
             PublicClientId = "self";
 
             UserManagerFactory = () => new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+            RoleManagerFactory = () => new RoleManager<IdentityRole>(new RoleStore<IdentityRole>());
+
+            RoleManager<IdentityRole> RoleManager = RoleManagerFactory();
+            String administratorRole = "Administrator";
+            if (!RoleManager.RoleExists(administratorRole))
+            {
+                var roleresult = RoleManager.Create(new IdentityRole(administratorRole));
+            }
 
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
@@ -32,6 +40,8 @@ namespace CeMeOCore
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
         public static Func<UserManager<IdentityUser>> UserManagerFactory { get; set; }
+
+        public static Func<RoleManager<IdentityRole>> RoleManagerFactory { get; set; }
 
         public static string PublicClientId { get; private set; }
 
