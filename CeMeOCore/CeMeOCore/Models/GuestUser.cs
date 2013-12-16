@@ -9,10 +9,11 @@ namespace CeMeOCore.Models
     public class GuestUser
     {
         [Key]
-        [Required]
+        [Display(Name = "GuestID")]
         public int GuestUserID { get; set; }
 
         [Required]
+        [Display(Name = "Is the account available?")]
         public bool AccountAvailable { get; set; }
 
     }

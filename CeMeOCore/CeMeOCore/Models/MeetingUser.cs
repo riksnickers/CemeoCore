@@ -9,24 +9,39 @@ namespace CeMeOCore.Models
 {
     public class MeetingUser
     {
-        [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public UserProfile UserID { get; set; }
+        public enum Confirmation 
+        {
+            Unconfirmed = 0,
+            Confirmed = 1,
+            Declined = 2
+        }
+
+        public enum Presences
+        {
+            Unconfirmed = 0,
+            Confirmed = 1,
+            Declined = 2
+        }
 
         [Key]
+        public int MeetingUserID { get; set; }
+
+        public UserProfile UserID { get; set; }
+
         [Required]
         public Meeting MeetingID { get; set; }
 
         [Required]
-        public int Confirmed { get; set; }
+        [Range(0, 2, ErrorMessage = "Please enter valid presence option; 0 = Unconfirmed, 1 = Confirmed, 2 = Declined")]
+        public Confirmation Confirmed{ get; set; }
         //Confirmation options:
         //0: unconfirmed
         //1: confirmed
         //2: declined
 
         [Required]
-        public int Presence { get; set; }
+        [Range(0, 2, ErrorMessage = "Please enter valid presence option; 0 = Present on site, 1 = Present online, 2 = Not present")]
+        public Presences Presence { get; set; }
         //Presence options
         //0: Present on site
         //1: Present online

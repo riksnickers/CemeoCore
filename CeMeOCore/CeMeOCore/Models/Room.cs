@@ -10,21 +10,23 @@ namespace CeMeOCore.Models
     public class Room
     {
         [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int RoomID { get; set; }
 
         [Required]
+        [Display(Name = "Name")]
         [StringLength(100)]
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Type")]
         [StringLength(100)]
         public string Type { get; set; }
 
         [Required]
-        public Location LocationID { get; set; }
+        [Display(Name = "LocationID")]
+        public virtual Location LocationID { get; set; }
 
+        [Display(Name = "Is there a beamer present?")]
         public bool BeamerPresent { get; set; }
     }
 }

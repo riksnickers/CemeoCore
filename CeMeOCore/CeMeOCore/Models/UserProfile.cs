@@ -11,8 +11,6 @@ namespace CeMeOCore.Models
     public class UserProfile
     {
         [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
         [Required]
@@ -31,8 +29,7 @@ namespace CeMeOCore.Models
         [StringLength(200)]
         public string EMail { get; set; }
 
-        [Required]
-        public virtual Location PreferedLocation { get; set; }
+        public Location PreferedLocation { get; set; }
 
         [Required]
         public virtual Calendar UserCalendar { get; set; }

@@ -10,11 +10,11 @@ namespace CeMeOCore.Models
     public class Calendar
     {
         [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "CalendarID")]
         public int CalendarID { get; set; }
 
         [Required]
+        [Display(Name = "Meeting appointments")]
         public virtual ICollection<Appointment> Appointments { get; set; }
     }
 }

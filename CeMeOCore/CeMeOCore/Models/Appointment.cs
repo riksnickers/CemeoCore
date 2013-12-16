@@ -10,23 +10,26 @@ namespace CeMeOCore.Models
     public class Appointment
     {
         [Key]
-        [Required]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int appointmentID { get; set; }
 
         [Required]
+        [Display(Name = "Meetingdate")]
         public DateTime Date { get; set; }
 
         [Required]
-        public DateTime beginTime { get; set; }
+        [Display(Name = "Begintime")]
+        public DateTime BeginTime { get; set; }
 
         [Required]
-        public DateTime endTime { get; set; }
+        [Display(Name = "Endtime")]
+        public DateTime EndTime { get; set; }
 
+        [Display(Name = "Description")]
         public String Description { get; set; }
         
         [Required]
-        public virtual Location location {get; set;}
+        [Display(Name = "Location")]
+        public virtual Location Location {get; set;}
 
     }
 }
