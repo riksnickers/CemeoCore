@@ -12,6 +12,9 @@ namespace CeMeOCore.Controllers
     [RoutePrefix("api/Meeting")]
     public class MeetingController : ApiController
     {
+
+        CeMeoContext _db = new CeMeoContext();
+
         // GET /api/Meeting/<meetingID>
         // Get a specific meeting
         [AcceptVerbs("GET")]
@@ -66,6 +69,15 @@ namespace CeMeOCore.Controllers
         public Boolean Cancel([FromBody]CancelMeetingBindingModel model)
         {
             return false;
+        }
+
+        // GET /api/Meeting/Contacts
+        [AcceptVerbs("GET")]
+        [Route("Contacts")]
+        public IEnumerable<Object> GetContacts()
+        {
+            var users = _db.Users.Select(u => new { id = u.UserId, FirstName = u.FirstName, LastName = u.LastName }).ToList();
+            return users;
         }
     }
 }
