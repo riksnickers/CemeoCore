@@ -14,14 +14,17 @@ namespace CeMeOCore.Models
 
         [Required]
         [Display(Name = "Meetingdate")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
 
         [Required]
         [Display(Name = "Begintime")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BeginTime { get; set; }
 
         [Required]
         [Display(Name = "Endtime")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime EndTime { get; set; }
 
         [Display(Name = "Description")]
