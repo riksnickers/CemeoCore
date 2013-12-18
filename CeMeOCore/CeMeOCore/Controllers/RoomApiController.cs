@@ -10,29 +10,36 @@ using System.Web.Mvc;
 
 namespace CeMeOCore.Controllers
 {
-    public class RoomController : Controller
+    public class RoomApiController : ApiController
     {
         private CeMeoContext _db = new CeMeoContext();
         static readonly Room repository = new Room();
 
-        public ActionResult Index()
+        private ActionResult View()
         {
-            ViewBag.Title = "Overview of all the meeting rooms.";
-            var model = _db.Rooms;
-            return View(model);
+            throw new NotImplementedException();
         }
 
-        public ActionResult Details(int id)
+        // GET api/rooms
+        // Get all meetingRooms that are located in the database
+        public IEnumerable<Room> GetAll()
+        {
+            return _db.Rooms;
+        }
+
+        // GET api/room/5
+        public Room Get(int id)
         {
             var meetingRoom = _db.Rooms.FirstOrDefault((p) => p.RoomID == id);
             if (meetingRoom == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-            return View(meetingRoom);
+            return meetingRoom;
         }
 
-        public ActionResult Create(Room meetingRoom)
+        // POST api/room
+        public void Add([FromBody]Room meetingRoom)
         {
             if (meetingRoom == null)
             {
@@ -40,22 +47,21 @@ namespace CeMeOCore.Controllers
             }
             _db.Rooms.Add(meetingRoom);
             _db.SaveChanges();
-            return View(meetingRoom);
         }
 
-        public ActionResult Edit(Room meetingRoom)
+        // PUT api/room/5
+        public void Update([FromBody]Room meetingRoom)
         {
             _db.Entry(meetingRoom).State = EntityState.Modified;
             _db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
-        public ActionResult Delete(int id)
+        // DELETE api/room/5
+        public void Delete([FromBody]int id)
         {
             Room meetingRoom = _db.Rooms.Find(id);
             _db.Rooms.Remove(meetingRoom);
             _db.SaveChanges();
-            return View(meetingRoom);
         }
     }
 }
