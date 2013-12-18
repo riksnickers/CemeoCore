@@ -13,6 +13,7 @@ namespace CeMeOCore.Models
         [Display(Name = "CalendarID")]
         public int CalendarID { get; set; }
 
+        //The calendar contains a list of Appointments
         [Display(Name = "Meeting appointments")]
         public virtual ICollection<Appointment> Appointments { get; set; }
     }

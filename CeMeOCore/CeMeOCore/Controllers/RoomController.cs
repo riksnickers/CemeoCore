@@ -5,7 +5,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 using System.Web.Mvc;
 
 namespace CeMeOCore.Controllers
@@ -25,13 +24,16 @@ namespace CeMeOCore.Controllers
         public ActionResult Details(int id)
         {
             var meetingRoom = _db.Rooms.FirstOrDefault((p) => p.RoomID == id);
-            if (meetingRoom == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
             return View(meetingRoom);
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult Create(Room meetingRoom)
         {
             if (meetingRoom == null)
@@ -43,6 +45,13 @@ namespace CeMeOCore.Controllers
             return View(meetingRoom);
         }
 
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult Edit(Room meetingRoom)
         {
             _db.Entry(meetingRoom).State = EntityState.Modified;
@@ -50,6 +59,13 @@ namespace CeMeOCore.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Delete()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             Room meetingRoom = _db.Rooms.Find(id);

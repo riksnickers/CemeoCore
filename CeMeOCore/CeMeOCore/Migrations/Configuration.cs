@@ -13,11 +13,10 @@ namespace CeMeOCore.Migrations
             AutomaticMigrationsEnabled = true;
         }
 
+        //Method that takes care of the dummy data
         protected override void Seed(CeMeOCore.Models.CeMeoContext context)
         {
             //locations
-
-
             Location HoofdkantoorHasselt = new Location
                    {
                        Name = "Hoofdkantoor Hasselt",
@@ -174,8 +173,6 @@ namespace CeMeOCore.Migrations
            //Appointments
             /*Appointment GeneralMeeting = new Appointment
             {
-                
-
 
             };
             Appointment TeamMeeting = new Appointment
