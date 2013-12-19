@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CeMeOCore.Models.Meeting>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MeetingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MeetingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MeetingID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MeetingID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MeetingID })
+        </td>
+    </tr>
+}
+
+</table>

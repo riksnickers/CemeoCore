@@ -170,24 +170,6 @@ namespace CeMeOCore.Migrations
                   ConferenceRoomThirdFloor,
                   MeetingRoomBasement
                 );
-
-           //Appointments
-            /*Appointment GeneralMeeting = new Appointment
-            {
-
-            };
-            Appointment TeamMeeting = new Appointment
-            {
-
-            };
-            Appointment DuoMeeting = new Appointment
-            {
-
-            };
-            Appointment GroupMeeting = new Appointment
-            {
-
-            };*/
         }
     }
 }

@@ -12,7 +12,7 @@ namespace CeMeOCore.Controllers
     public class RoomController : Controller
     {
         private CeMeoContext _db = new CeMeoContext();
-        static readonly Room repository = new Room();
+        
 
         public ActionResult Index()
         {
