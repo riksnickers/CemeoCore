@@ -80,13 +80,6 @@ namespace CeMeOCore.Controllers
         [ResponseType(typeof(ScheduleMeetingBindingModel))]
         public IHttpActionResult Schedule([FromBody]ScheduleMeetingBindingModel model)
         {
-            ScheduleMeetingBindingModel sm = new ScheduleMeetingBindingModel()
-            {
-                BeforeDate = "",
-                Creator = "t",
-                Dateindex = 0,
-                InvitedParticipants = new List<InvitedUser>() { new InvitedUser() { id = 1, Important = false }, new InvitedUser() { id = 2, Important = true } }
-            };
             return Ok(model);
         }
 
