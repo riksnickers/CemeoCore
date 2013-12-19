@@ -18,19 +18,12 @@ namespace CeMeOCore.Controllers
     [RoutePrefix("api/Meeting")]
     public class MeetingController : ApiController
     {
-<<<<<<< HEAD
+        private CeMeoContext _db = new CeMeoContext();
         ///<summary>
         ///  Get a specific meeting
         ///  This is a GET method
         ///</summary>
         ///<param name="id"></param>
-=======
-
-        CeMeoContext _db = new CeMeoContext();
-
-        // GET /api/Meeting/<meetingID>
-        // Get a specific meeting
->>>>>>> 58e8ae49f8a439d14052510a1683b80c72620449
         [AcceptVerbs("GET")]
         public IEnumerable<String> Get(int id)
         {
@@ -109,7 +102,6 @@ namespace CeMeOCore.Controllers
             return false;
         }
 
-<<<<<<< HEAD
         /// <summary>
         /// When the server sends a pushnotification/payload
         /// it includes an ID that identifies Which inviter is being used.
@@ -132,8 +124,11 @@ namespace CeMeOCore.Controllers
             return Ok();
         }
 
-=======
-        // GET /api/Meeting/Contacts
+        /// <summary>
+        /// This method will return contacts.
+        /// This is a GET method
+        /// </summary>
+        /// <returns></returns>
         [AcceptVerbs("GET")]
         [Route("Contacts")]
         public IEnumerable<Object> GetContacts()
@@ -141,6 +136,5 @@ namespace CeMeOCore.Controllers
             var users = _db.Users.Select(u => new { id = u.UserId, FirstName = u.FirstName, LastName = u.LastName }).ToList();
             return users;
         }
->>>>>>> 58e8ae49f8a439d14052510a1683b80c72620449
     }
 }
