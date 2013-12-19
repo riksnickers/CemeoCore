@@ -193,7 +193,9 @@
     <Compile Include="Logic\MeetingOrganiser\Availability.cs" />
     <Compile Include="Logic\MeetingOrganiser\BlackSpot.cs" />
     <Compile Include="Logic\MeetingOrganiser\DateIndex.cs" />
+    <Compile Include="Logic\MeetingOrganiser\IInviter.cs" />
     <Compile Include="Logic\MeetingOrganiser\Inviter.cs" />
+    <Compile Include="Logic\MeetingOrganiser\InviterManager.cs" />
     <Compile Include="Logic\MeetingOrganiser\IOrganiser.cs" />
     <Compile Include="Logic\MeetingOrganiser\Organiser.cs" />
     <Compile Include="Migrations\Configuration.cs" />
