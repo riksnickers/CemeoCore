@@ -43,7 +43,7 @@ namespace CeMeOCore.Models
     {
         [Required]
         [Display(Name = "Creator")]
-        public int Creator { get; set; }
+        public string Creator { get; set; }
 
         [Required]
         [Display(Name = "Invited Participants")]
