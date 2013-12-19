@@ -26,6 +26,7 @@ namespace CeMeOCore.Logic.MeetingOrganiser
         /// This is when the request was send to organise a meeting
         /// </summary>
         private DateTime DateRequested{ get; set;}
+
         private ICollection<InvitedUser> Attendees { get; set; }
         
         private ICollection<BlackSpot> _blackSpots {get; set;}
