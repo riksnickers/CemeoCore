@@ -212,6 +212,7 @@
     <Compile Include="Logic\MeetingOrganiser\InviterManager.cs" />
     <Compile Include="Logic\MeetingOrganiser\IOrganiser.cs" />
     <Compile Include="Logic\MeetingOrganiser\Organiser.cs" />
+    <Compile Include="Logic\MeetingOrganiser\OrganiserManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
