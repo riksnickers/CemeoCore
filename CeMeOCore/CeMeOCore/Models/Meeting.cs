@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CeMeOCore.Logic.MeetingOrganiser;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -36,5 +37,48 @@ namespace CeMeOCore.Models
         {
             MeetingUser = new List<MeetingUser>();
         }
+    }
+
+    public class ScheduleMeetingBindingModel
+    {
+        [Required]
+        [Display(Name = "Creator")]
+        public int Creator { get; set; }
+
+        [Required]
+        [Display(Name = "Invited Participants")]
+        public List<InvitedUser> InvitedParticipants { get; set; }
+
+        [Required]
+        [Display(Name = "Date Index")]
+        public DateIndex Dateindex { get; set; }
+        [Display(Name = "Before date")]
+        public String BeforeDate { get; set; }
+    }
+
+    public class CancelMeetingBindingModel
+    {
+        [Required]
+        [Display(Name = "MeetingID")]
+        public int MeetingID { get; set; }
+
+        [Required]
+        [Display(Name = "Reason")]
+        public string Reason { get; set; }
+
+        [Required]
+        [Display(Name = "CanceledBy")]
+        public int CanceledBy { get; set; }
+    }
+
+    public class ChangeDeadlineMeetingBindingModel
+    {
+        [Required]
+        [Display(Name = "MeetingID")]
+        public int MeetingID { get; set; }
+
+        [Required]
+        [Display(Name = "New Deadline Days")]
+        public int NewDeadLineDays  { get; set; }
     }
 }

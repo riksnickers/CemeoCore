@@ -11,6 +11,7 @@ namespace CeMeOCore.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         //Method that takes care of the dummy data

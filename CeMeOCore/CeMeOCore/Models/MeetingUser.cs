@@ -53,4 +53,13 @@ namespace CeMeOCore.Models
         public virtual ICollection<Meeting> meetings { get; set; }
 
     }
+
+    public class InvitedUser
+    {
+        [Required]
+        public int id { get; set; }
+
+        [Required]
+        public Boolean Important { get; set; }
+    }
 }
