@@ -94,7 +94,7 @@ namespace CeMeOCore.Tests.Controllers
             ScheduleMeetingBindingModel model = new ScheduleMeetingBindingModel()
             {
                 Creator = 1, //User id
-                Participants = new List<int> { 1, 2, 3 }, //User id's wie uitgenodigd is
+                InvitedParticipants = new List<int> { 1, 2, 3 }, //User id's wie uitgenodigd is
                 DeadlineWorkDays = 2 //Binnen x aantal dagen
             };
 

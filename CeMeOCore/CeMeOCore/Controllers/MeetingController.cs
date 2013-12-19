@@ -1,36 +1,52 @@
-﻿using CeMeOCore.Models;
+﻿using CeMeOCore.Logic.MeetingOrganiser;
+using CeMeOCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace CeMeOCore.Controllers
 {
+    ///<summary>
+    ///This is a API controller to maintain meetings
+    ///</summary>
     //[Authorize]
     [RoutePrefix("api/Meeting")]
     public class MeetingController : ApiController
     {
-        // GET /api/Meeting/<meetingID>
-        // Get a specific meeting
+        ///<summary>
+        ///  Get a specific meeting
+        ///  This is a GET method
+        ///</summary>
+        ///<param name="id"></param>
         [AcceptVerbs("GET")]
         public IEnumerable<String> Get(int id)
         {
             return new string[] { id.ToString() };
         }
 
-        // PUT /api/Meeting/
-        // Update a specific meeting
+        ///<summary>
+        ///  Update a specific meeting request (for now its only the deadline)
+        ///  This is a PUT method
+        ///</summary>
+        ///<param name="model"></param>
         [AcceptVerbs("PUT")]
         [Route("Deadline")]
         public Boolean Put([FromBody]ChangeDeadlineMeetingBindingModel model)
         {
             return false;
         }
-
-        // GET /api/Meeting/count=10&from=10&
-        // Returns last x meetings
+        
+        ///<summary>
+        ///  Returns last x meetings
+        ///  This is a GET method
+        ///</summary>
+        ///<param name="count">(Optional)If you would like to have the 10 last meetings you enter 10 for count.</param>
+        ///<param name="from">(Optional)If you would like to have the 5 last meetings starting from the 12meeting you enter 5 for count and 12 for from.</param>
         [AcceptVerbs("GET")]
         [Route("last")]
         public IEnumerable<string> GetLast(int count = 1, int from = 0)
@@ -38,8 +54,11 @@ namespace CeMeOCore.Controllers
             return new string[] { "Meeting from: " + count + " beginning from: " + from };
         }
 
-        // GET /api/Meeting/Upcomming?last=10
-        // Return x latest upcomming meetings
+        ///<summary>
+        ///  Return x latest upcomming meetings
+        ///  This is a GET method
+        ///</summary>
+        ///<param name="latest">This is how many meetings you want</param>
         [AcceptVerbs("GET")]
         [Route("Upcomming")]
         public IEnumerable<String> GetUpcomming(int latest = 1)
@@ -50,22 +69,59 @@ namespace CeMeOCore.Controllers
 
         // POST /api/Meeting/schedule
         // To schedule a meeting
+        /// <summary>
+        ///   This will start scheduling a meeting.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [AcceptVerbs("POST")]
         [Route("Schedule")]
-        public Boolean Schedule([FromBody]ScheduleMeetingBindingModel model)
+        [ResponseType(typeof(ScheduleMeetingBindingModel))]
+        public IHttpActionResult Schedule([FromBody]ScheduleMeetingBindingModel model)
         {
-            return false;
+            
+            return Ok(model);
         }
 
         
-        // No delete function because the system will delete/archive it.
-        // We are using a cancel function
+        // 
+        // 
         // POST /api/Meeting/Cancel
+        /// <summary>
+        ///   No delete function because the system will delete/archive it.
+        ///   We are using a cancel function
+        ///   This is a POST method
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [AcceptVerbs("POST")]
         [Route("Cancel")]
         public Boolean Cancel([FromBody]CancelMeetingBindingModel model)
         {
             return false;
         }
+
+        /// <summary>
+        /// When the server sends a pushnotification/payload
+        /// it includes an ID that identifies Which inviter is being used.
+        /// </summary>
+        /// <param name="model"><seealso cref="InviterAnswerBindingModel"/></param>
+        /// <returns></returns>
+        [AcceptVerbs("POST")]
+        [Route("InviteResponse")]
+        public IHttpActionResult InviteResponse([FromBody]InviterAnswerBindingModel model)
+        {
+            switch(model.Answer)
+            {
+                case Availability.Absent: break;
+                case Availability.Present: break;
+                case Availability.Online: break;
+                default: break;
+            }
+
+            Startup.InviterManagerFactory().getInviter(model.InviterID).registerAvailabilityAttendee(model.InviteeID, model.Answer);
+            return Ok();
+        }
+
     }
 }

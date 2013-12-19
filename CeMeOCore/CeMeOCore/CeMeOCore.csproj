@@ -189,6 +189,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Account\Account.cs" />
+    <Compile Include="Logic\MeetingOrganiser\Availability.cs" />
+    <Compile Include="Logic\MeetingOrganiser\BlackSpot.cs" />
+    <Compile Include="Logic\MeetingOrganiser\DateIndex.cs" />
+    <Compile Include="Logic\MeetingOrganiser\Inviter.cs" />
+    <Compile Include="Logic\MeetingOrganiser\IOrganiser.cs" />
+    <Compile Include="Logic\MeetingOrganiser\Organiser.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -196,6 +203,7 @@
     <Compile Include="Models\Calendar.cs" />
     <Compile Include="Models\CeMeoContext.cs" />
     <Compile Include="Models\GuestUser.cs" />
+    <Compile Include="Models\IMeeting.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Meeting.cs" />
     <Compile Include="Models\MeetingUser.cs" />
