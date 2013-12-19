@@ -5,6 +5,9 @@ using System.Web;
 
 namespace CeMeOCore.Logic.MeetingOrganiser
 {
+    /// <summary>
+    /// This is an enumartion for the DataIndex options
+    /// </summary>
     public enum DateIndex
     {
         Today = 0,

@@ -11,11 +11,11 @@ namespace CeMeOCore.Logic.MeetingOrganiser
     public class InviterManager
     {
         /// <summary>
-        /// This dictionary holds all the Invite instansions
+        /// This dictionary holds all the Inviter instansions
         /// </summary>
         Dictionary<string, Inviter> dictionary;
         /// <summary>
-        /// This is the construction for InviteManager
+        /// This is the constructor for InviteManager
         /// </summary>
         public InviterManager()
         {
@@ -38,7 +38,7 @@ namespace CeMeOCore.Logic.MeetingOrganiser
         /// <summary>
         /// With this method you can add Inviters to the dictonary.
         /// </summary>
-        /// <param name="inviter"></param>
+        /// <param name="inviter">the inviter object</param>
         /// <returns>Boolean</returns>
         public Boolean addInviter(Inviter inviter)
         {

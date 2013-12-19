@@ -26,11 +26,28 @@ namespace CeMeOCore.Logic.MeetingOrganiser
         /// This is when the request was send to organise a meeting
         /// </summary>
         private DateTime DateRequested{ get; set;}
-
+        /// <summary>
+        /// This is a collection of all Attendees that are invited.
+        /// </summary>
         private ICollection<InvitedUser> Attendees { get; set; }
         
+        /// <summary>
+        /// This is a collection of all the blackspots that are found
+        /// </summary>
         private ICollection<BlackSpot> _blackSpots {get; set;}
+
+        /// <summary>
+        /// This is the deadline when the meeting must be planned
+        /// </summary>
         public int DeadLineInDays { get; set; }
+
+        /// <summary>
+        /// To start organising a meeting the constructor must be called
+        /// </summary>
+        /// <param name="attendees">All of the invited attendees</param>
+        /// <param name="dateRequested">When the organiser was started</param>
+        /// <param name="deadLineInDays">This is the deadline</param>
+        /// <param name="requestedById">Who requested to organise this meeting ID</param>
         public Organiser( IEnumerable<InvitedUser> attendees, DateTime dateRequested, int deadLineInDays, int requestedById )
         {
             //Resolve requestedBy
@@ -54,22 +71,37 @@ namespace CeMeOCore.Logic.MeetingOrganiser
             //  CreateMeeting
         }
 
+        /// <summary>
+        /// This method will figure out all the blackspots.
+        /// </summary>
         private void checkAvailabilityAttendees()
         {
             //Generate blackspots
         }
         
+        /// <summary>
+        /// This method will calculate the earliest appointment possible.
+        /// </summary>
         private void calculateEarliestAppointment()
         {
             
         }
 
+        /// <summary>
+        /// This method will send a proposition to all invitees. The Inviter class will handle all these request/respsonses
+        /// </summary>
         private void sendPropositionToAttendees()
         {
             Inviter inviter = Startup.InviterManagerFactory().create();
             var res = inviter.sendProposition();
         }
 
+        /// <summary>
+        /// This will resolve the id of the creator
+        /// </summary>
+        /// <param name="userProfileId">The id of who requested the meeting
+        /// </param>
+        /// <returns></returns>
         private UserProfile resolveRequestedBy( int userProfileId)
         {
             try
@@ -83,34 +115,5 @@ namespace CeMeOCore.Logic.MeetingOrganiser
         }
     }
 
-    public class OrganiserManager
-    {
-        Dictionary<string, Organiser> dictionary;
-        public OrganiserManager()
-        {
-            dictionary = new Dictionary<string,Organiser>();
-        }
-
-        private Organiser getOrganiser( string organiserId )
-        {
-            if (dictionary.ContainsKey(organiserId))
-	        {
-                return dictionary[organiserId];
-	        }
-            else return null;
-        }
-
-        public Boolean addOrganiser( Organiser organiser )
-        {
-            try 
-	        {	        
-		        dictionary.Add(organiser.OrganiserID, organiser);
-                return true;
-	        }
-	        catch (Exception)
-	        {
-		        return false;
-	        }
-        }
-    }
+    
 }
