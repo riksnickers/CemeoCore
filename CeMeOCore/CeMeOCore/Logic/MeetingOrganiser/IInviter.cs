@@ -11,6 +11,6 @@ namespace CeMeOCore.Logic.MeetingOrganiser
     /// </summary>
     public interface IInviter
     {
-        public string InviterID { get; private set; }
+        //public string InviterID { get; private set; }
     }
 }
