@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CeMeOCore;
 using CeMeOCore.Models;
 using System;
+using System.Web.Http;
 
 namespace CeMeOCore.Tests.Controllers
 {
@@ -93,14 +94,14 @@ namespace CeMeOCore.Tests.Controllers
 
             ScheduleMeetingBindingModel model = new ScheduleMeetingBindingModel()
             {
-                Creator = 1, //User id
-                InvitedParticipants = new List<int> { 1, 2, 3 }, //User id's wie uitgenodigd is
-                DeadlineWorkDays = 2 //Binnen x aantal dagen
+                Creator = "1", //User id
+                //InvitedParticipants = new List<int> { 1, 2, 3 }, //User id's wie uitgenodigd is
+                //DeadlineWorkDays = 2 //Binnen x aantal dagen
             };
 
-            Boolean result = controller.Schedule( model );
+            IHttpActionResult result = controller.Schedule( model );
 
-            Assert.IsFalse(result);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]

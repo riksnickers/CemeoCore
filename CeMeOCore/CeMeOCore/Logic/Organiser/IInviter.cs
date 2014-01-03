@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CeMeOCore.Logic.MeetingOrganiser
+namespace CeMeOCore.Logic.Organiser
 {
     /// <summary>
     /// This is the interface of how an Inviter class should atleast look like.

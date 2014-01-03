@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="62c10dec-2497-4c71-acbf-ca07577795c2" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <layers>
+    <layer Id="0ef0a559-289e-47a8-b664-f745b0bc7716" name="Controllers">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="31abf330-ca9f-4da9-ad6c-58e54e847d0f" direction="Forward">
+          <layerMoniker Id="0aa3e904-750f-49b0-a430-d9d7a4659213" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="3f2c0317-53c8-4e79-93c2-98032a7aaa7a" direction="Forward">
+          <layerMoniker Id="3ef9ccd6-9683-4af0-b232-2656f0f0fc18" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="d67c7ca8-e6c9-48aa-8b9e-6e26aae37bef" name="Controllers">
+          <ArtifactNode Label="Controllers" Category="CodeSchema_ProjectItem" Id="(Assembly=../CeMeOCore/CeMeOCore.csproj File=../CeMeOCore/Controllers/)">
+            <Category Ref="ProjectFolder" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Controllers Type=AccountController)" Label="AccountController" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Controllers Type=(Name=RandomOAuthStateGenerator ParentType=AccountController))" Label="AccountController‎.RandomOAuthStateGenerator" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Controllers Type=(Name=ExternalLoginData ParentType=AccountController))" Label="AccountController‎.ExternalLoginData" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Controllers Type=HomeController)" Label="HomeController" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Controllers Type=MeetingController)" Label="MeetingController" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Controllers Type=RoomApiController)" Label="RoomApiController" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Controllers Type=RoomController)" Label="RoomController" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Controllers Type=ValuesController)" Label="ValuesController" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="3ef9ccd6-9683-4af0-b232-2656f0f0fc18" name="Logic">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="fd5daae1-8239-4ca2-98c7-6e6f9ba8602e" direction="Bidirectional">
+          <layerMoniker Id="0aa3e904-750f-49b0-a430-d9d7a4659213" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <childLayers>
+        <layer Id="a5bee1c5-de2b-493c-ade1-76dff3274a9e" name="Organiser">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="c68dfd2e-3d46-4fc7-ab97-c82748e34959" direction="Forward">
+              <layerMoniker Id="0aa3e904-750f-49b0-a430-d9d7a4659213" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+          <references>
+            <reference Id="132960ee-e133-4f39-9a02-3fd6da720cd3" name="Organiser">
+              <ArtifactNode Label="Organiser" Category="CodeSchema_Class" Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=Organiser)" />
+              <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=Organiser)" Label="Organiser" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+      </childLayers>
+      <references>
+        <reference Id="60ce280b-7e88-421f-b63d-4cca2c51f322" name="Logic">
+          <ArtifactNode Label="Logic" Category="CodeSchema_ProjectItem" Id="(Assembly=../CeMeOCore/CeMeOCore.csproj File=../CeMeOCore/Logic/)">
+            <Category Ref="ProjectFolder" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.Account Type=Account)" Label="Account" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=Availability)" Label="Availability" Category="CodeSchema_Enum">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=BlackSpot)" Label="BlackSpot" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=DateIndex)" Label="DateIndex" Category="CodeSchema_Enum">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=IInviter)" Label="IInviter" Category="CodeSchema_Interface">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=Inviter)" Label="Inviter" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=InvitedParticipants)" Label="InvitedParticipants" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=Invitee)" Label="Invitee" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=InviterAnswerBindingModel)" Label="InviterAnswerBindingModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=InviterManager)" Label="InviterManager" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=IOrganiser)" Label="IOrganiser" Category="CodeSchema_Interface">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=OrganiserManager)" Label="OrganiserManager" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.MeetingOrganiser Type=OrganiserResponse)" Label="OrganiserResponse" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="0aa3e904-750f-49b0-a430-d9d7a4659213" name="Models">
+      <childLayers>
+        <layer Id="02b6cad5-7b55-4ecf-a7be-2959f6351973" name="Meeting">
+          <references>
+            <reference Id="7168d2b1-85cf-450a-b896-0c5dc817e68b" name="Meeting">
+              <ArtifactNode Label="Meeting" Category="CodeSchema_Class" Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=Meeting)" />
+              <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=Meeting)" Label="Meeting" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+      </childLayers>
+      <references>
+        <reference Id="0310d926-1840-4351-a6ab-683f951c29db" name="Models">
+          <ArtifactNode Label="Models" Category="CodeSchema_ProjectItem" Id="(Assembly=../CeMeOCore/CeMeOCore.csproj File=../CeMeOCore/Models/)">
+            <Category Ref="ProjectFolder" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=RemoveLoginBindingModel)" Label="RemoveLoginBindingModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=ChangePasswordBindingModel)" Label="ChangePasswordBindingModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=SetPasswordBindingModel)" Label="SetPasswordBindingModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=RegisterExternalBindingModel)" Label="RegisterExternalBindingModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=AddExternalLoginBindingModel)" Label="AddExternalLoginBindingModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=RegisterBindingModel)" Label="RegisterBindingModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=ManageInfoViewModel)" Label="ManageInfoViewModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=UserLoginInfoViewModel)" Label="UserLoginInfoViewModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=UserInfoViewModel)" Label="UserInfoViewModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=ExternalLoginViewModel)" Label="ExternalLoginViewModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=Appointment)" Label="Appointment" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=Calendar)" Label="Calendar" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=CeMeoContext)" Label="CeMeoContext" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=GuestUser)" Label="GuestUser" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=IMeeting)" Label="IMeeting" Category="CodeSchema_Interface">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=Location)" Label="Location" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=ScheduleMeetingBindingModel)" Label="ScheduleMeetingBindingModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=ChangeDeadlineMeetingBindingModel)" Label="ChangeDeadlineMeetingBindingModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=CancelMeetingBindingModel)" Label="CancelMeetingBindingModel" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=MeetingUser)" Label="MeetingUser" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=(Name=Presences ParentType=MeetingUser))" Label="MeetingUser‎.Presences" Category="CodeSchema_Enum">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=(Name=Confirmation ParentType=MeetingUser))" Label="MeetingUser‎.Confirmation" Category="CodeSchema_Enum">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=Room)" Label="Room" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Models Type=UserProfile)" Label="UserProfile" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+  </layers>
+</layerModel>

@@ -1,4 +1,4 @@
-﻿using CeMeOCore.Logic.MeetingOrganiser;
+﻿using CeMeOCore.Logic.Organiser;
 using CeMeOCore.Models;
 using System;
 using System.Collections.Generic;
@@ -67,9 +67,6 @@ namespace CeMeOCore.Controllers
             return new string[]{"Latest "+ latest +" Upcomming "};
         }
 
-
-        // POST /api/Meeting/schedule
-        // To schedule a meeting
         /// <summary>
         ///   This will start scheduling a meeting.
         /// </summary>
@@ -80,20 +77,17 @@ namespace CeMeOCore.Controllers
         [ResponseType(typeof(ScheduleMeetingBindingModel))]
         public IHttpActionResult Schedule([FromBody]ScheduleMeetingBindingModel model)
         {
+            Startup.OrganiserManagerFactory().Create(model);
             ScheduleMeetingBindingModel sm = new ScheduleMeetingBindingModel()
             {
-                BeforeDate = "",
+                BeforeDate = new DateTime(),
                 Creator = "t",
                 Dateindex = 0,
-                InvitedParticipants = new List<InvitedUser>() { new InvitedUser() { id = 1, Important = false }, new InvitedUser() { id = 2, Important = true } }
+                InvitedParticipants = new List<InvitedParticipant>() { new InvitedParticipant() { id = 1, Important = false }, new InvitedParticipant() { id = 2, Important = true } }
             };
-            return Ok(model);
+            return Ok(sm);
         }
 
-        
-        // 
-        // 
-        // POST /api/Meeting/Cancel
         /// <summary>
         ///   No delete function because the system will delete/archive it.
         ///   We are using a cancel function
@@ -118,15 +112,7 @@ namespace CeMeOCore.Controllers
         [Route("InviteResponse")]
         public IHttpActionResult InviteResponse([FromBody]InviterAnswerBindingModel model)
         {
-            switch(model.Answer)
-            {
-                case Availability.Absent: break;
-                case Availability.Present: break;
-                case Availability.Online: break;
-                default: break;
-            }
-
-            Startup.InviterManagerFactory().getInviter(model.InviterID).registerAvailabilityAttendee(model.InviteeID, model.Answer);
+            Startup.OrganiserManagerFactory().NotifyOrganiser(model);
             return Ok();
         }
 

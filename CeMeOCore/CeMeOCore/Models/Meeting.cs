@@ -1,4 +1,4 @@
-﻿using CeMeOCore.Logic.MeetingOrganiser;
+﻿using CeMeOCore.Logic.Organiser;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -47,13 +47,13 @@ namespace CeMeOCore.Models
 
         [Required]
         [Display(Name = "Invited Participants")]
-        public List<InvitedUser> InvitedParticipants { get; set; }
+        public List<InvitedParticipant> InvitedParticipants { get; set; }
 
         [Required]
         [Display(Name = "Date Index")]
         public DateIndex Dateindex { get; set; }
         [Display(Name = "Before date")]
-        public String BeforeDate { get; set; }
+        public DateTime BeforeDate { get; set; }
     }
 
     public class CancelMeetingBindingModel

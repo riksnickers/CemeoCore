@@ -205,14 +205,24 @@
     </Compile>
     <Compile Include="Logic\Account\Account.cs" />
     <Compile Include="Logic\MeetingOrganiser\Availability.cs" />
-    <Compile Include="Logic\MeetingOrganiser\BlackSpot.cs" />
     <Compile Include="Logic\MeetingOrganiser\DateIndex.cs" />
     <Compile Include="Logic\MeetingOrganiser\IInviter.cs" />
-    <Compile Include="Logic\MeetingOrganiser\Inviter.cs" />
-    <Compile Include="Logic\MeetingOrganiser\InviterManager.cs" />
     <Compile Include="Logic\MeetingOrganiser\IOrganiser.cs" />
+    <Compile Include="Logic\Range\DateRange.cs" />
+    <Compile Include="Logic\Range\IRange.cs" />
     <Compile Include="Logic\MeetingOrganiser\Organiser.cs" />
     <Compile Include="Logic\MeetingOrganiser\OrganiserManager.cs" />
+    <Compile Include="Logic\MeetingOrganiser\OrganiserResponse.cs" />
+    <Compile Include="Logic\MeetingOrganiser\Proposition.cs" />
+    <Compile Include="Logic\Spot\ISpot.cs" />
+    <Compile Include="Logic\Spot\BlackSpot.cs" />
+    <Compile Include="Logic\Spot\IPersonSpot.cs" />
+    <Compile Include="Logic\Spot\IRoomSpot.cs" />
+    <Compile Include="Logic\Spot\PersonBlackSpot.cs" />
+    <Compile Include="Logic\Spot\ReservedSpot.cs" />
+    <Compile Include="Logic\Spot\RoomBlackSpot.cs" />
+    <Compile Include="Logic\Spot\SpotBoolean.cs" />
+    <Compile Include="Logic\Spot\SpotManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -221,6 +231,7 @@
     <Compile Include="Models\CeMeoContext.cs" />
     <Compile Include="Models\GuestUser.cs" />
     <Compile Include="Models\IMeeting.cs" />
+    <Compile Include="Models\Invitee.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Meeting.cs" />
     <Compile Include="Models\MeetingUser.cs" />
