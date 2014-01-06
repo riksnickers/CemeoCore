@@ -44,6 +44,8 @@ namespace CeMeOCore.Logic.Organiser
         private int TotalImporantInviteesAbsent { get; set; }
         private int TotalInviteesOnline { get; set; }
         private int TotalInviteesUnanswered { get; set; }
+
+        private double Duration { get; set; }
         
         /// <summary>
         /// To start organising a meeting the constructor must be called
@@ -52,7 +54,7 @@ namespace CeMeOCore.Logic.Organiser
         /// <param name="dateRequested">When the organiser was started</param>
         /// <param name="deadLineInDays">This is the deadline</param>
         /// <param name="requestedById">Who requested to organise this meeting ID</param>
-        public Organiser(IEnumerable<InvitedParticipant> participants, DateTime dateRequested, DateIndex deadLineInDays, string requestedById)
+        public Organiser(IEnumerable<InvitedParticipant> participants, DateTime dateRequested, DateIndex deadLineInDays, string requestedById, double duration)
         {
             //Set counters to 0
             TotalImporantInviteesAbsent = 0;
@@ -65,6 +67,9 @@ namespace CeMeOCore.Logic.Organiser
             RequestedBy = resolveRequestedBy(requestedById);
             //Create unique ID
             OrganiserID = "xxx";
+
+            //Set the duration
+            this.Duration = duration;
 
             //Resolve invitedParticipants
             ConvertParticipantsToInvitees(participants);
@@ -108,7 +113,7 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         private void checkAvailabilityAttendees()
         {
-            //Generate blackspots
+            //Generate blackspots until the deadline
         }
         
         /// <summary>
@@ -116,7 +121,8 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         private void calculateEarliestAppointment()
         {
-            
+            //A new proposel will need to be created.
+
         }
 
         /// <summary>

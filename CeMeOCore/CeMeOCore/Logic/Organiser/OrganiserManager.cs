@@ -57,7 +57,7 @@ namespace CeMeOCore.Logic.Organiser
 
         public Organiser Create( ScheduleMeetingBindingModel model )
         {
-            Organiser o = new Organiser(model.InvitedParticipants, model.BeforeDate, model.Dateindex, model.Creator);
+            Organiser o = new Organiser(model.InvitedParticipants, model.BeforeDate, model.Dateindex, model.Creator, model.Duration);
             AddOrganiser(o);
             return o;
         }
