@@ -46,6 +46,10 @@ namespace CeMeOCore.Models
         public string Creator { get; set; }
 
         [Required]
+        [Display(Name = "Duration")]
+        public double Duration { get; set; }
+
+        [Required]
         [Display(Name = "Invited Participants")]
         public List<InvitedParticipant> InvitedParticipants { get; set; }
 

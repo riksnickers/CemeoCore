@@ -179,6 +179,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\Startup.Organiser.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -204,16 +205,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logic\Account\Account.cs" />
-    <Compile Include="Logic\MeetingOrganiser\Availability.cs" />
-    <Compile Include="Logic\MeetingOrganiser\DateIndex.cs" />
-    <Compile Include="Logic\MeetingOrganiser\IInviter.cs" />
-    <Compile Include="Logic\MeetingOrganiser\IOrganiser.cs" />
+    <Compile Include="Logic\Organiser\Availability.cs" />
+    <Compile Include="Logic\Organiser\DateIndex.cs" />
+    <Compile Include="Logic\Organiser\IOrganiser.cs" />
     <Compile Include="Logic\Range\DateRange.cs" />
     <Compile Include="Logic\Range\IRange.cs" />
-    <Compile Include="Logic\MeetingOrganiser\Organiser.cs" />
-    <Compile Include="Logic\MeetingOrganiser\OrganiserManager.cs" />
-    <Compile Include="Logic\MeetingOrganiser\OrganiserResponse.cs" />
-    <Compile Include="Logic\MeetingOrganiser\Proposition.cs" />
+    <Compile Include="Logic\Organiser\Organiser.cs" />
+    <Compile Include="Logic\Organiser\OrganiserManager.cs" />
+    <Compile Include="Logic\Organiser\OrganiserResponse.cs" />
+    <Compile Include="Logic\Organiser\Proposition.cs" />
     <Compile Include="Logic\Spot\ISpot.cs" />
     <Compile Include="Logic\Spot\BlackSpot.cs" />
     <Compile Include="Logic\Spot\IPersonSpot.cs" />

@@ -21,8 +21,6 @@ namespace CeMeOCore
 
             UserManagerFactory = () => new UserManager<IdentityUser>(new UserStore<IdentityUser>());
             RoleManagerFactory = () => new RoleManager<IdentityRole>(new RoleStore<IdentityRole>());
-            OrganiserManagerFactory = () => new OrganiserManager();
-            SpotManagerFactory = () => new SpotManager();
 
             RoleManager<IdentityRole> RoleManager = RoleManagerFactory();
             String administratorRole = "Administrator";
@@ -64,9 +62,7 @@ namespace CeMeOCore
 
         public static Func<RoleManager<IdentityRole>> RoleManagerFactory { get; set; }
 
-        public static Func<OrganiserManager> OrganiserManagerFactory { get; set; }
 
-        public static Func<SpotManager> SpotManagerFactory { get; set; }
 
         public static string PublicClientId { get; private set; }
 

@@ -8,20 +8,22 @@ namespace CeMeOCore.Logic.Spots
 {
     public class SpotManager
     {
-        private SortedList<DateRange, PersonBlackSpot> _personSpots;
+        //private SortedList<DateRange, PersonBlackSpot> _personSpots;
+        private Dictionary<String, SortedList<DateRange, PersonBlackSpot>> _organiserPersonSpots;
         private SortedList<DateRange, RoomBlackSpot> _roomSpots;
         private SortedList<DateRange, ReservedSpot> _reservedSpots;
 
         public SpotManager()
         {
-            this._personSpots = new SortedList<DateRange, PersonBlackSpot>(new DateRange.Comparer());
+            //this._personSpots = new SortedList<DateRange, PersonBlackSpot>(new DateRange.Comparer());
+            this._organiserPersonSpots = new Dictionary<string, SortedList<DateRange, PersonBlackSpot>>();
             this._roomSpots = new SortedList<DateRange, RoomBlackSpot>(new DateRange.Comparer());
             this._reservedSpots = new SortedList<DateRange, ReservedSpot>(new DateRange.Comparer());
         }
 
-        public SortedList<DateRange, PersonBlackSpot> GetPersonBlackSpots()
+        public SortedList<DateRange, PersonBlackSpot> GetPersonBlackSpots(string OrganiserID)
         {
-            return this._personSpots;
+            return this._organiserPersonSpots[OrganiserID];
         }
 
         public SortedList<DateRange, RoomBlackSpot> GetRoomBlackSpots()
@@ -34,20 +36,36 @@ namespace CeMeOCore.Logic.Spots
             return this._reservedSpots;
         }
 
-        //TODO:Write a test to test this
         public void AddSpot(ISpot spot)
         {
-            if (spot is RoomBlackSpot)
+            try
             {
-                this._roomSpots.Add(spot.DateRange, (RoomBlackSpot)spot);
+                if (spot is RoomBlackSpot)
+                {
+                    this._roomSpots.Add(spot.DateRange, (RoomBlackSpot)spot);
+                }
+                else if (spot is PersonBlackSpot)
+                {
+                    //Convert spot to PersonBlackSpot so that the OrganiserID can be accessed
+                    PersonBlackSpot pbs = (PersonBlackSpot)spot;
+                    //Check if the OrganiserID is already a key of the OrganiserPersonSpots
+                    if ( !this._organiserPersonSpots.ContainsKey(pbs.OrganiserID) )
+                    {
+                        //If not create a new SortedList for the organiser and add it to the dictionary
+                        this._organiserPersonSpots.Add(pbs.OrganiserID, new SortedList<DateRange, PersonBlackSpot>(new DateRange.Comparer()));
+                    }
+                    //Now add the PersonBlackSpot to the correct list.
+                    this._organiserPersonSpots[pbs.OrganiserID].Add(spot.DateRange, pbs);
+                }
+                else if (spot is ReservedSpot)
+                {
+                    this._reservedSpots.Add(spot.DateRange, (ReservedSpot)spot);
+                }
             }
-            else if (spot is PersonBlackSpot)
+            catch (Exception)
             {
-                this._personSpots.Add(spot.DateRange, (PersonBlackSpot)spot);
-            }
-            else if (spot is ReservedSpot)
-            {
-                this._reservedSpots.Add(spot.DateRange, (ReservedSpot)spot);
+                
+                throw;
             }
         }
     }

@@ -11,10 +11,19 @@ namespace CeMeOCore.Logic.Spots
     {
         private UserProfile _person;
 
-        public PersonBlackSpot(DateTime beginTime, DateTime endTime, UserProfile person)
+        private string _organiserID;
+
+        public string OrganiserID
+        {
+            get { return _organiserID; }
+        }
+        
+
+        public PersonBlackSpot(DateTime beginTime, DateTime endTime, UserProfile person, string organiserID)
             : base(beginTime, endTime)
         {
             this._person = person;
+            this._organiserID = organiserID;
         }
 
         public PersonBlackSpot()
