@@ -12,12 +12,16 @@ namespace CeMeOCore.Logic.Spots
         public ReservedSpot()
         {
             this._dateRange = new DateRange(new DateTime(), new DateTime());
+            this.Guid = Guid.NewGuid();
         }
+
+        public Guid Guid { get; set; }
 
         private DateRange _dateRange;
         public DateRange DateRange
         {
             get { return this._dateRange; }
+            set { this.DateRange = value; }
         }
         public SpotBoolean isAvailable(DateTime value)
         {

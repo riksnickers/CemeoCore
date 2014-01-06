@@ -223,6 +223,8 @@
     <Compile Include="Logic\Organiser\Availability.cs" />
     <Compile Include="Logic\Organiser\DateIndex.cs" />
     <Compile Include="Logic\Organiser\IOrganiser.cs" />
+    <Compile Include="Logic\Range\ProposalDateRange.cs" />
+    <Compile Include="Logic\WorkSchedule\WorkSchedule.cs" />
     <Compile Include="Logic\Range\DateRange.cs" />
     <Compile Include="Logic\Range\IRange.cs" />
     <Compile Include="Logic\Organiser\Organiser.cs" />

@@ -8,7 +8,7 @@ namespace CeMeOCore.Logic.Range
     /// <summary>
     /// The DateRange class holds a start DateTime and a end DateTime.
     /// </summary>
-    public class DateRange : IRange<DateTime>
+    public class DateRange : IRange<DateTime>, IEquatable<DateRange>
     {
         private Guid _guid;
         /// <summary>
@@ -27,8 +27,8 @@ namespace CeMeOCore.Logic.Range
         public DateRange(DateTime start, DateTime end)
         {
             this._guid = Guid.NewGuid();
-            this._start = start;
-            this._end = end;
+            this.Start = start;
+            this.End = end;
         }
 
         public DateRange(DateTime start) : this(start, start) { }
@@ -39,6 +39,7 @@ namespace CeMeOCore.Logic.Range
         public DateTime Start
         {
             get { return this._start; }
+            protected set { this._start = value; }
         }
 
         /// <summary>
@@ -47,6 +48,7 @@ namespace CeMeOCore.Logic.Range
         public DateTime End
         {
             get { return this._end; }
+            protected set { this._end = value; }
         }
 
         /// <summary>
@@ -84,5 +86,15 @@ namespace CeMeOCore.Logic.Range
                 return res;
             }
         }
+
+        public bool Equals(DateRange other)
+        {
+            if (this.Start == other.Start && this.End == other.End)
+            {
+                return true;
+            }
+            else return false;
+        }
+
     }
 }

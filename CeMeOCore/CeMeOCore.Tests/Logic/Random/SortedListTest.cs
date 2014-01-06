@@ -71,9 +71,9 @@ namespace CeMeOCore.Tests.Logic.Random
             list.Add(dr3, "dr3");
             list.Add(dr4, "dr4");
 
-            foreach (string item in list.Values)
+            foreach (DateRange item in list.Keys)
             {
-                sb1.AppendLine(item);
+                sb1.AppendLine(list.IndexOfKey(item) + ":" + list[item]);
             }
 
             Console.WriteLine("Sorted List:\n" + sb1.ToString());

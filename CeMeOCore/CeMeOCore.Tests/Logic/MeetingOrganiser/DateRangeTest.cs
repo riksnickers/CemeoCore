@@ -42,5 +42,27 @@ namespace CeMeOCore.Tests.Logic.MeetingOrganiser
             Assert.IsTrue(dictionaryWithComparer.ContainsKey(testRange1), december);
             Assert.IsTrue(dictionaryWithComparer.ContainsKey(testRange2), januarie);
         }
+
+        [TestMethod]
+        public void EqualTest()
+        {
+            //Create the date ranges
+            DateRange range1 = new DateRange(new DateTime(2014, 01, 01), new DateTime(2014, 01, 20));
+            DateRange range2 = new DateRange(new DateTime(2014, 01, 01), new DateTime(2014, 01, 20));
+
+            Assert.IsTrue(range1.Equals( range2 ));
+        }
+
+        [TestMethod]
+        public void ConvertProposalDateRangeToNormalDateRange()
+        {
+            //Create a normal range
+            DateRange range1 = new DateRange(new DateTime(2014, 01, 01), new DateTime(2014, 01, 20));
+            //Create a proposal range
+            ProposalDateRange pdr = new ProposalDateRange(new DateTime(2014, 01, 01), new DateTime(2014, 01, 20));
+
+            //IS the proposal range equal to the normal range? Yes it is. Convertion succeeded
+            Assert.IsTrue(range1.Equals(pdr));
+        }
     }
 }

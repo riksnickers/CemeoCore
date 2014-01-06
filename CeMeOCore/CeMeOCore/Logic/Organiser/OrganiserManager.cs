@@ -62,6 +62,12 @@ namespace CeMeOCore.Logic.Organiser
             return o;
         }
 
+        public OrganiserResponse GetOrganiserStatus(string organiserID)
+        {
+            //TODO: Get the status of the organiser
+            return this.dictionary[organiserID].GetStatus();
+        }
+
         /// <summary>
         /// With this method you can instanly register the answer of the Invitee to the organiser
         /// </summary>

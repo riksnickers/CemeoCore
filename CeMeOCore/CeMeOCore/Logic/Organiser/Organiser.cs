@@ -1,4 +1,6 @@
-﻿using CeMeOCore.Models;
+﻿using CeMeOCore.Logic.Range;
+using CeMeOCore.Logic.Spots;
+using CeMeOCore.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -121,8 +123,40 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         private void calculateEarliestAppointment()
         {
-            //A new proposel will need to be created.
+            //TODO: Add room logic
+            //HACK: Refactor Person available logic.
+            //This is our start proposal daterange
+            ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this.Duration));
 
+            //A reserved spot will be added to the list to reserve this proposition.
+            ReservedSpot reservedSpot = new ReservedSpot();
+            reservedSpot.DateRange = proposalDateRange;
+            Guid ReservedSpotGuid = reservedSpot.Guid;
+            Startup.SpotManagerFactory().AddSpot(reservedSpot);
+
+            SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory().GetPersonBlackSpots( this.OrganiserID );
+            foreach (DateRange blackSpotDateRange in pbss.Keys)
+            {
+                if ( !blackSpotDateRange.Includes(proposalDateRange) )
+                {
+                    //Check if there are other persons who have a meeting at that time
+                    if (pbss.Keys.Select(dr => dr.Equals(proposalDateRange) ).Count() != 0)
+                    {
+                        //Set the end time from the overlapping daterange as the start time for the proposalDateRange
+                        proposalDateRange.ModifyStartDateTime(blackSpotDateRange.End, Duration);
+                    }
+                    else
+                    {
+                        //If it is 0 then set the proposal date is good. Wich will mean that everyone is available at that time.
+                        break;
+                    }
+                   
+                }
+                
+            }
+
+            //A new proposel to send to the invitees will be created
+            Proposition proposition = new Proposition(ReservedSpotGuid);
         }
 
         /// <summary>
@@ -211,6 +245,12 @@ namespace CeMeOCore.Logic.Organiser
             }
             TotalInviteesUnanswered--;
             return true;
+        }
+
+        public OrganiserResponse GetStatus()
+        {
+            //TODO: Get the status of the organiser
+            throw new NotImplementedException();
         }
     }
 
