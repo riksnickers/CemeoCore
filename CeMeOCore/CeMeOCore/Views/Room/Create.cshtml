@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BeamerPresent, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BeamerPresent, new { @id = "controlBeamerpresent" })
+                @Html.EditorFor(model => model.BeamerPresent)
                 @Html.ValidationMessageFor(model => model.BeamerPresent)
             </div>
         </div>

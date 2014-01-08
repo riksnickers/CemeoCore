@@ -12,18 +12,17 @@ namespace CeMeOCore.Controllers
     public class RoomController : Controller
     {
         private CeMeoContext _db = new CeMeoContext();
-        
-
+        List<Location> locations = new List<Location>();
         public ActionResult Index()
         {
-            ViewBag.Title = "Overview of all the meeting rooms.";
+            ViewBag.Title = "Overview of all the Meeting rooms.";
             var model = _db.Rooms;
             return View(model);
         }
 
         public ActionResult Details(int id)
         {
-            var meetingRoom = _db.Rooms.FirstOrDefault((p) => p.RoomID == id);
+            var meetingRoom = _db.Rooms.Find(id);
             return View(meetingRoom);
         }
 
@@ -33,61 +32,95 @@ namespace CeMeOCore.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Room toAdd)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Room room)
         {
-            var insert = new Room();
-            insert.Name = toAdd.Name;
-            insert.Type = toAdd.Type;
-            insert.LocationID = _db.Locations.Find(toAdd.LocationID);
-            insert.BeamerPresent = false;
-
-            _db.Rooms.Add(insert);
-            _db.SaveChanges();
-
-            return View("List");
+            if (ModelState.IsValid)
+            {
+                room.LocationID.LocationID = 0;
+                //locations = _db.Locations.ToList();
+                _db.Rooms.Add(room);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            
+            return View(room);
         }
 
-        [HttpGet]
-        public ActionResult Edit()
+        // GET: /RoomTest/Edit/5
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Room temp = _db.Rooms.Find(id);
+            if (temp == null)
+            {
+                return HttpNotFound();
+            }
+            return View(temp);
+ 
         }
 
+        // POST: /RoomTest/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(Room meetingRoom)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Room temp)
         {
-            _db.Entry(meetingRoom).State = EntityState.Modified;
+            Room room = _db.Rooms.Find(temp.RoomID);
+            
+            if (ModelState.IsValid)
+            {
+                
+                room.Name = temp.Name;
+                room.Type = temp.Type;
+                room.LocationID = temp.LocationID;
+
+                if (temp.BeamerPresent)
+                {
+                    room.BeamerPresent = true;
+                }
+                else
+                {
+                    room.BeamerPresent = false;
+                }
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            
+            return View(room);
+
+            
+        }
+
+        // GET: /RoomTest/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Room room = _db.Rooms.Find(id);
+            if (room == null)
+            {
+                return HttpNotFound();
+            }
+            return View(room);
+        }
+
+        // POST: /RoomTest/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Room room = _db.Rooms.Find(id);
+            _db.Rooms.Remove(room);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public ActionResult Delete(int roomid)
-        {
-            var rooms = _db.Rooms.Find(roomid);
-
-            if (!User.IsInRole("Administrattion"))
-            {
-                return RedirectToAction("List");
-            }
-
-            return View(rooms);
-        }
-
-        [HttpPost]
-        public ActionResult Delete(int roomid, Room rooms)
-        {
-            var original = _db.Rooms.Find(roomid);
-            if (!User.IsInRole("Roomd" + original.RoomID))
-            {
-                return RedirectToAction("List");
-            }
-
-            int project = original.RoomID;
-
-            _db.Rooms.Remove(original);
-            _db.SaveChanges();
-
-            return RedirectToAction("Details", new { id = rooms });
-        }
     }
 }

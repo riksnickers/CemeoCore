@@ -86,7 +86,7 @@ namespace CeMeOCore.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+       /* [TestMethod]
         public void Schedule()
         {
             MeetingController controller = new MeetingController();
@@ -101,7 +101,7 @@ namespace CeMeOCore.Tests.Controllers
             Boolean result = controller.Schedule( model );
 
             Assert.IsFalse(result);
-        }
+        }*/
 
         [TestMethod]
         public void Cancel()

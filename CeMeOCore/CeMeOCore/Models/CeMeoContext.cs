@@ -40,7 +40,5 @@ namespace CeMeOCore.Models
 
             base.OnModelCreating(modelBuilder);
         }
-
-        public System.Data.Entity.DbSet<CeMeOCore.Models.EditLocation> EditLocations { get; set; }
     }
 }
