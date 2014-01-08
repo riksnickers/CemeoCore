@@ -18,6 +18,15 @@ namespace CeMeOCore.Migrations
         protected override void Seed(CeMeOCore.Models.CeMeoContext context)
         {
             //locations
+            Location TestRoomToTestDelete = new Location
+            {
+                Name = "TestRoomToTestDelete",
+                Street = "TestLaan",
+                Number = "1",
+                Zip = "3500",
+                City = "Hasselt",
+                Country = "Belgium"
+            };
             Location HoofdkantoorHasselt = new Location
                    {
                        Name = "Hoofdkantoor Hasselt",
@@ -99,6 +108,7 @@ namespace CeMeOCore.Migrations
 
             context.Locations.AddOrUpdate(
                  l => l.Name,
+                   TestRoomToTestDelete,
                    KantoorVeenendaal,
                    HoofdkantoorHasselt,
                    KantoorAntwerpen,

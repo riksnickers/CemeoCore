@@ -1,67 +1,39 @@
-﻿using CeMeOCore.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CeMeOCore.Models;
 
 namespace CeMeOCore.Controllers
 {
-    public class LocationController : Controller
+    public class LocationControllertest : Controller
     {
-        private CeMeoContext _db = new CeMeoContext();
-        //
-        // GET: /Location/
+        private CeMeoContext db = new CeMeoContext();
+
+        // GET: /LocationControllertest/
         public ActionResult Index()
         {
-            ViewBag.Title = "Overview of all the Locations.";
-            var model = _db.Locations;
-            return View(model);
+            return View(db.Locations.ToList());
         }
 
-        //
-        // GET: /Location/Details/5
-        public ActionResult Details(int id)
+        // GET: /LocationControllertest/Details/5
+        public ActionResult Details(int? id)
         {
-            var loc = _db.Locations.Find(id);
-            return View(loc);
-        }
-
-        /*
-        public ActionResult Create()
-        {
-            var newLoc = new Location();
-
-            return View(newLoc);
-        }
-
-        [HttpPost]
-        public ActionResult Create(Location toAdd)
-        {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                var insert = new Location();
-                insert.Name = toAdd.Name;
-                insert.Street = toAdd.Street;
-                insert.Number = toAdd.Number;
-                insert.Zip = toAdd.Zip;
-                insert.City = toAdd.City;
-                insert.Country = toAdd.Country;
-                insert.Addition = toAdd.Addition;
-                insert.State = toAdd.State;
-
-                _db.Locations.Add(insert);
-                _db.SaveChanges();
-
-                }
-                else
-                {
-                    return View("Index");
-                }
-            return View("Index");
-        }*/
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Location location = db.Locations.Find(id);
+            if (location == null)
+            {
+                return HttpNotFound();
+            }
+            return View(location);
+        }
 
         // GET: /LocationControllertest/Create
         public ActionResult Create()
@@ -74,12 +46,12 @@ namespace CeMeOCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LocationID,Name,Street,Number,Zip,City,State,Country,Addition")] Location location)
+        public ActionResult Create([Bind(Include="LocationID,Name,Street,Number,Zip,City,State,Country,Addition")] Location location)
         {
             if (ModelState.IsValid)
             {
-                _db.Locations.Add(location);
-                _db.SaveChanges();
+                db.Locations.Add(location);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -93,7 +65,7 @@ namespace CeMeOCore.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Location location = _db.Locations.Find(id);
+            Location location = db.Locations.Find(id);
             if (location == null)
             {
                 return HttpNotFound();
@@ -106,12 +78,12 @@ namespace CeMeOCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LocationID,Name,Street,Number,Zip,City,State,Country,Addition")] Location location)
+        public ActionResult Edit([Bind(Include="LocationID,Name,Street,Number,Zip,City,State,Country,Addition")] Location location)
         {
             if (ModelState.IsValid)
             {
-                _db.Entry(location).State = EntityState.Modified;
-                _db.SaveChanges();
+                db.Entry(location).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(location);
@@ -124,7 +96,7 @@ namespace CeMeOCore.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Location location = _db.Locations.Find(id);
+            Location location = db.Locations.Find(id);
             if (location == null)
             {
                 return HttpNotFound();
@@ -137,10 +109,19 @@ namespace CeMeOCore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Location location = _db.Locations.Find(id);
-            _db.Locations.Remove(location);
-            _db.SaveChanges();
+            Location location = db.Locations.Find(id);
+            db.Locations.Remove(location);
+            db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

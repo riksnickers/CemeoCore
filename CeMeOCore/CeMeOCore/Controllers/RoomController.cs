@@ -27,22 +27,24 @@ namespace CeMeOCore.Controllers
             return View(meetingRoom);
         }
 
-        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Room meetingRoom)
+        public ActionResult Create(Room toAdd)
         {
-            if (meetingRoom == null)
-            {
-                throw new ArgumentNullException("item");
-            }
-            _db.Rooms.Add(meetingRoom);
+            var insert = new Room();
+            insert.Name = toAdd.Name;
+            insert.Type = toAdd.Type;
+            insert.LocationID = _db.Locations.Find(toAdd.LocationID);
+            insert.BeamerPresent = false;
+
+            _db.Rooms.Add(insert);
             _db.SaveChanges();
-            return View(meetingRoom);
+
+            return View("List");
         }
 
         [HttpGet]
@@ -59,19 +61,33 @@ namespace CeMeOCore.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public ActionResult Delete()
+        public ActionResult Delete(int roomid)
         {
-            return View();
+            var rooms = _db.Rooms.Find(roomid);
+
+            if (!User.IsInRole("Administrattion"))
+            {
+                return RedirectToAction("List");
+            }
+
+            return View(rooms);
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int roomid, Room rooms)
         {
-            Room meetingRoom = _db.Rooms.Find(id);
-            _db.Rooms.Remove(meetingRoom);
+            var original = _db.Rooms.Find(roomid);
+            if (!User.IsInRole("Roomd" + original.RoomID))
+            {
+                return RedirectToAction("List");
+            }
+
+            int project = original.RoomID;
+
+            _db.Rooms.Remove(original);
             _db.SaveChanges();
-            return View(meetingRoom);
+
+            return RedirectToAction("Details", new { id = rooms });
         }
     }
 }

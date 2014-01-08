@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
+using System.Web;
 
 namespace CeMeOCore.Models
 {
-    public class Location
+    public class EditLocation
     {
         [Key]
         public int LocationID { get; set; }
@@ -16,7 +15,6 @@ namespace CeMeOCore.Models
         public String Name { get; set; }
 
         [Required]
-        [StringLength(100)]
         public String Street { get; set; }
 
         [Required]
@@ -26,15 +24,12 @@ namespace CeMeOCore.Models
         public String Zip { get; set; }
 
         [Required]
-        [StringLength(100)]
         public String City { get; set; }
 
-        [StringLength(100)]
-        public String State { get; set; }
-
         [Required]
-        [StringLength(100)]
         public String Country { get; set; }
+
+        public String State { get; set; }
 
         public int Addition { get; set; }
     }
