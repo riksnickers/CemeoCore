@@ -45,4 +45,30 @@ namespace CeMeOCore.Models
             MeetingUser = new List<MeetingUser>();
         }
     }
+
+    public class UserProfileBindingModel
+    {
+        [Required]
+        public int UserId { get; set; }
+        [Required]
+        public string aspUser { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string UserName { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string EMail { get; set; }
+
+        public Location PreferedLocation { get; set; }
+    }
 }

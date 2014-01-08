@@ -56,6 +56,27 @@ namespace CeMeOCore.Controllers
             };
         }
 
+        [Route("Profile")]
+        public UserProfileBindingModel GetProfile()
+        {
+            CeMeoContext _db = new CeMeoContext();
+            string id = User.Identity.GetUserId();
+            UserProfile up = _db.Users.Where(u => u.aspUser == id).First();
+
+
+            
+            return new UserProfileBindingModel() 
+            { 
+              UserId = up.UserId,
+              UserName = up.UserName,
+              aspUser = up.aspUser,
+              EMail = up.EMail,
+              FirstName = up.FirstName,
+              LastName = up.LastName,
+              PreferedLocation = up.PreferedLocation
+            };
+        }
+
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()
