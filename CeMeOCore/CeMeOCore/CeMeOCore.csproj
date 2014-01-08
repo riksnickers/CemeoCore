@@ -212,6 +212,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\RoomApiController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
@@ -222,6 +223,12 @@
     <Compile Include="Logic\Account\Account.cs" />
     <Compile Include="Logic\Organiser\Availability.cs" />
     <Compile Include="Logic\Organiser\DateIndex.cs" />
+    <Compile Include="Logic\Organiser\Exceptions\NoPersonsAvailableException.cs" />
+    <Compile Include="Logic\Organiser\Exceptions\NoRoomAtCurrentLocationException.cs" />
+    <Compile Include="Logic\Organiser\Exceptions\NoRoomsFoundException.cs" />
+    <Compile Include="Logic\Organiser\Exceptions\PersonNotAvailableException.cs" />
+    <Compile Include="Logic\Organiser\Exceptions\RoomIsReservedException.cs" />
+    <Compile Include="Logic\Organiser\Exceptions\RoomNotAvailableException.cs" />
     <Compile Include="Logic\Organiser\IOrganiser.cs" />
     <Compile Include="Logic\Range\ProposalDateRange.cs" />
     <Compile Include="Logic\WorkSchedule\WorkSchedule.cs" />

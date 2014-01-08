@@ -1,4 +1,5 @@
-﻿using CeMeOCore.Logic.Range;
+﻿using CeMeOCore.Logic.Organiser.Exceptions;
+using CeMeOCore.Logic.Range;
 using CeMeOCore.Logic.Spots;
 using CeMeOCore.Models;
 using System;
@@ -127,36 +128,154 @@ namespace CeMeOCore.Logic.Organiser
             //HACK: Refactor Person available logic.
             //This is our start proposal daterange
             ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this.Duration));
+            Room proposalRoom = null;
 
             //A reserved spot will be added to the list to reserve this proposition.
             ReservedSpot reservedSpot = new ReservedSpot();
             reservedSpot.DateRange = proposalDateRange;
             Guid ReservedSpotGuid = reservedSpot.Guid;
+            //TODO: change key reservedspot when daterange changes
             Startup.SpotManagerFactory().AddSpot(reservedSpot);
-
-            SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory().GetPersonBlackSpots( this.OrganiserID );
-            foreach (DateRange blackSpotDateRange in pbss.Keys)
-            {
-                if ( !blackSpotDateRange.Includes(proposalDateRange) )
-                {
-                    //Check if there are other persons who have a meeting at that time
-                    if (pbss.Keys.Select(dr => dr.Equals(proposalDateRange) ).Count() != 0)
-                    {
-                        //Set the end time from the overlapping daterange as the start time for the proposalDateRange
-                        proposalDateRange.ModifyStartDateTime(blackSpotDateRange.End, Duration);
-                    }
-                    else
-                    {
-                        //If it is 0 then set the proposal date is good. Wich will mean that everyone is available at that time.
-                        break;
-                    }
-                   
-                }
-                
-            }
 
             //A new proposel to send to the invitees will be created
             Proposition proposition = new Proposition(ReservedSpotGuid);
+
+            SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory().GetPersonBlackSpots( this.OrganiserID );
+            SortedList<DateRange, RoomBlackSpot> rbss = Startup.SpotManagerFactory().GetRoomBlackSpots();
+            SortedList<DateRange, ReservedSpot> rss = Startup.SpotManagerFactory().GetReservedSpots();
+
+
+            //TODO determine best location
+            IEnumerable<Room> rooms = _db.Rooms;
+
+            //Try to make a proposal
+            try
+            {
+                //Try to find a good daterange looking at persons
+                try
+                {
+                    foreach (DateRange personBlackSpotDateRange in pbss.Keys)
+                    {
+                        try
+                        {
+                            if (!personBlackSpotDateRange.Includes(proposalDateRange))
+                            {
+                                //Check if there are other persons who have a meeting at that time
+                                //HACK: Refactor this linq so it has more performance
+                                if (pbss.Keys.Select(dr => dr.Includes(proposalDateRange)).Count() != 0) //Count if a person has a daterange that conflicts with our date.
+                                {
+                                    throw new PersonNotAvailableException();
+                                }
+                            }
+                        }
+                        catch(PersonNotAvailableException)
+                        {
+                            //Set the end time from the overlapping daterange as the start time for the proposalDateRange
+                            proposalDateRange.ModifyStartDateTime(personBlackSpotDateRange.End, Duration);
+                        }
+                        catch (Exception)
+                        {
+                            //Throw it Up!
+                            throw;
+                        }
+                    } 
+                }
+                catch(NoPersonsAvailableException)
+                {
+
+                }
+                catch (Exception)
+                {
+                    //Throw it up!
+                    throw;
+                }
+
+                //Let's try to find a room
+                try
+                {
+                    //If it is 0 then set the proposal date is good. Wich will mean that everyone is available at that time.
+                    //Now let's check if their is a room available
+                    //Get a room and check if it's available.
+                    foreach (Room room in rooms)
+                    {
+                        proposalRoom = room;
+                        try
+                        {
+                            //enumerate all roomblackspots
+                            foreach (DateRange roomBlackSpotDateRange in rbss.Keys)
+                            {
+                                //Check if the spot overlaps with the proposaldaterange
+                                if (roomBlackSpotDateRange.Includes(proposalDateRange))
+                                {
+                                    //We have found a overlap in the daterange, is it the room we are looking for?
+                                    RoomBlackSpot rs = rbss[roomBlackSpotDateRange];
+                                    if (rs.Room.Equals(proposalRoom))
+                                    {
+                                        throw new RoomNotAvailableException();
+                                    }
+                                }
+                            }
+
+                            //Now check if the proposalroom is reserved at the moment
+                            //First check if a daterange overlaps with the proposal daterange
+                            foreach (DateRange reservedSpotDateRange in rss.Keys)
+                            {
+                                if (reservedSpotDateRange.Includes(proposalDateRange))
+                                {
+                                    //We have found a overlap in the daterange, is it the room we are looking for?
+                                    ReservedSpot rs = rss[reservedSpotDateRange];
+                                    //Does the reservedSpot includes the room And it's not our reserved spot.
+                                    if (rs.Includes(proposalRoom) && (rs.Guid != proposition.ReservedSpotGuid))
+                                    {
+                                        throw new RoomIsReservedException();
+                                    }
+                                }
+                            }
+                        }
+                        catch (RoomNotAvailableException)
+                        {
+                            //It's the room we are looking for; but it's not available 
+                            //We have a NO GO for this room!
+                            //Let's continue looking for a room
+                            proposalRoom = null;
+                        }
+                        catch (RoomIsReservedException)
+                        {
+                            //The room is reserved for an other meeting at the same time.
+                            //We have a NO GO for this room! but this room might be available later
+                            //TODO: add listener when rooms becomes available..?
+                            proposalRoom = null;
+                        }
+                        catch (Exception)
+                        {
+                            //Throw it up!
+                            throw;
+                        }
+
+                        //End of room foreach
+                    }
+                    //When all the rooms are iterated check if we found a room.
+                    if (proposalRoom == null)
+                    {
+                        throw new NoRoomsFoundException();
+                    }
+                }
+                catch (NoRoomsFoundException)
+                {
+                    //Arg we found no rooms for this proposal.. Let the creator know of this.
+                    //TODO: Throw error or change dateRange (or shorten the duration?)
+                }
+                catch (Exception)
+                {
+                    //Throw it up!
+                    throw;
+                }
+            }
+            catch (Exception)
+            {
+                //Something went wrong while find a room
+                //TODO: Logging
+            }          
         }
 
         /// <summary>

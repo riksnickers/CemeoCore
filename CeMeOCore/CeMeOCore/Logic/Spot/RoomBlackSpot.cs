@@ -23,7 +23,7 @@ namespace CeMeOCore.Logic.Spots
             //Do nothing
         }
 
-        public Room Person
+        public Room Room
         {
             get { return this._room; }
         }
