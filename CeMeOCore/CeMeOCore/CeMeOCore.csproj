@@ -209,6 +209,7 @@
     <Compile Include="Controllers\MeetingsController.cs" />
     <Compile Include="Controllers\RoomApiController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -322,6 +323,7 @@
     <Content Include="Views\Calendar\Delete.cshtml" />
     <Content Include="Views\Location\Edit.cshtml" />
     <Content Include="Views\Room\Edit.cshtml" />
+    <Content Include="Views\Statistics\Statisctics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
