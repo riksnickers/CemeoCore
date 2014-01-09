@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CeMeOCore.Models.Location>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Locations";
 }
 
 <h2>Locations</h2>
@@ -9,10 +9,10 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Locations", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString")
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }

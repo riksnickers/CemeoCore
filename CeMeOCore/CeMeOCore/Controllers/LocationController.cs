@@ -6,17 +6,20 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace CeMeOCore.Controllers
 {
     public class LocationController : Controller
     {
         private CeMeoContext _db = new CeMeoContext();
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            //Title of the page
             ViewBag.Title = "Overview of all the Locations.";
-           // var model = _db.Locations;
 
+            //Sorting
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
             ViewBag.StreetSortParm = sortOrder == "Street" ? "Street" : "Street";
             ViewBag.NumberSortParm = sortOrder == "Number" ? "Number" : "Number";
@@ -25,13 +28,27 @@ namespace CeMeOCore.Controllers
             ViewBag.CountrySortParm = sortOrder == "Country" ? "Country" : "Country";
             ViewBag.StateSortParm = sortOrder == "State" ? "State" : "State";
 
-            var locs = from s in _db.Locations
-                           select s;
+            //Paging
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
+            ViewBag.CurrentFilter = searchString;
+            //End paging
+
+            var locs = from s in _db.Locations select s;
+            
+            //Searching
             if (!String.IsNullOrEmpty(searchString))
             {
                 locs = locs.Where(s => s.Name.Contains(searchString.ToUpper()));
             }
+            //End searching
 
             switch (sortOrder)
             {
@@ -59,9 +76,13 @@ namespace CeMeOCore.Controllers
                 default:
                     locs = locs.OrderBy(s => s.Addition);
                     break;
-
             }
-            return View(locs.ToList());
+
+            //Paging
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(locs.ToPagedList(pageNumber, pageSize));
+            //End sorting
         }
 
         public ActionResult Details(int id)
