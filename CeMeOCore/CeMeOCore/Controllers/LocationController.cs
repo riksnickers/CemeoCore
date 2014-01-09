@@ -12,7 +12,7 @@ namespace CeMeOCore.Controllers
     public class LocationController : Controller
     {
         private CeMeoContext _db = new CeMeoContext();
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.Title = "Overview of all the Locations.";
            // var model = _db.Locations;
@@ -27,6 +27,11 @@ namespace CeMeOCore.Controllers
 
             var locs = from s in _db.Locations
                            select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                locs = locs.Where(s => s.Name.Contains(searchString.ToUpper()));
+            }
 
             switch (sortOrder)
             {
