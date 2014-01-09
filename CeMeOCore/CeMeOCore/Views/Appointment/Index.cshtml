@@ -1,10 +1,19 @@
-﻿@model IEnumerable<CeMeOCore.Models.Appointment>
+﻿@model PagedList.IPagedList<CeMeOCore.Models.Appointment>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Appointments";
 }
 
-<h2>Index</h2>
+<h2>Appointments</h2>
+@using (Html.BeginForm("Index", "Appointments", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string))
+        <input type="submit" value="Search" />
+    </p>
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,22 +21,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescriptionSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BeginTime)
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndTime)
+            @Html.ActionLink("BeginTime", "Index", new { sortOrder = ViewBag.BeginTimeSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.ActionLink("EndTime", "Index", new { sortOrder = ViewBag.EndTimeSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
@@ -38,9 +50,6 @@
             @Html.DisplayFor(modelItem => item.EndTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.appointmentID }) |
             @Html.ActionLink("Details", "Details", new { id=item.appointmentID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.appointmentID })
@@ -49,3 +58,8 @@
 }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

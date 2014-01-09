@@ -1,21 +1,35 @@
-﻿@model IEnumerable<CeMeOCore.Models.Meeting>
+﻿@model PagedList.IPagedList<CeMeOCore.Models.Meeting>
+@using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Meetings";
 }
 
-<h2>Index</h2>
+<h2>Meetings</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "Meetings", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MeetingDate)
+            @Html.ActionLink("Creator", "Index", new { sortOrder = ViewBag.CreatorSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.State)
+            @Html.ActionLink("MeetingDate", "Index", new { sortOrder = ViewBag.MeetingDateSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StateSortParm })
         </th>
         <th></th>
     </tr>
@@ -23,7 +37,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => (item.Creator.LastName + " " + item.Creator.FirstName))
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.MeetingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.State)
@@ -37,3 +57,6 @@
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
