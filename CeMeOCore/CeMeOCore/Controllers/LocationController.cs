@@ -12,11 +12,51 @@ namespace CeMeOCore.Controllers
     public class LocationController : Controller
     {
         private CeMeoContext _db = new CeMeoContext();
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             ViewBag.Title = "Overview of all the Locations.";
-            var model = _db.Locations;
-            return View(model);
+           // var model = _db.Locations;
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewBag.StreetSortParm = sortOrder == "Street" ? "Street" : "Street";
+            ViewBag.NumberSortParm = sortOrder == "Number" ? "Number" : "Number";
+            ViewBag.ZipSortParm = sortOrder == "City" ? "City" : "City";
+            ViewBag.CitySortParm = sortOrder == "Zip" ? "Zip" : "Zip";
+            ViewBag.CountrySortParm = sortOrder == "Country" ? "Country" : "Country";
+            ViewBag.StateSortParm = sortOrder == "State" ? "State" : "State";
+
+            var locs = from s in _db.Locations
+                           select s;
+
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    locs = locs.OrderByDescending(s => s.Name);
+                    break;
+                case "Street":
+                    locs = locs.OrderBy(s => s.Street);
+                    break;
+                case "Number":
+                    locs = locs.OrderByDescending(s => s.Number);
+                    break;
+                case "City":
+                    locs = locs.OrderByDescending(s => s.City);
+                    break;
+                case "Zip":
+                    locs = locs.OrderByDescending(s => s.Zip);
+                    break;
+                case "Country":
+                    locs = locs.OrderByDescending(s => s.Country);
+                    break;
+                case "State":
+                    locs = locs.OrderByDescending(s => s.State);
+                    break;
+                default:
+                    locs = locs.OrderBy(s => s.Addition);
+                    break;
+
+            }
+            return View(locs.ToList());
         }
 
         public ActionResult Details(int id)

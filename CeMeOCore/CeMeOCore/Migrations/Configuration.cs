@@ -18,15 +18,6 @@ namespace CeMeOCore.Migrations
         protected override void Seed(CeMeOCore.Models.CeMeoContext context)
         {
             //locations
-            Location TestRoomToTestDelete = new Location
-            {
-                Name = "TestRoomToTestDelete",
-                Street = "TestLaan",
-                Number = "1",
-                Zip = "3500",
-                City = "Hasselt",
-                Country = "Belgium"
-            };
             Location HoofdkantoorHasselt = new Location
                    {
                        Name = "Hoofdkantoor Hasselt",
@@ -34,7 +25,9 @@ namespace CeMeOCore.Migrations
                        Number = "9",
                        Zip = "3500",
                        City = "Hasselt",
-                       Country = "Belgium"
+                       Country = "Belgium",
+                       State = "",
+                       Addition = 0
                    };
 
             Location KantoorAntwerpen = new Location
@@ -44,7 +37,9 @@ namespace CeMeOCore.Migrations
                        Number = "87",
                        Zip = "2030",
                        City = "Antwerpen",
-                       Country = "Belgium"
+                       Country = "Belgium",
+                       State = "",
+                       Addition = 0
                    };
 
             Location KantoorLeuven = new Location
@@ -54,7 +49,9 @@ namespace CeMeOCore.Migrations
                        Number = "16",
                        Zip = "3001",
                        City = "Leuven",
-                       Country = "Belgium"
+                       Country = "Belgium",
+                       State = "",
+                       Addition = 0
                    };
 
             Location KantoorWetteren = new Location
@@ -64,7 +61,9 @@ namespace CeMeOCore.Migrations
                        Number = "21",
                        Zip = "9230",
                        City = "Wetteren",
-                       Country = "Belgium"
+                       Country = "Belgium",
+                       State = "",
+                       Addition = 0
                    };
 
             Location KantoorLuik = new Location
@@ -74,7 +73,9 @@ namespace CeMeOCore.Migrations
                        Number = "174A",
                        Zip = "4340",
                        City = "Awans",
-                       Country = "Belgium"
+                       Country = "Belgium",
+                       State = "",
+                       Addition = 0
                    };
 
             Location KantoorBraine = new Location
@@ -84,7 +85,9 @@ namespace CeMeOCore.Migrations
                        Number = "8",
                        Zip = "1420",
                        City = "Braine-l'Alleud",
-                       Country = "Belgium"
+                       Country = "Belgium",
+                       State = "",
+                       Addition = 0
                    };
 
             Location KantoorNamen = new Location
@@ -94,21 +97,24 @@ namespace CeMeOCore.Migrations
                        Number = "5",
                        Zip = "5032",
                        City = "Gembloux",
-                       Country = "Belgium"
+                       Country = "Belgium",
+                       State = "",
+                       Addition = 0
                    };
             Location KantoorVeenendaal = new Location
             {
-                Name = "Kantoor Veenendaal",
-                Street = "Gildetrom",
-                Number = "27-33/35-45",
-                Zip = "3905",
-                City = "Veenendaal",
-                Country = "Netherlands"
+                    Name = "Kantoor Veenendaal",
+                    Street = "Gildetrom",
+                    Number = "27-33/35-45",
+                    Zip = "3905",
+                    City = "Veenendaal",
+                    Country = "Netherlands",
+                    State = "",
+                    Addition = 0
             };
-
+            
             context.Locations.AddOrUpdate(
                  l => l.Name,
-                   TestRoomToTestDelete,
                    KantoorVeenendaal,
                    HoofdkantoorHasselt,
                    KantoorAntwerpen,
@@ -118,55 +124,55 @@ namespace CeMeOCore.Migrations
                    KantoorBraine,
                    KantoorNamen
                );
-
+            
             //Rooms
             Room ConferenceRoomFirstFloor = new Room
                     {
                         Name = "Conference room first floor Hasselt",
                         Type = "Conference room for online meetings",
-                        LocationID = KantoorVeenendaal,
+                        LocationID = KantoorAntwerpen,
                         BeamerPresent = true
                     };
             Room meetingRoomFirstFloor = new Room
                     {
                         Name = "Meetingroom first floor",
                         Type = "Normal meetingroom for live meetings",
-                        LocationID = HoofdkantoorHasselt,
+                        LocationID = KantoorBraine,
                         BeamerPresent = false
                     };
             Room MeetingRoomSecondFloor = new Room
                     {
                         Name = "Meetingroom second floor",
                         Type = "Normal meetingroom for live meetings",
-                        LocationID = KantoorAntwerpen,
+                        LocationID = KantoorLuik,
                         BeamerPresent = false
                     };
             Room MeetingRoomThordFloor = new Room
                     {
                         Name = "Meetingroom third floor",
                         Type = "Normal meetingroom for live meetings",
-                        LocationID = KantoorBraine,
+                        LocationID = KantoorLeuven,
                         BeamerPresent = false
                     };
             Room ConferenceRoomSecondFloor = new Room
                     {
                         Name = "Conference room second floor",
                         Type = "Conference room for online meetings",
-                        LocationID = KantoorLeuven,
+                        LocationID = KantoorNamen,
                         BeamerPresent = true
                     };
             Room ConferenceRoomThirdFloor = new Room
                     {
                         Name = "Conference room third floor",
                         Type = "Conference room for online meetings",
-                        LocationID = KantoorWetteren,
+                        LocationID = KantoorVeenendaal,
                         BeamerPresent = true
                     };
             Room MeetingRoomBasement = new Room
                     {
                         Name = "Meetingroom basement",
                         Type = "meetingroom for small teammeetings",
-                        LocationID = KantoorLuik,
+                        LocationID = KantoorWetteren,
                         BeamerPresent = false
                     };
 
