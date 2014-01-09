@@ -42,17 +42,4 @@ namespace CeMeOCore.Models
             return returnVal.ToString();
         }
     }
-
-    /// <summary>
-    /// This is the BindingModel for when an answer is posted to the api.
-    /// </summary>
-    public class InviterAnswerBindingModel
-    {
-        [Required]
-        public string OrganiserID { get; set; }
-        [Required]
-        public string InviteeID { get; set; }
-        [Required]
-        public Availability Answer { get; set; }
-    }
 }

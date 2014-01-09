@@ -14,7 +14,7 @@ namespace CeMeOCore.Controllers
     ///<summary>
     ///This is a API controller to maintain meetings
     ///</summary>
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/Meeting")]
     public class MeetingController : ApiController
     {
@@ -104,20 +104,6 @@ namespace CeMeOCore.Controllers
         }
 
         /// <summary>
-        /// When the server sends a pushnotification/payload
-        /// it includes an ID that identifies Which inviter is being used.
-        /// </summary>
-        /// <param name="model"><seealso cref="InviterAnswerBindingModel"/></param>
-        /// <returns></returns>
-        [AcceptVerbs("POST")]
-        [Route("InviteResponse")]
-        public IHttpActionResult InviteResponse([FromBody]InviterAnswerBindingModel model)
-        {
-            Startup.OrganiserManagerFactory().NotifyOrganiser(model);
-            return Ok();
-        }
-
-        /// <summary>
         /// This method will return contacts.
         /// This is a GET method
         /// </summary>
@@ -129,5 +115,34 @@ namespace CeMeOCore.Controllers
             var users = _db.Users.Select(u => new { id = u.UserId, FirstName = u.FirstName, LastName = u.LastName }).ToList();
             return users;
         }
+
+
+        /// <summary>
+        /// If you provide a InviteeID and a OrganiserID you get a proposition returned.
+        /// </summary>
+        /// <param name="Invitee_id"></param>
+        /// <returns></returns>
+        [AcceptVerbs("POST")]
+        [Route("Proposition")]
+        public Proposition GetProposition([FromBody] GetPropositionBindingModel model)
+        {
+            Startup.OrganiserManagerFactory().GetProposition(model);
+            return null;
+        }
+
+        /// <summary>
+        /// When the server sends a pushnotification/payload
+        /// it includes an ID that identifies Which inviter is being used.
+        /// </summary>
+        /// <param name="model"><seealso cref="PropositionAnswerBindingModel"/></param>
+        /// <returns></returns>
+        [AcceptVerbs("POST")]
+        [Route("PropositionAnswer")]
+        public IHttpActionResult InviteResponse([FromBody]PropositionAnswerBindingModel model)
+        {
+            Startup.OrganiserManagerFactory().NotifyOrganiser(model);
+            return Ok();
+        }
+
     }
 }

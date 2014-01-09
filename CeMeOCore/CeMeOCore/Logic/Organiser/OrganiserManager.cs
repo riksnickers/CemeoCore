@@ -73,9 +73,14 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         /// <param name="model">Passing the InviterAnswerBindingModel</param>
         /// <returns>Boolean</returns>
-        public Boolean NotifyOrganiser(InviterAnswerBindingModel model)
+        public Boolean NotifyOrganiser(PropositionAnswerBindingModel model)
         {
             return GetOrganiser(model.OrganiserID).registerAvailabilityInvitee(model);
+        }
+
+        public Proposition GetProposition(GetPropositionBindingModel model )
+        {
+            return GetOrganiser(model.OrganiserID).GetProposition(model.InviteeID);
         }
     }
 }

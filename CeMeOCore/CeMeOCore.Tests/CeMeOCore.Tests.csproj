@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="Controllers\MeetingControllerTest.cs" />
     <Compile Include="Logic\MeetingOrganiser\DateRangeTest.cs" />
+    <Compile Include="Logic\MeetingOrganiser\MeetingScheduleTest.cs" />
     <Compile Include="Logic\Random\SortedListTest.cs" />
     <Compile Include="Logic\Spot\SpotManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
