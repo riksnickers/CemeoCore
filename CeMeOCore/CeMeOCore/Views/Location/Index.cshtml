@@ -1,5 +1,7 @@
-﻿@model IEnumerable<CeMeOCore.Models.Location>
-
+﻿
+@model PagedList.IPagedList<CeMeOCore.Models.Location>
+@using PagedList.Mvc;
+ 
 @{
     ViewBag.Title = "Locations";
 }
@@ -80,3 +82,6 @@
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
