@@ -1,24 +1,34 @@
-﻿@model IEnumerable<CeMeOCore.Models.Room>
-
+﻿@model PagedList.IPagedList<CeMeOCore.Models.Room>
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Rooms";
 }
 
-<h2>Index</h2>
+<h2>Rooms</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "Room", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "control-label col-md-2" })
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.ActionLink("Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BeamerPresent)
+            @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Beamerpresent", "Index", new { sortOrder = ViewBag.BeamerPresentSortParm })
         </th>
         <th></th>
     </tr>
@@ -32,6 +42,9 @@
             @Html.DisplayFor(modelItem => item.Type)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.LocationID.LocationID)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.BeamerPresent)
         </td>
         <td>
@@ -41,5 +54,7 @@
         </td>
     </tr>
 }
-
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

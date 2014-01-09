@@ -1,7 +1,7 @@
-﻿@model IEnumerable<CeMeOCore.Models.UserProfile>
-
+﻿@model PagedList.IPagedList<CeMeOCore.Models.UserProfile>
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Users";
 }
 
 <h2>Index</h2>
@@ -9,31 +9,38 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "UserProfile", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "control-label col-md-2" })
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.aspUser)
+            @Html.ActionLink("UserName", "Index", new { sortOrder = ViewBag.UserNameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
+            @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.FirstNameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.LastNameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.ActionLink("EMail", "Index", new { sortOrder = ViewBag.EMailSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EMail)
+            @Html.ActionLink("PreferedLocation", "Index", new { sortOrder = ViewBag.PreferedLocationSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("UserCalendar", "Index", new { sortOrder = ViewBag.UserCalendarSortParm })
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.aspUser)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
@@ -47,11 +54,19 @@
             @Html.DisplayFor(modelItem => item.EMail)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.PreferedLocation.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserCalendar.CalendarID)
+        </td>
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
             @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
         </td>
     </tr>
 }
-
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

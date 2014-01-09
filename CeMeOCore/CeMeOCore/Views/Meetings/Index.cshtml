@@ -13,8 +13,8 @@
 @using (Html.BeginForm("Index", "Meetings", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "control-label col-md-2" })
+        <input type="submit" value="Search" class="btn btn-default" />
     </p>
 }
 <table class="table">

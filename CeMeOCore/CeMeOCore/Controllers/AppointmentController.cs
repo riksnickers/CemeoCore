@@ -42,7 +42,7 @@ namespace CeMeOCore.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                apps = apps.Where(s => s.Description.Contains(searchString.ToUpper()));
+                apps = apps.Where(s => s.Description.ToUpper().Contains(searchString.ToUpper()));
             }
 
             switch (sortOrder)

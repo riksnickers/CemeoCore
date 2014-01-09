@@ -20,7 +20,7 @@ namespace CeMeOCore.Controllers
 
             //Sorting
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name" : "";
             ViewBag.StreetSortParm = sortOrder == "Street" ? "Street" : "Street";
             ViewBag.NumberSortParm = sortOrder == "Number" ? "Number" : "Number";
             ViewBag.ZipSortParm = sortOrder == "City" ? "City" : "City";
@@ -46,13 +46,13 @@ namespace CeMeOCore.Controllers
             //Searching
             if (!String.IsNullOrEmpty(searchString))
             {
-                locs = locs.Where(s => s.Name.Contains(searchString.ToUpper()));
+                locs = locs.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper()));
             }
             //End searching
 
             switch (sortOrder)
             {
-                case "Name_desc":
+                case "Name":
                     locs = locs.OrderByDescending(s => s.Name);
                     break;
                 case "Street":
@@ -74,7 +74,7 @@ namespace CeMeOCore.Controllers
                     locs = locs.OrderByDescending(s => s.State);
                     break;
                 default:
-                    locs = locs.OrderBy(s => s.Addition);
+                    locs = locs.OrderBy(s => s.Name);
                     break;
             }
 

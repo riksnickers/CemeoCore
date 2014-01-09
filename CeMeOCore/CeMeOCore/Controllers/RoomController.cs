@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
+using PagedList;
 
 namespace CeMeOCore.Controllers
 {
@@ -13,11 +14,64 @@ namespace CeMeOCore.Controllers
     {
         private CeMeoContext _db = new CeMeoContext();
         List<Location> locations = new List<Location>();
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            ViewBag.Title = "Overview of all the Meeting rooms.";
-            var model = _db.Rooms;
-            return View(model);
+            //Title of the page
+            ViewBag.Title = "Overview of all the Locations.";
+
+            //Sorting
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name" : "";
+            ViewBag.TypeSortParm = sortOrder == "Type" ? "Type" : "Type";
+            ViewBag.LocationSortParm = sortOrder == "Location" ? "Location" : "Location";
+            ViewBag.BeamerPresentSortParm = sortOrder == "BeamerPresent" ? "BeamerPresent" : "BeamerPresent";
+
+            //Paging
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            //End paging
+
+            var rooms = from s in _db.Rooms select s;
+
+            //Searching
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                rooms = rooms.Where(s => s.Name.Contains(searchString));
+            }
+            //End searching
+
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    rooms = rooms.OrderByDescending(s => s.Name);
+                    break;
+                case "Street":
+                    rooms = rooms.OrderBy(s => s.Type);
+                    break;
+                case "Number":
+                    rooms = rooms.OrderByDescending(s => s.LocationID.Name);
+                    break;
+                case "City":
+                    rooms = rooms.OrderByDescending(s => s.BeamerPresent);
+                    break;
+                default:
+                    rooms = rooms.OrderBy(s => s.Name);
+                    break;
+            }
+
+            //Paging
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(rooms.ToPagedList(pageNumber, pageSize));
+            //End sorting
         }
 
         public ActionResult Details(int id)
