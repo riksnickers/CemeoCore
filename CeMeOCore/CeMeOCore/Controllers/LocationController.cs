@@ -21,9 +21,21 @@ namespace CeMeOCore.Controllers
 
         // GET api/values/5
         [AcceptVerbs("GET")]
-        public Location Get(int id)
+        public HttpResponseMessage Get(HttpRequestMessage mes, int id)
         {
-            return _db.Locations.Where(l => l.LocationID == id).First();
+            Location ll;
+            try
+            {
+                ll = _db.Locations.Where(l => l.LocationID == id).First();
+            }
+            catch (Exception)
+            {
+
+                return mes.CreateResponse(HttpStatusCode.NoContent);
+            }
+            return mes.CreateResponse(HttpStatusCode.Found, ll);
+
+            
         }
 
         // POST api/values

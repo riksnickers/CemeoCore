@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using CeMeOCore.Models;
 using CeMeOCore.Providers;
 using CeMeOCore.Results;
+using CeMeOCore.DAL.UnitsOfWork;
 
 namespace CeMeOCore.Controllers
 {
@@ -24,7 +25,7 @@ namespace CeMeOCore.Controllers
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
-        private CeMeoContext _db = new CeMeoContext();
+        private UserUoW _userUoW;
 
         public AccountController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
@@ -36,6 +37,7 @@ namespace CeMeOCore.Controllers
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
+            this._userUoW = new UserUoW();
         }
 
         public UserManager<IdentityUser> UserManager { get; private set; }
@@ -59,12 +61,11 @@ namespace CeMeOCore.Controllers
         [Route("Profile")]
         public UserProfileBindingModel GetProfile()
         {
-            CeMeoContext _db = new CeMeoContext();
             string id = User.Identity.GetUserId();
-            UserProfile up = _db.Users.Where(u => u.aspUser == id).First();
 
-
-            
+            UserProfile up = this._userUoW.UserProfileRepository.Get(u => u.aspUser == id).First();
+            //UserProfile up = _db.Users.Where(u => u.aspUser == id).First();
+                        
             return new UserProfileBindingModel() 
             { 
               UserId = up.UserId,
@@ -163,6 +164,24 @@ namespace CeMeOCore.Controllers
                 return errorResult;
             }
 
+            return Ok();
+        }
+
+        public IHttpActionResult SetLocation([FromBody] int LocationID)
+        {
+            string id = User.Identity.GetUserId();
+            
+            try
+            {
+                UserProfile up = this._userUoW.UserProfileRepository.Get(u => u.aspUser == id).FirstOrDefault();
+                up.PreferedLocation = this._userUoW.LocationRepository.GetByID(LocationID);
+                this._userUoW.UserProfileRepository.Update(up);
+                this._userUoW.Save();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             return Ok();
         }
 
@@ -357,8 +376,8 @@ namespace CeMeOCore.Controllers
                 UserCalendar = new Calendar()
             };
 
-            _db.Users.Add(profile);
-            _db.SaveChanges();
+            this._userUoW.UserProfileRepository.Insert(profile);
+            this._userUoW.Save();
             
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             IHttpActionResult errorResult = GetErrorResult(result);
@@ -416,9 +435,9 @@ namespace CeMeOCore.Controllers
                 UserManager.Dispose();
             }
 
-            if (_db != null)
+            if (_userUoW != null)
             {
-                _db.Dispose();
+                _userUoW.Dispose();
             }
 
             base.Dispose(disposing);

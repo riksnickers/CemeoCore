@@ -36,6 +36,11 @@ namespace CeMeOCore.Logic.Spots
             return this._reservedSpots;
         }
 
+        public ReservedSpot GetReservedSpot(Guid guid)
+        {
+            return this._reservedSpots.Where(s => s.Value.Guid == guid).FirstOrDefault().Value;
+        }
+
         public void AddSpot(ISpot spot)
         {
             try
@@ -65,6 +70,25 @@ namespace CeMeOCore.Logic.Spots
             catch (Exception)
             {
                 
+                throw;
+            }
+        }
+
+        public void ChangeReservedSpot(DateRange OldDR, ReservedSpot NewDR)
+        {
+            try
+            {
+                if (this._reservedSpots.ContainsKey(OldDR))
+                {
+                    //Let's first add the new spot, if this fails the old spot will not be removed!
+                    AddSpot(NewDR);
+                    //If not exceptions on adding a spot let's now remove the old one.
+                    this._reservedSpots.Remove(OldDR);
+                }
+            }
+            catch (Exception)
+            {
+                //propably this will be already dupplicated Key exception
                 throw;
             }
         }

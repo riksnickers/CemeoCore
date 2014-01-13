@@ -1,5 +1,7 @@
-﻿using CeMeOCore.Logic.Organiser;
+﻿using CeMeOCore.DAL.UnitsOfWork;
+using CeMeOCore.Logic.Organiser;
 using CeMeOCore.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,14 @@ namespace CeMeOCore.Controllers
     public class MeetingController : ApiController
     {
         private CeMeoContext _db = new CeMeoContext();
+
+        private SampleUoW suow;
+
+        public MeetingController ()
+        {
+            suow = new SampleUoW();
+        }
+
         ///<summary>
         ///  Get a specific meeting
         ///  This is a GET method
@@ -64,8 +74,11 @@ namespace CeMeOCore.Controllers
         [Route("Upcomming")]
         public IEnumerable<String> GetUpcomming(int latest = 1)
         {
+            log.Debug("GetUpcomming");
             return new string[]{"Latest "+ latest +" Upcomming "};
         }
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(MeetingController));
 
         /// <summary>
         ///   This will start scheduling a meeting.
@@ -75,9 +88,8 @@ namespace CeMeOCore.Controllers
         [AcceptVerbs("POST")]
         [Route("Schedule")]
         [ResponseType(typeof(ScheduleMeetingBindingModel))]
-        public IHttpActionResult Schedule([FromBody]ScheduleMeetingBindingModel model)
+        public IHttpActionResult Schedule(HttpRequestMessage mes, [FromBody]ScheduleMeetingBindingModel model)
         {
-            
             Startup.OrganiserManagerFactory().Create(model);
             ScheduleMeetingBindingModel sm = new ScheduleMeetingBindingModel()
             {
@@ -102,20 +114,6 @@ namespace CeMeOCore.Controllers
         {
             return false;
         }
-
-        /// <summary>
-        /// This method will return contacts.
-        /// This is a GET method
-        /// </summary>
-        /// <returns></returns>
-        [AcceptVerbs("GET")]
-        [Route("Contacts")]
-        public IEnumerable<Object> GetContacts()
-        {
-            var users = _db.Users.Select(u => new { id = u.UserId, FirstName = u.FirstName, LastName = u.LastName }).ToList();
-            return users;
-        }
-
 
         /// <summary>
         /// If you provide a InviteeID and a OrganiserID you get a proposition returned.
@@ -144,5 +142,10 @@ namespace CeMeOCore.Controllers
             return Ok();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            //this._contactUoW.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

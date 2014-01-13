@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\MeetingControllerTest.cs" />
+    <Compile Include="Logic\MeetingOrganiser\Class1.cs" />
     <Compile Include="Logic\MeetingOrganiser\DateRangeTest.cs" />
     <Compile Include="Logic\MeetingOrganiser\MeetingScheduleTest.cs" />
     <Compile Include="Logic\Random\SortedListTest.cs" />
@@ -111,7 +112,9 @@
       <Name>CeMeOCore</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

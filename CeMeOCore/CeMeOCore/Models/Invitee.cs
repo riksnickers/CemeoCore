@@ -12,7 +12,7 @@ namespace CeMeOCore.Models
     {
         public string InviteeID { get; set; }
 
-        public string UserID { get; set; }
+        public int UserID { get; set; }
 
         public Boolean Important { get; set; }
 
@@ -20,15 +20,15 @@ namespace CeMeOCore.Models
 
         public Proposition Proposal { get; set; }
 
-        public Invitee(string organiserID, string userID, Boolean important)
+        public Invitee(string organiserID, int userID, Boolean important)
         {
-            InviteeID = dateHash(organiserID) + "#" + userID;
+            InviteeID = DateHash(organiserID) + "#" + userID;
             UserID = userID;
             Important = important;
             Answer = Availability.Unanswered;
         }
 
-        private string dateHash(string organiserID)
+        private string DateHash(string organiserID)
         {
             StringBuilder returnVal = new StringBuilder();
             //GetTheCurrentDateTime

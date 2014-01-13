@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Edm.5.6.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
@@ -211,12 +214,20 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\RoomApiController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DAL\Repositories\GenericRepository.cs" />
+    <Compile Include="DAL\Repositories\MeetingRepository.cs" />
+    <Compile Include="DAL\Repositories\RoomRepository.cs" />
+    <Compile Include="DAL\Repositories\UserProfileRepository.cs" />
+    <Compile Include="DAL\UnitsOfWork\ContactUoW.cs" />
+    <Compile Include="DAL\UnitsOfWork\SampleUoW.cs" />
+    <Compile Include="DAL\UnitsOfWork\UserUoW.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -231,6 +242,7 @@
     <Compile Include="Logic\Organiser\Exceptions\RoomNotAvailableException.cs" />
     <Compile Include="Logic\Organiser\IOrganiser.cs" />
     <Compile Include="Logic\Range\ProposalDateRange.cs" />
+    <Compile Include="Logic\TextRecognition\Recognition.cs" />
     <Compile Include="Logic\WorkSchedule\WorkSchedule.cs" />
     <Compile Include="Logic\Range\DateRange.cs" />
     <Compile Include="Logic\Range\IRange.cs" />

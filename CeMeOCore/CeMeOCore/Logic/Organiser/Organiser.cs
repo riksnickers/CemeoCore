@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace CeMeOCore.Logic.Organiser
@@ -69,7 +70,7 @@ namespace CeMeOCore.Logic.Organiser
             //Resolve requestedBy
             RequestedBy = resolveRequestedBy(requestedById);
             //Create unique ID
-            OrganiserID = "xxx";
+            OrganiserID = DateHash();
 
             //Set the duration
             this.Duration = duration;
@@ -78,10 +79,10 @@ namespace CeMeOCore.Logic.Organiser
             ConvertParticipantsToInvitees(participants);
            
             //CheckAttendeesCalendar/appointments
-            checkAvailabilityAttendees();
+            CheckAvailabilityInvitees();
 
             //  CalculateEarliestAppointment - take blackspots in account
-            calculateEarliestAppointment();
+            CalculateEarliestProposition();
 
             sendPropositionToInvitees();
             //  If an attendee denies let it recalucate
@@ -98,7 +99,7 @@ namespace CeMeOCore.Logic.Organiser
             {
                 foreach (var invitedParticipant in invitedParticipants)
                 {
-                    Invitee invitee = new Invitee(OrganiserID, invitedParticipant.id.ToString(), invitedParticipant.Important);
+                    Invitee invitee = new Invitee(OrganiserID, invitedParticipant.id, invitedParticipant.Important);
                     this._invitees.Add(invitee.InviteeID, invitee);
                     TotalInviteesUnanswered++;
                     TotalInvitees++;
@@ -114,20 +115,41 @@ namespace CeMeOCore.Logic.Organiser
         /// <summary>
         /// This method will figure out all the blackspots.
         /// </summary>
-        private void checkAvailabilityAttendees()
+        private void CheckAvailabilityInvitees()
         {
             //Generate blackspots until the deadline
+        }
+
+        private string DateHash()
+        {
+            StringBuilder returnVal = new StringBuilder();
+            //GetTheCurrentDateTime
+            String dateToHash = DateTime.Now.ToString();
+
+            byte[] tempSource = ASCIIEncoding.ASCII.GetBytes(dateToHash + Guid.NewGuid().ToString());
+            byte[] tempHash = new System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(tempSource);
+
+            returnVal.Append(BitConverter.ToString(tempHash).Replace("-", "").ToLower());
+
+            return returnVal.ToString();
+        }
+
+        private void ChangeReservedSpot(Guid ReservedSpotGuid, DateTime start, DateTime end)
+        {
+            ReservedSpot r = Startup.SpotManagerFactory().GetReservedSpot(ReservedSpotGuid);
+            ReservedSpot rnew = new ReservedSpot(){DateRange = new DateRange(start, end), Guid = ReservedSpotGuid};
+            Startup.SpotManagerFactory().ChangeReservedSpot(r.DateRange, rnew);
         }
         
         /// <summary>
         /// This method will calculate the earliest appointment possible.
         /// </summary>
-        private void calculateEarliestAppointment()
+        private void CalculateEarliestProposition()
         {
             //TODO: Add room logic
             //HACK: Refactor Person available logic.
             //This is our start proposal daterange
-            ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this.Duration));
+            ProposalDateRange proposalDateRange = null;
             Room proposalRoom = null;
 
             //A reserved spot will be added to the list to reserve this proposition.
@@ -140,59 +162,69 @@ namespace CeMeOCore.Logic.Organiser
             //A new proposel to send to the invitees will be created
             Proposition proposition = new Proposition(ReservedSpotGuid);
 
-            SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory().GetPersonBlackSpots( this.OrganiserID );
-
-
             //Try to make a proposal
             try
             {
-                //Try to find a good daterange looking at persons
-                try
-                {
-                    foreach (DateRange personBlackSpotDateRange in pbss.Keys)
-                    {
-                        try
-                        {
-                            if (!personBlackSpotDateRange.Includes(proposalDateRange))
-                            {
-                                //Check if there are other persons who have a meeting at that time
-                                //HACK: Refactor this linq so it has more performance
-                                if (pbss.Keys.Select(dr => dr.Includes(proposalDateRange)).Count() != 0) //Count if a person has a daterange that conflicts with our date.
-                                {
-                                    throw new PersonNotAvailableException();
-                                }
-                            }
-                        }
-                        catch(PersonNotAvailableException)
-                        {
-                            //Set the end time from the overlapping daterange as the start time for the proposalDateRange
-                            proposalDateRange.ModifyStartDateTime(personBlackSpotDateRange.End, Duration);
-                        }
-                        catch (Exception)
-                        {
-                            //Throw it Up!
-                            throw;
-                        }
-                    } 
-                }
-                catch(NoPersonsAvailableException)
-                {
+                proposalDateRange = GetProposalDate(proposition.ReservedSpotGuid);
+                proposalRoom = GetProposalRoom(proposalDateRange, proposition.ReservedSpotGuid);
 
-                }
-                catch (Exception)
-                {
-                    //Throw it up!
-                    throw;
-                }
-
-                proposalRoom = this.GetProposalRoom(proposalDateRange, proposition.ReservedSpotGuid);
-                
+                //Now let's create the proposal.
+                proposition.ProposedRoom = proposalRoom;
+                proposition.BeginTime = proposalDateRange.Start;
+                proposition.EndTime = proposalDateRange.End;
             }
             catch (Exception)
             {
                 //Something went wrong while find a room
                 //TODO: Logging
             }          
+        }
+
+        private ProposalDateRange GetProposalDate(Guid reservedSpot)
+        {
+            ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this.Duration));
+
+            SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory().GetPersonBlackSpots(this.OrganiserID);
+            //Try to find a good daterange looking at persons
+            try
+            {
+                foreach (DateRange personBlackSpotDateRange in pbss.Keys)
+                {
+                    try
+                    {
+                        if (!personBlackSpotDateRange.Includes(proposalDateRange))
+                        {
+                            //Check if there are other persons who have a meeting at that time
+                            //HACK: Refactor this linq so it has more performance
+                            if (pbss.Keys.Select(dr => dr.Includes(proposalDateRange)).Count() != 0) //Count if a person has a daterange that conflicts with our date.
+                            {
+                                throw new PersonNotAvailableException();
+                            }
+                        }
+                    }
+                    catch (PersonNotAvailableException)
+                    {
+                        //Set the end time from the overlapping daterange as the start time for the proposalDateRange
+                        proposalDateRange.ModifyStartDateTime(personBlackSpotDateRange.End, Duration);
+                        ChangeReservedSpot(reservedSpot, proposalDateRange.Start, proposalDateRange.End);
+                    }
+                    catch (Exception)
+                    {
+                        //Throw it Up!
+                        throw;
+                    }
+                }
+            }
+            catch (NoPersonsAvailableException)
+            {
+
+            }
+            catch (Exception)
+            {
+                //Throw it up!
+                throw;
+            }
+            return proposalDateRange;
         }
 
         private Room GetProposalRoom(ProposalDateRange proposalDateRange, Guid reservedSpot) 
@@ -278,6 +310,9 @@ namespace CeMeOCore.Logic.Organiser
             {
                 //Arg we found no rooms for this proposal.. Let the creator know of this.
                 //TODO: Throw error or change dateRange (or shorten the duration?)
+
+                //Throw it up! But log it first ;)
+                throw;
             }
             catch (Exception)
             {
