@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace CeMeOCore.Controllers
 {
+    [RoutePrefix("api/Contact")]
     public class ContactController : ApiController
     {
         private ContactUoW _contactUoW;
