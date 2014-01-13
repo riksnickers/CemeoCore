@@ -315,7 +315,7 @@ namespace CeMeOCore.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public async Task<IHttpActionResult> Register(LoginBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -338,7 +338,7 @@ namespace CeMeOCore.Controllers
 
             _db.Users.Add(profile);
             _db.SaveChanges();
-            
+
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -348,14 +348,6 @@ namespace CeMeOCore.Controllers
             }
 
             return Ok();
-        }
-
-        // POST api/Account/Register
-        [AllowAnonymous]
-        [Route("Login")]
-        public void Login()
-        {
-            
         }
 
         // POST api/Account/RegisterExternal
