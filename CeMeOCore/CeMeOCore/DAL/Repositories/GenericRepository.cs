@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Web;
 
 namespace CeMeOCore.DAL.Repositories
@@ -75,7 +76,10 @@ namespace CeMeOCore.DAL.Repositories
         public virtual void Update(TEntity entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            var entry = context.Entry(entityToUpdate);
+
+            entry.CurrentValues.SetValues(entityToUpdate);
+
         }
     }
 }

@@ -17,6 +17,8 @@ using CeMeOCore.Models;
 using CeMeOCore.Providers;
 using CeMeOCore.Results;
 using CeMeOCore.DAL.UnitsOfWork;
+using System.Data.Entity.Validation;
+using log4net;
 
 namespace CeMeOCore.Controllers
 {
@@ -26,6 +28,8 @@ namespace CeMeOCore.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private UserUoW _userUoW;
+
+        private readonly ILog logger = log4net.LogManager.GetLogger(typeof(AccountController));
 
         public AccountController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
@@ -74,7 +78,7 @@ namespace CeMeOCore.Controllers
               EMail = up.EMail,
               FirstName = up.FirstName,
               LastName = up.LastName,
-              PreferedLocation = up.PreferedLocation
+              PreferedLocation = up.PreferedLocation.LocationID
             };
         }
 
@@ -178,6 +182,16 @@ namespace CeMeOCore.Controllers
                 up.PreferedLocation = this._userUoW.LocationRepository.GetByID(LocationID);
                 this._userUoW.UserProfileRepository.Update(up);
                 this._userUoW.Save();
+            }
+            catch( DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+	            {
+                    foreach (DbValidationError error in item.ValidationErrors)
+                    {
+                        logger.Error(error.ErrorMessage);
+                    }
+	            }
             }
             catch (Exception)
             {
