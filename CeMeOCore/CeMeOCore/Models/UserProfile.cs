@@ -69,6 +69,6 @@ namespace CeMeOCore.Models
         [StringLength(200)]
         public string EMail { get; set; }
 
-        public int PreferedLocation { get; set; }
+        public Location PreferedLocation { get; set; }
     }
 }

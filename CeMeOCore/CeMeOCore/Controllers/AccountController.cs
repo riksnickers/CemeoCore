@@ -78,7 +78,7 @@ namespace CeMeOCore.Controllers
               EMail = up.EMail,
               FirstName = up.FirstName,
               LastName = up.LastName,
-              PreferedLocation = up.PreferedLocation.LocationID
+              PreferedLocation = up.PreferedLocation
             };
         }
 

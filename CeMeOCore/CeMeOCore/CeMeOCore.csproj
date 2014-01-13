@@ -226,6 +226,7 @@
     <Compile Include="DAL\Repositories\RoomRepository.cs" />
     <Compile Include="DAL\Repositories\UserProfileRepository.cs" />
     <Compile Include="DAL\UnitsOfWork\ContactUoW.cs" />
+    <Compile Include="DAL\UnitsOfWork\LocationUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\SampleUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\UserUoW.cs" />
     <Compile Include="Global.asax.cs">
