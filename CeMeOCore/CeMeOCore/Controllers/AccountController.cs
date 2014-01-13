@@ -167,6 +167,7 @@ namespace CeMeOCore.Controllers
             return Ok();
         }
 
+        [Route("SetLocation")]
         public IHttpActionResult SetLocation([FromBody] int LocationID)
         {
             string id = User.Identity.GetUserId();
