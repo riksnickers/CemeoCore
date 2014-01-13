@@ -350,6 +350,14 @@ namespace CeMeOCore.Controllers
             return Ok();
         }
 
+        // POST api/Account/Register
+        [AllowAnonymous]
+        [Route("Login")]
+        public void Login()
+        {
+            
+        }
+
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]

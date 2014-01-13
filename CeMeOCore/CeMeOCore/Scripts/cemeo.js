@@ -1,9 +1,11 @@
-﻿/*$("#signInForm").submit(function (event) {
+﻿$("#signInForm").submit(function (event) {
     event.preventDefault();
-    var account = { grant_type: "password", username: "Admin", password: "superadmin" }
+    var username = $("#username").val();
+    var pass = $("#password").val();
+    var account = { grant_type: "password", username: username, password: pass }
     $.ajax({
         type: "POST",
-        url: "/Token",
+        url: "http://localhost:7651/Account/CheckLogin",
         data: account,
         dataType: "json", //The dataType we get back from the server
     })
@@ -12,39 +14,10 @@
         document.cookie = "token=" + data.access_token;
         if( status == "success" )
         {
-            alert("hooray");
+            alert(username + " logged in succesfully");
         }
     })
     .fail(function (jqXHR, textStatus) {
         console.error("error:" + textStatus);
     })
-})*/
-
-$("#signInForm").submit(function (e) {
-   // e.preventDefault();
-    var username = "admin"
-    var password = "superadmin"
-    // Log them in. 
-    alert("try login");
-    $.ajax({
-        url: "/Token",
-        type: 'post',
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        data: "{ 'username': '" + username + "', 'password':'" + password + "'}",
-        success: onLoginComplete,
-        error: onError
-    });
-    alert("made it here");
-});
-
-function onLoginComplete(result, data) {
-    document.cookie = "token=" + data.access_token;
-    alert("hooray");
-
-}
-
-function onError(result) {
-    $('#loginFailed').show();
-
-}
+})
