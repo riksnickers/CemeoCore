@@ -240,6 +240,7 @@
     <Compile Include="DAL\UnitsOfWork\ContactUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\LocationUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\MeetingControllerUoW.cs" />
+    <Compile Include="DAL\UnitsOfWork\OrganiserUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\SampleUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\UserUoW.cs" />
     <Compile Include="Global.asax.cs">

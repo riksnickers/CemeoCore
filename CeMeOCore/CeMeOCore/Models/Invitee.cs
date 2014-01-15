@@ -29,6 +29,7 @@ namespace CeMeOCore.Models
             UserID = userID;
             OrganiserID = organiserID;
             Important = important;
+            Proposal = null;
             Answer = Availability.Unanswered;
         }
 

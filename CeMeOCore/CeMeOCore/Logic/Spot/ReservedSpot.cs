@@ -25,7 +25,7 @@ namespace CeMeOCore.Logic.Spots
         public DateRange DateRange
         {
             get { return this._dateRange; }
-            set { this.DateRange = value; }
+            set { this._dateRange = value; }
         }
 
         public void Add(UserProfile userProfile)

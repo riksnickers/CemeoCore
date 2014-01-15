@@ -1,4 +1,5 @@
 ﻿using CeMeOCore.DAL.Repositories;
+using CeMeOCore.DAL.UnitsOfWork;
 using CeMeOCore.Logic.Organiser.Exceptions;
 using CeMeOCore.Logic.Range;
 using CeMeOCore.Logic.Spots;
@@ -51,6 +52,8 @@ namespace CeMeOCore.Logic.Organiser
         private int TotalInviteesUnanswered { get; set; }
 
         private double Duration { get; set; }
+
+        private OrganiserUoW _organiserUoW { get; set; }
         
         /// <summary>
         /// To start organising a meeting the constructor must be called
@@ -61,6 +64,9 @@ namespace CeMeOCore.Logic.Organiser
         /// <param name="requestedById">Who requested to organise this meeting ID</param>
         public Organiser(IEnumerable<InvitedParticipant> participants, DateTime dateRequested, DateIndex deadLineInDays, int requestedById, double duration)
         {
+            //Init organiserUoW
+            this._organiserUoW = new OrganiserUoW();
+
             //Set counters to 0
             TotalImporantInviteesAbsent = 0;
             TotalInvitees = 0;
@@ -102,6 +108,7 @@ namespace CeMeOCore.Logic.Organiser
                 {
                     Invitee invitee = new Invitee(OrganiserID, invitedParticipant.id, invitedParticipant.Important);
                     this._invitees.Add(invitee.InviteeID, invitee);
+                    this._organiserUoW.UserProfileRepository.Insert(invitee);
                     TotalInviteesUnanswered++;
                     TotalInvitees++;
                 }
@@ -110,6 +117,10 @@ namespace CeMeOCore.Logic.Organiser
             catch (Exception)
             {
                 return false;
+            }
+            finally
+            {
+                this._organiserUoW.Save();
             }
         }
 
@@ -176,7 +187,15 @@ namespace CeMeOCore.Logic.Organiser
 
                 foreach (Invitee inv in this._invitees.Values)
                 {
-                    inv.Proposal = proposition;
+                    try
+                    {
+                        inv.Proposal = proposition;
+                        this._organiserUoW.UserProfileRepository.Update(inv);
+                    }
+                    catch(Exception)
+                    {
+                        
+                    }
                 }
             }
             catch (Exception)
