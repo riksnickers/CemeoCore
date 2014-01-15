@@ -102,6 +102,10 @@ namespace CeMeOCore.Logic.Organiser
 
         public Boolean ConvertParticipantsToInvitees(IEnumerable<InvitedParticipant> invitedParticipants)
         {
+            if( this._invitees == null)
+            {
+                this._invitees = new Dictionary<string, Invitee>();
+            }
             try
             {
                 foreach (var invitedParticipant in invitedParticipants)

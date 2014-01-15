@@ -37,9 +37,10 @@ namespace CeMeOCore.Models
         {
             StringBuilder returnVal = new StringBuilder();
             //GetTheCurrentDateTime
+            //HACK: Change hashing with random int
             String dateToHash = DateTime.Now.ToString();
-
-            byte[] tempSource = ASCIIEncoding.ASCII.GetBytes(dateToHash + organiserID);
+            Random r = new Random();
+            byte[] tempSource = ASCIIEncoding.ASCII.GetBytes(dateToHash + r.Next(200000).ToString() + organiserID);
             byte[] tempHash = new System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(tempSource);
 
             returnVal.Append(BitConverter.ToString(tempHash).Replace("-", "").ToLower());
