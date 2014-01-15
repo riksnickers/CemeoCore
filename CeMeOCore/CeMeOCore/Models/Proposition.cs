@@ -1,14 +1,16 @@
-﻿using CeMeOCore.Models;
+﻿using CeMeOCore.Logic.Organiser;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CeMeOCore.Logic.Organiser
+namespace CeMeOCore.Models
 {
     public class Proposition
     {
+        [Key]
+        public string Id { get; set; }
         public Guid ReservedSpotGuid { get; private set; }
         // A proposition is for an invitee wich contains a Room (+location) and a start span
         public Proposition( Guid reservedSpotGuid)

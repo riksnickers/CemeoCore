@@ -1,4 +1,5 @@
-﻿using CeMeOCore.Logic.Organiser.Exceptions;
+﻿using CeMeOCore.DAL.Repositories;
+using CeMeOCore.Logic.Organiser.Exceptions;
 using CeMeOCore.Logic.Range;
 using CeMeOCore.Logic.Spots;
 using CeMeOCore.Models;
@@ -58,7 +59,7 @@ namespace CeMeOCore.Logic.Organiser
         /// <param name="dateRequested">When the organiser was started</param>
         /// <param name="deadLineInDays">This is the deadline</param>
         /// <param name="requestedById">Who requested to organise this meeting ID</param>
-        public Organiser(IEnumerable<InvitedParticipant> participants, DateTime dateRequested, DateIndex deadLineInDays, string requestedById, double duration)
+        public Organiser(IEnumerable<InvitedParticipant> participants, DateTime dateRequested, DateIndex deadLineInDays, int requestedById, double duration)
         {
             //Set counters to 0
             TotalImporantInviteesAbsent = 0;
@@ -172,6 +173,11 @@ namespace CeMeOCore.Logic.Organiser
                 proposition.ProposedRoom = proposalRoom;
                 proposition.BeginTime = proposalDateRange.Start;
                 proposition.EndTime = proposalDateRange.End;
+
+                foreach (Invitee inv in this._invitees.Values)
+                {
+                    inv.Proposal = proposition;
+                }
             }
             catch (Exception)
             {
@@ -328,6 +334,7 @@ namespace CeMeOCore.Logic.Organiser
         private void sendPropositionToInvitees()
         {
             //This will need to send the proposition to the right invitee
+            //Push notification
         }
 
         /// <summary>
@@ -336,11 +343,12 @@ namespace CeMeOCore.Logic.Organiser
         /// <param name="userProfileId">The id of who requested the meeting
         /// </param>
         /// <returns></returns>
-        private UserProfile resolveRequestedBy( string userProfileId)
+        private UserProfile resolveRequestedBy( int userProfileId)
         {
             try
             {
-                return _db.Users.Find(userProfileId);
+                UserProfileRepository userRep = new UserProfileRepository(_db);
+                return userRep.GetByID(userProfileId);
             }
             catch (Exception)
             {

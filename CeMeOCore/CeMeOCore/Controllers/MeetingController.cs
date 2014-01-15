@@ -91,14 +91,8 @@ namespace CeMeOCore.Controllers
         public IHttpActionResult Schedule(HttpRequestMessage mes, [FromBody]ScheduleMeetingBindingModel model)
         {
             Startup.OrganiserManagerFactory().Create(model);
-            ScheduleMeetingBindingModel sm = new ScheduleMeetingBindingModel()
-            {
-                BeforeDate = new DateTime(),
-                Creator = "t",
-                Dateindex = 0,
-                InvitedParticipants = new List<InvitedParticipant>() { new InvitedParticipant() { id = 1, Important = false }, new InvitedParticipant() { id = 2, Important = true } }
-            };
-            return Ok(sm);
+
+            return Ok();
         }
 
         /// <summary>
@@ -124,7 +118,14 @@ namespace CeMeOCore.Controllers
         [Route("Proposition")]
         public Proposition GetProposition([FromBody] GetPropositionBindingModel model)
         {
-            Startup.OrganiserManagerFactory().GetProposition(model);
+            //Startup.OrganiserManagerFactory().GetProposition(model);
+            return null;
+        }
+
+        [AcceptVerbs("GET")]
+        [Route("Proposition")]
+        public Proposition GetPropositions(int userid)
+        {
             return null;
         }
 

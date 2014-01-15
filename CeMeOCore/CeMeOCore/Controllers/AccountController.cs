@@ -443,6 +443,28 @@ namespace CeMeOCore.Controllers
             return Ok();
         }
 
+        [AcceptVerbs("GET")]
+        [Route("Propositions")]
+        public IEnumerable<Proposition> GetPropositions(GetPropositionBindingModel model)
+        {
+            //Get UserProfileID
+            string aspID = User.Identity.GetUserId();
+            int upID = this._userUoW.UserProfileRepository.Get(u => u.aspUser == aspID).Select(u=>u.UserId).First();
+            
+
+            HashSet<Proposition> propositions = new HashSet<Proposition>();
+            
+            foreach (Invitee invitee in this._userUoW.InviteeRepository.GetInviteeIDsByUserProfileID(upID))
+            {
+                Proposition p = invitee.GetProposition();
+                if(p != null)
+                {
+                    propositions.Add(p);
+                }
+            }
+            return propositions;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

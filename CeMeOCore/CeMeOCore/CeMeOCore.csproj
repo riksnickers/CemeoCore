@@ -233,11 +233,13 @@
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\Repositories\GenericRepository.cs" />
+    <Compile Include="DAL\Repositories\InviteeRepository.cs" />
     <Compile Include="DAL\Repositories\MeetingRepository.cs" />
     <Compile Include="DAL\Repositories\RoomRepository.cs" />
     <Compile Include="DAL\Repositories\UserProfileRepository.cs" />
     <Compile Include="DAL\UnitsOfWork\ContactUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\LocationUoW.cs" />
+    <Compile Include="DAL\UnitsOfWork\MeetingControllerUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\SampleUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\UserUoW.cs" />
     <Compile Include="Global.asax.cs">
@@ -261,7 +263,7 @@
     <Compile Include="Logic\Organiser\Organiser.cs" />
     <Compile Include="Logic\Organiser\OrganiserManager.cs" />
     <Compile Include="Logic\Organiser\OrganiserResponse.cs" />
-    <Compile Include="Logic\Organiser\Proposition.cs" />
+    <Compile Include="Models\Proposition.cs" />
     <Compile Include="Logic\Spot\ISpot.cs" />
     <Compile Include="Logic\Spot\BlackSpot.cs" />
     <Compile Include="Logic\Spot\IPersonSpot.cs" />

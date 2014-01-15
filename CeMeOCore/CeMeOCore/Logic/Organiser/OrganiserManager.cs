@@ -78,9 +78,5 @@ namespace CeMeOCore.Logic.Organiser
             return GetOrganiser(model.OrganiserID).registerAvailabilityInvitee(model);
         }
 
-        public Proposition GetProposition(GetPropositionBindingModel model )
-        {
-            return GetOrganiser(model.OrganiserID).GetProposition(model.InviteeID);
-        }
     }
 }

@@ -22,6 +22,7 @@ namespace CeMeOCore.Models
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Calendar> Calendars{ get; set; }
         public DbSet<GuestUser> GuestUsers { get; set; }
+        public DbSet<Invitee> Invitees { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

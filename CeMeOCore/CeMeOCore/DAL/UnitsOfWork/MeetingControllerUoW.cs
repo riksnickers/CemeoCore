@@ -7,17 +7,17 @@ using System.Web;
 
 namespace CeMeOCore.DAL.UnitsOfWork
 {
-    public class UserUoW : IDisposable
+    public class MeetingControllerUoW
     {
         private CeMeoContext context = new CeMeoContext();
         private UserProfileRepository _userProfileRepository;
-        private GenericRepository<Location> _locationRepository;
         private InviteeRepository _inviteeRepository;
 
         public UserProfileRepository UserProfileRepository
         {
             get
             {
+
                 if (this._userProfileRepository == null)
                 {
                     this._userProfileRepository = new UserProfileRepository(context);
@@ -26,23 +26,11 @@ namespace CeMeOCore.DAL.UnitsOfWork
             }
         }
 
-        public GenericRepository<Location> LocationRepository
-        {
-            get
-            {
-                if( this._locationRepository == null )
-                {
-                    this._locationRepository = new GenericRepository<Location>(context);
-                }
-                return this._locationRepository;
-            }
-        }
-
         public InviteeRepository InviteeRepository
         {
             get
             {
-                if (this._inviteeRepository == null)
+                if(this._inviteeRepository == null)
                 {
                     this._inviteeRepository = new InviteeRepository(context);
                 }

@@ -10,9 +10,12 @@ namespace CeMeOCore.Models
 {
     public class Invitee
     {
+        [Key]
         public string InviteeID { get; set; }
 
         public int UserID { get; set; }
+
+        private string OrganiserID { get; set; }
 
         public Boolean Important { get; set; }
 
@@ -24,6 +27,7 @@ namespace CeMeOCore.Models
         {
             InviteeID = DateHash(organiserID) + "#" + userID;
             UserID = userID;
+            OrganiserID = organiserID;
             Important = important;
             Answer = Availability.Unanswered;
         }
@@ -41,5 +45,15 @@ namespace CeMeOCore.Models
 
             return returnVal.ToString();
         }
+
+        public Proposition GetProposition()
+        {
+            return this.Proposal;
+        }
+    }
+
+    public class InviteeInformationModel
+    {
+        public string InviteeID { get; set; }
     }
 }

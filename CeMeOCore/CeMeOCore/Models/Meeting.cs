@@ -43,7 +43,7 @@ namespace CeMeOCore.Models
     {
         [Required]
         [Display(Name = "Creator")]
-        public string Creator { get; set; }
+        public int Creator { get; set; }
 
         [Required]
         [Display(Name = "Duration")]
