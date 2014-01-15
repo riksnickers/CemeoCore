@@ -1,5 +1,7 @@
-﻿using CeMeOCore.Logic.MeetingOrganiser;
+﻿using CeMeOCore.DAL.UnitsOfWork;
+using CeMeOCore.Logic.Organiser;
 using CeMeOCore.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +16,19 @@ namespace CeMeOCore.Controllers
     ///<summary>
     ///This is a API controller to maintain meetings
     ///</summary>
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/Meeting")]
     public class MeetingController : ApiController
     {
         private CeMeoContext _db = new CeMeoContext();
+
+        private SampleUoW suow;
+
+        public MeetingController ()
+        {
+            suow = new SampleUoW();
+        }
+
         ///<summary>
         ///  Get a specific meeting
         ///  This is a GET method
@@ -64,12 +74,12 @@ namespace CeMeOCore.Controllers
         [Route("Upcomming")]
         public IEnumerable<String> GetUpcomming(int latest = 1)
         {
+            log.Debug("GetUpcomming");
             return new string[]{"Latest "+ latest +" Upcomming "};
         }
 
+        private static readonly ILog log = LogManager.GetLogger(typeof(MeetingController));
 
-        // POST /api/Meeting/schedule
-        // To schedule a meeting
         /// <summary>
         ///   This will start scheduling a meeting.
         /// </summary>
@@ -78,15 +88,19 @@ namespace CeMeOCore.Controllers
         [AcceptVerbs("POST")]
         [Route("Schedule")]
         [ResponseType(typeof(ScheduleMeetingBindingModel))]
-        public IHttpActionResult Schedule([FromBody]ScheduleMeetingBindingModel model)
+        public IHttpActionResult Schedule(HttpRequestMessage mes, [FromBody]ScheduleMeetingBindingModel model)
         {
-            return Ok(model);
+            Startup.OrganiserManagerFactory().Create(model);
+            ScheduleMeetingBindingModel sm = new ScheduleMeetingBindingModel()
+            {
+                BeforeDate = new DateTime(),
+                Creator = "t",
+                Dateindex = 0,
+                InvitedParticipants = new List<InvitedParticipant>() { new InvitedParticipant() { id = 1, Important = false }, new InvitedParticipant() { id = 2, Important = true } }
+            };
+            return Ok(sm);
         }
 
-        
-        // 
-        // 
-        // POST /api/Meeting/Cancel
         /// <summary>
         ///   No delete function because the system will delete/archive it.
         ///   We are using a cancel function
@@ -102,38 +116,36 @@ namespace CeMeOCore.Controllers
         }
 
         /// <summary>
-        /// When the server sends a pushnotification/payload
-        /// it includes an ID that identifies Which inviter is being used.
+        /// If you provide a InviteeID and a OrganiserID you get a proposition returned.
         /// </summary>
-        /// <param name="model"><seealso cref="InviterAnswerBindingModel"/></param>
+        /// <param name="Invitee_id"></param>
         /// <returns></returns>
         [AcceptVerbs("POST")]
-        [Route("InviteResponse")]
-        public IHttpActionResult InviteResponse([FromBody]InviterAnswerBindingModel model)
+        [Route("Proposition")]
+        public Proposition GetProposition([FromBody] GetPropositionBindingModel model)
         {
-            switch(model.Answer)
-            {
-                case Availability.Absent: break;
-                case Availability.Present: break;
-                case Availability.Online: break;
-                default: break;
-            }
-
-            Startup.InviterManagerFactory().getInviter(model.InviterID).registerAvailabilityAttendee(model.InviteeID, model.Answer);
-            return Ok();
+            Startup.OrganiserManagerFactory().GetProposition(model);
+            return null;
         }
 
         /// <summary>
-        /// This method will return contacts.
-        /// This is a GET method
+        /// When the server sends a pushnotification/payload
+        /// it includes an ID that identifies Which inviter is being used.
         /// </summary>
+        /// <param name="model"><seealso cref="PropositionAnswerBindingModel"/></param>
         /// <returns></returns>
-        [AcceptVerbs("GET")]
-        [Route("Contacts")]
-        public IEnumerable<Object> GetContacts()
+        [AcceptVerbs("POST")]
+        [Route("PropositionAnswer")]
+        public IHttpActionResult InviteResponse([FromBody]PropositionAnswerBindingModel model)
         {
-            var users = _db.Users.Select(u => new { id = u.UserId, FirstName = u.FirstName, LastName = u.LastName }).ToList();
-            return users;
+            Startup.OrganiserManagerFactory().NotifyOrganiser(model);
+            return Ok();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            //this._contactUoW.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

@@ -16,6 +16,9 @@ using Microsoft.Owin.Security.OAuth;
 using CeMeOCore.Models;
 using CeMeOCore.Providers;
 using CeMeOCore.Results;
+using CeMeOCore.DAL.UnitsOfWork;
+using System.Data.Entity.Validation;
+using log4net;
 
 namespace CeMeOCore.Controllers
 {
@@ -24,7 +27,9 @@ namespace CeMeOCore.Controllers
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
-        private CeMeoContext _db = new CeMeoContext();
+        private UserUoW _userUoW;
+
+        private readonly ILog logger = log4net.LogManager.GetLogger(typeof(AccountController));
 
         public AccountController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
@@ -36,6 +41,7 @@ namespace CeMeOCore.Controllers
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
+            this._userUoW = new UserUoW();
         }
 
         public UserManager<IdentityUser> UserManager { get; private set; }
@@ -53,6 +59,26 @@ namespace CeMeOCore.Controllers
                 UserName = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+            };
+        }
+
+        [Route("Profile")]
+        public UserProfileBindingModel GetProfile()
+        {
+            string id = User.Identity.GetUserId();
+
+            UserProfile up = this._userUoW.UserProfileRepository.Get(u => u.aspUser == id).First();
+            //UserProfile up = _db.Users.Where(u => u.aspUser == id).First();
+                        
+            return new UserProfileBindingModel() 
+            { 
+              UserId = up.UserId,
+              UserName = up.UserName,
+              aspUser = up.aspUser,
+              EMail = up.EMail,
+              FirstName = up.FirstName,
+              LastName = up.LastName,
+              PreferedLocation = up.PreferedLocation
             };
         }
 
@@ -142,6 +168,35 @@ namespace CeMeOCore.Controllers
                 return errorResult;
             }
 
+            return Ok();
+        }
+
+        [Route("SetLocation")]
+        public IHttpActionResult SetLocation([FromBody] int LocationID)
+        {
+            string id = User.Identity.GetUserId();
+            
+            try
+            {
+                UserProfile up = this._userUoW.UserProfileRepository.Get(u => u.aspUser == id).FirstOrDefault();
+                up.PreferedLocation = this._userUoW.LocationRepository.GetByID(LocationID);
+                this._userUoW.UserProfileRepository.Update(up);
+                this._userUoW.Save();
+            }
+            catch( DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+	            {
+                    foreach (DbValidationError error in item.ValidationErrors)
+                    {
+                        logger.Error(error.ErrorMessage);
+                    }
+	            }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             return Ok();
         }
 
@@ -315,7 +370,7 @@ namespace CeMeOCore.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(LoginBindingModel model)
+        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -336,9 +391,9 @@ namespace CeMeOCore.Controllers
                 UserCalendar = new Calendar()
             };
 
-            _db.Users.Add(profile);
-            _db.SaveChanges();
-
+            this._userUoW.UserProfileRepository.Insert(profile);
+            this._userUoW.Save();
+            
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -395,9 +450,9 @@ namespace CeMeOCore.Controllers
                 UserManager.Dispose();
             }
 
-            if (_db != null)
+            if (_userUoW != null)
             {
-                _db.Dispose();
+                _userUoW.Dispose();
             }
 
             base.Dispose(disposing);

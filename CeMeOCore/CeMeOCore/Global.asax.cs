@@ -1,4 +1,6 @@
-﻿using System;
+﻿using log4net;
+using log4net.Config;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace CeMeOCore
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(WebApiApplication));
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -20,6 +23,7 @@ namespace CeMeOCore
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            XmlConfigurator.Configure(); 
         }
     }
 }

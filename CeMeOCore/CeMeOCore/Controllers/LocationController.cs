@@ -1,164 +1,98 @@
-﻿using CeMeOCore.Models;
+﻿using CeMeOCore.DAL.UnitsOfWork;
+using CeMeOCore.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using PagedList;
+using System.Net.Http;
+using System.Web.Http;
 
 namespace CeMeOCore.Controllers
 {
-    public class LocationController : Controller
+    [Authorize]
+    public class LocationController : ApiController
     {
-        private CeMeoContext _db = new CeMeoContext();
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        private readonly ILog logger = log4net.LogManager.GetLogger(typeof(LocationController));
+        private LocationUoW _locationUoW;
+
+        public LocationController()
         {
-            //Title of the page
-            ViewBag.Title = "Overview of all the Locations.";
+            this._locationUoW = new LocationUoW();
+        }
 
-            //Sorting
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name" : "";
-            ViewBag.StreetSortParm = sortOrder == "Street" ? "Street" : "Street";
-            ViewBag.NumberSortParm = sortOrder == "Number" ? "Number" : "Number";
-            ViewBag.ZipSortParm = sortOrder == "City" ? "City" : "City";
-            ViewBag.CitySortParm = sortOrder == "Zip" ? "Zip" : "Zip";
-            ViewBag.CountrySortParm = sortOrder == "Country" ? "Country" : "Country";
-            ViewBag.StateSortParm = sortOrder == "State" ? "State" : "State";
+        // GET api/Location
+        [AcceptVerbs("GET")]
+        public IEnumerable<Location> Get()
+        {
+            return this._locationUoW.LocationRepository.Get();
+        }
 
-            //Paging
-            if (searchString != null)
+        // GET api/values/5
+        [AcceptVerbs("GET")]
+        public HttpResponseMessage Get(HttpRequestMessage mes, int id)
+        {
+            Location ll;
+            try
             {
-                page = 1;
+                ll = this._locationUoW.LocationRepository.GetByID(id);
             }
-            else
+            catch (Exception)
             {
-                searchString = currentFilter;
+
+                return mes.CreateResponse(HttpStatusCode.NoContent);
             }
+            return mes.CreateResponse(HttpStatusCode.Found, ll);
 
-            ViewBag.CurrentFilter = searchString;
-            //End paging
-
-            var locs = from s in _db.Locations select s;
             
-            //Searching
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                locs = locs.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper()));
-            }
-            //End searching
-
-            switch (sortOrder)
-            {
-                case "Name":
-                    locs = locs.OrderByDescending(s => s.Name);
-                    break;
-                case "Street":
-                    locs = locs.OrderBy(s => s.Street);
-                    break;
-                case "Number":
-                    locs = locs.OrderByDescending(s => s.Number);
-                    break;
-                case "City":
-                    locs = locs.OrderByDescending(s => s.City);
-                    break;
-                case "Zip":
-                    locs = locs.OrderByDescending(s => s.Zip);
-                    break;
-                case "Country":
-                    locs = locs.OrderByDescending(s => s.Country);
-                    break;
-                case "State":
-                    locs = locs.OrderByDescending(s => s.State);
-                    break;
-                default:
-                    locs = locs.OrderBy(s => s.Name);
-                    break;
-            }
-
-            //Paging
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            return View(locs.ToPagedList(pageNumber, pageSize));
-            //End sorting
         }
 
-        public ActionResult Details(int id)
+        // POST api/values
+        [AcceptVerbs("POST")]
+        public void Post([FromBody]Location value)
         {
-            var loc = _db.Locations.Find(id);
-            return View(loc);
-        }
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LocationID,Name,Street,Number,Zip,City,State,Country,Addition")] Location location)
-        {
-            if (ModelState.IsValid)
+            try
             {
-                _db.Locations.Add(location);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                this._locationUoW.LocationRepository.Insert(value);
+                this._locationUoW.Save();
+            }
+            catch (Exception)
+            {
+                
+                throw;
             }
 
-            return View(location);
         }
 
-        public ActionResult Edit(int? id)
+        // PUT api/values/5
+        [AcceptVerbs("PUT")]
+        public void Put(int id, [FromBody]Location value)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                this._locationUoW.LocationRepository.Update(value);
+                this._locationUoW.Save();
             }
-            Location location = _db.Locations.Find(id);
-            if (location == null)
+            catch(Exception)
             {
-                return HttpNotFound();
+                throw;
             }
-            return View(location);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LocationID,Name,Street,Number,Zip,City,State,Country,Addition")] Location location)
+        // DELETE api/values/5
+        [AcceptVerbs("DELETE")]
+        public void Delete(int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _db.Entry(location).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                var loc = this._locationUoW.LocationRepository.GetByID(id);
+                this._locationUoW.LocationRepository.Delete(loc);
+                this._locationUoW.Save();
             }
-            return View(location);
-        }
-
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
+            catch (Exception)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw;
             }
-            Location location = _db.Locations.Find(id);
-            if (location == null)
-            {
-                return HttpNotFound();
-            }
-            return View(location);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Location location = _db.Locations.Find(id);
-            _db.Locations.Remove(location);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
         }
     }
 }
