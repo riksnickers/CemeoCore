@@ -32,7 +32,7 @@ namespace CeMeOCore.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class LoginBindingModel
+    public class RegisterBindingModel
     {
         [Required]
         [Display(Name = "User name")]
