@@ -152,9 +152,9 @@ namespace CeMeOCore.Logic.Organiser
 
         private void ChangeReservedSpot(Guid ReservedSpotGuid, DateTime start, DateTime end)
         {
-            ReservedSpot r = Startup.SpotManagerFactory().GetReservedSpot(ReservedSpotGuid);
+            ReservedSpot r = Startup.SpotManagerFactory.GetReservedSpot(ReservedSpotGuid);
             ReservedSpot rnew = new ReservedSpot(){DateRange = new DateRange(start, end), Guid = ReservedSpotGuid};
-            Startup.SpotManagerFactory().ChangeReservedSpot(r.DateRange, rnew);
+            Startup.SpotManagerFactory.ChangeReservedSpot(r.DateRange, rnew);
         }
         
         /// <summary>
@@ -173,7 +173,7 @@ namespace CeMeOCore.Logic.Organiser
             reservedSpot.DateRange = proposalDateRange;
             Guid ReservedSpotGuid = reservedSpot.Guid;
             //TODO: change key reservedspot when daterange changes
-            Startup.SpotManagerFactory().AddSpot(reservedSpot);
+            Startup.SpotManagerFactory.AddSpot(reservedSpot);
 
             //A new proposel to send to the invitees will be created
             Proposition proposition = new Proposition(ReservedSpotGuid);
@@ -194,6 +194,7 @@ namespace CeMeOCore.Logic.Organiser
                     try
                     {
                         inv.Proposal = proposition;
+                        this._organiserUoW.PropositionRepository.Insert(proposition);
                         this._organiserUoW.UserProfileRepository.Update(inv);
                     }
                     catch(Exception)
@@ -201,6 +202,7 @@ namespace CeMeOCore.Logic.Organiser
                         
                     }
                 }
+                this._organiserUoW.Save();
             }
             catch (Exception)
             {
@@ -213,7 +215,7 @@ namespace CeMeOCore.Logic.Organiser
         {
             ProposalDateRange proposalDateRange = prop;
 
-            SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory().GetPersonBlackSpots(this.OrganiserID);
+            SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory.GetPersonBlackSpots(this.OrganiserID);
             //Try to find a good daterange looking at persons
             try
             {
@@ -258,8 +260,8 @@ namespace CeMeOCore.Logic.Organiser
 
         private Room GetProposalRoom(ProposalDateRange proposalDateRange, Guid reservedSpot) 
         {
-            SortedList<DateRange, RoomBlackSpot> rbss = Startup.SpotManagerFactory().GetRoomBlackSpots();
-            SortedList<DateRange, ReservedSpot> rss = Startup.SpotManagerFactory().GetReservedSpots();
+            SortedList<DateRange, RoomBlackSpot> rbss = Startup.SpotManagerFactory.GetRoomBlackSpots();
+            SortedList<DateRange, ReservedSpot> rss = Startup.SpotManagerFactory.GetReservedSpots();
 
             Room proposalRoom = null;
             //TODO determine best location

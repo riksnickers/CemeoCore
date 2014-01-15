@@ -90,7 +90,7 @@ namespace CeMeOCore.Controllers
         [ResponseType(typeof(ScheduleMeetingBindingModel))]
         public IHttpActionResult Schedule(HttpRequestMessage mes, [FromBody]ScheduleMeetingBindingModel model)
         {
-            Startup.OrganiserManagerFactory().Create(model);
+            Startup.OrganiserManagerFactory.Create(model);
 
             return Ok();
         }
@@ -139,7 +139,7 @@ namespace CeMeOCore.Controllers
         [Route("PropositionAnswer")]
         public IHttpActionResult InviteResponse([FromBody]PropositionAnswerBindingModel model)
         {
-            Startup.OrganiserManagerFactory().NotifyOrganiser(model);
+            Startup.OrganiserManagerFactory.NotifyOrganiser(model);
             return Ok();
         }
 

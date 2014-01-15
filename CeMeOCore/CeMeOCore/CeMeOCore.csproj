@@ -235,6 +235,8 @@
     <Compile Include="DAL\Repositories\GenericRepository.cs" />
     <Compile Include="DAL\Repositories\InviteeRepository.cs" />
     <Compile Include="DAL\Repositories\MeetingRepository.cs" />
+    <Compile Include="DAL\Repositories\OrganiserRepository.cs" />
+    <Compile Include="DAL\Repositories\PropositionRepository.cs" />
     <Compile Include="DAL\Repositories\RoomRepository.cs" />
     <Compile Include="DAL\Repositories\UserProfileRepository.cs" />
     <Compile Include="DAL\UnitsOfWork\ContactUoW.cs" />

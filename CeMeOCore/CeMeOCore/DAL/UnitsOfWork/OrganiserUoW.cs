@@ -11,6 +11,7 @@ namespace CeMeOCore.DAL.UnitsOfWork
     {
         private CeMeoContext context = new CeMeoContext();
         private InviteeRepository _inviteeRepository;
+        private PropositionRepository _propositionRepository;
 
         public InviteeRepository UserProfileRepository
         {
@@ -21,6 +22,18 @@ namespace CeMeOCore.DAL.UnitsOfWork
                     this._inviteeRepository = new InviteeRepository(context);
                 }
                 return this._inviteeRepository;
+            }
+        }
+
+        public PropositionRepository PropositionRepository
+        {
+            get
+            {
+                if(this._propositionRepository == null )
+                {
+                    this._propositionRepository = new PropositionRepository(context);
+                }
+                return this._propositionRepository;
             }
         }
 
