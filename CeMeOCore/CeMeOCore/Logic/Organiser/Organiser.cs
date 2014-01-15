@@ -161,7 +161,7 @@ namespace CeMeOCore.Logic.Organiser
             //TODO: Add room logic
             //HACK: Refactor Person available logic.
             //This is our start proposal daterange
-            ProposalDateRange proposalDateRange = null;
+            ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this.Duration));
             Room proposalRoom = null;
 
             //A reserved spot will be added to the list to reserve this proposition.
@@ -177,7 +177,7 @@ namespace CeMeOCore.Logic.Organiser
             //Try to make a proposal
             try
             {
-                proposalDateRange = GetProposalDate(proposition.ReservedSpotGuid);
+                proposalDateRange = GetProposalDate(proposalDateRange, proposition.ReservedSpotGuid);
                 proposalRoom = GetProposalRoom(proposalDateRange, proposition.ReservedSpotGuid);
 
                 //Now let's create the proposal.
@@ -205,9 +205,9 @@ namespace CeMeOCore.Logic.Organiser
             }          
         }
 
-        private ProposalDateRange GetProposalDate(Guid reservedSpot)
+        private ProposalDateRange GetProposalDate(ProposalDateRange prop, Guid reservedSpot)
         {
-            ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this.Duration));
+            ProposalDateRange proposalDateRange = prop;
 
             SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory().GetPersonBlackSpots(this.OrganiserID);
             //Try to find a good daterange looking at persons
