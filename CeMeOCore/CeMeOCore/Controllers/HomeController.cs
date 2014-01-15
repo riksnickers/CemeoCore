@@ -14,12 +14,5 @@ namespace CeMeOCore.Controllers
 
             return View();
         }
-
-        // POST api/Account/Register
-        [AllowAnonymous]
-        public void CheckLogin(string[] data)
-        {
-
-        }
     }
 }

@@ -1,22 +1,22 @@
 ﻿$("#signInForm").submit(function (event) {
-    //event.preventDefault();
-    var postData = JSON.stringify({
-        "username": $("#username").val(),
-        "password": $("#password").val()
-    });
+    event.preventDefault();
+    var postdate = {
+        username: "admin",
+        password: "superadmin"
+    };
+
+
     $.ajax({
         type: "POST",
-        url: "api/Account/Register",
-        data: postdata,
-        dataType: "json", //The dataType we get back from the server
-        succes: 
-            function (data, status) {
-                console.log("The returned token:" + data.access_token + "    Status:" + status);
-                document.cookie = "token=" + data.access_token;
-                alert("succefully");
-            },
+        url: "/Token",
+        data: JSON.stringify(postdata),
+        dataType: "json", //The dataType we get back from the server,
+        contentType: 'application/json; charset=utf-8',
+        success: function (postdata) {
+            alert("succes");
+        },
         error: function () {
-            alert("Error try again");
+            alert("error");
         }
-    })
-})
+    });
+});

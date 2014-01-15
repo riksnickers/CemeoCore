@@ -27,6 +27,17 @@ namespace CeMeOCore
             //Load Cemeo bundle jqeury
             bundles.Add(new ScriptBundle("~/bundles/cemeo").Include(
                 "~/Scripts/cemeo.js"));
+
+            bundles.Add(new StyleBundle("~/Content/admincss").Include(
+                      "~/assets/css/bootstrap.css",
+                      "~/assets/css/sb-admin.css",
+                      "~/assets/css/font-awesome.min.css"
+                    ));
+
+            bundles.Add(new ScriptBundle("~/bundles/adminjs").Include(
+                "~/assets/js/jquery-1.10.2.js",
+                "~/assets/js/bootstrap.js"
+                ));
         }
     }
 }

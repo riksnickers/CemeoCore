@@ -79,5 +79,12 @@ namespace CeMeOCore.Controllers
             var App = _db.Appointments.Find(id);
             return View(App);
         }
+
+        //
+        // GET: /Appointment/Details/5
+        public ActionResult Try()
+        {
+            return View();
+        }
     }
 }
