@@ -39,4 +39,10 @@ namespace CeMeOCore.Models
 
         public int Addition { get; set; }
     }
+
+    public class SetLocationBindingModel
+    {
+        [Required]
+        public int LocationID { get; set; }
+    }
 }

@@ -172,14 +172,14 @@ namespace CeMeOCore.Controllers
         }
 
         [Route("SetLocation")]
-        public IHttpActionResult SetLocation([FromBody] int LocationID)
+        public IHttpActionResult SetLocation([FromBody] SetLocationBindingModel model)
         {
             string id = User.Identity.GetUserId();
             
             try
             {
                 UserProfile up = this._userUoW.UserProfileRepository.Get(u => u.aspUser == id).FirstOrDefault();
-                up.PreferedLocation = this._userUoW.LocationRepository.GetByID(LocationID);
+                up.PreferedLocation = this._userUoW.LocationRepository.GetByID(model.LocationID);
                 this._userUoW.UserProfileRepository.Update(up);
                 this._userUoW.Save();
             }
