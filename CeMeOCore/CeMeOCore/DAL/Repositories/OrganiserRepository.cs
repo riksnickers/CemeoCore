@@ -7,6 +7,10 @@ namespace CeMeOCore.DAL.Repositories
 {
     public class OrganiserRepository
     {
+        /// <summary>
+        /// Soon
+        /// </summary>
+        /// <param name="dbContext">The database context</param>
         public OrganiserRepository()
         {
 

@@ -6,41 +6,75 @@ using System.Web;
 
 namespace CeMeOCore.Logic.Spots
 {
+    /// <summary>
+    /// The spotManager holds all the spots
+    /// Needs to be converted to a repository
+    /// </summary>
     public class SpotManager
     {
-        //private SortedList<DateRange, PersonBlackSpot> _personSpots;
-        private Dictionary<String, SortedList<DateRange, PersonBlackSpot>> _organiserPersonSpots;
+        /// <summary>
+        /// Private SortedLists and a dictionary for saving the spots.
+        /// </summary>
+        private Dictionary<String, SortedList<DateRange, PersonBlackSpot>> _organiserPersonSpots; //Nested collection Dictionary + SortedList
         private SortedList<DateRange, RoomBlackSpot> _roomSpots;
         private SortedList<DateRange, ReservedSpot> _reservedSpots;
 
+        /// <summary>
+        /// The constructors initializes all collections ( but not the nested SortedList )
+        /// </summary>
         public SpotManager()
         {
-            //this._personSpots = new SortedList<DateRange, PersonBlackSpot>(new DateRange.Comparer());
             this._organiserPersonSpots = new Dictionary<string, SortedList<DateRange, PersonBlackSpot>>();
             this._roomSpots = new SortedList<DateRange, RoomBlackSpot>(new DateRange.Comparer());
             this._reservedSpots = new SortedList<DateRange, ReservedSpot>(new DateRange.Comparer());
         }
 
+        /// <summary>
+        /// Get the SortedList for an organiser.
+        /// </summary>
+        /// <param name="OrganiserID"></param>
+        /// <returns></returns>
         public SortedList<DateRange, PersonBlackSpot> GetPersonBlackSpots(string OrganiserID)
         {
+            if (!this._organiserPersonSpots.ContainsKey(OrganiserID))
+            {
+                this._organiserPersonSpots.Add(OrganiserID, new SortedList<DateRange, PersonBlackSpot>(new DateRange.Comparer()));
+            }
             return this._organiserPersonSpots[OrganiserID];
         }
 
+        /// <summary>
+        /// Get the SortedList of the roomBlackSpots
+        /// </summary>
+        /// <returns></returns>
         public SortedList<DateRange, RoomBlackSpot> GetRoomBlackSpots()
         {
             return this._roomSpots;
         }
 
+        /// <summary>
+        /// Get the SortedList of the ReservedSpots
+        /// </summary>
+        /// <returns></returns>
         public SortedList<DateRange, ReservedSpot> GetReservedSpots()
         {
             return this._reservedSpots;
         }
-
+        
+        /// <summary>
+        /// Get a specific reservedSpot
+        /// </summary>
+        /// <param name="guid">Guid of the spot</param>
+        /// <returns></returns>
         public ReservedSpot GetReservedSpot(Guid guid)
         {
             return this._reservedSpots.Where(s => s.Value.Guid == guid).FirstOrDefault().Value;
         }
 
+        /// <summary>
+        /// Add a spot to the correct list
+        /// </summary>
+        /// <param name="spot"></param>
         public void AddSpot(ISpot spot)
         {
             try
@@ -69,11 +103,16 @@ namespace CeMeOCore.Logic.Spots
             }
             catch (Exception)
             {
-                
+                //TODO: add logging
                 throw;
             }
         }
 
+        /// <summary>
+        /// Change the Reserved Spot.. Still a work in progress
+        /// </summary>
+        /// <param name="OldDR"></param>
+        /// <param name="NewDR"></param>
         public void ChangeReservedSpot(DateRange OldDR, ReservedSpot NewDR)
         {
             try

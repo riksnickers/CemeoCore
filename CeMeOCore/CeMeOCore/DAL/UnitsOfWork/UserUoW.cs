@@ -7,13 +7,25 @@ using System.Web;
 
 namespace CeMeOCore.DAL.UnitsOfWork
 {
+    /// <summary>
+    /// The unit of work used in the AccountController.
+    /// </summary>
     public class UserUoW : IDisposable
     {
+        /// <summary>
+        /// The initialization of the context.
+        /// </summary>
         private CeMeoContext context = new CeMeoContext();
+        /// <summary>
+        /// The needed repositories
+        /// </summary>
         private UserProfileRepository _userProfileRepository;
         private GenericRepository<Location> _locationRepository;
         private InviteeRepository _inviteeRepository;
 
+        /// <summary>
+        /// The UserProfileRepository property
+        /// </summary>
         public UserProfileRepository UserProfileRepository
         {
             get
@@ -26,6 +38,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
             }
         }
 
+        /// <summary>
+        /// The UserProfileRepository property
+        /// </summary>
         public GenericRepository<Location> LocationRepository
         {
             get
@@ -38,6 +53,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
             }
         }
 
+        /// <summary>
+        /// The UserProfileRepository property
+        /// </summary>
         public InviteeRepository InviteeRepository
         {
             get
@@ -50,6 +68,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
             }
         }
 
+        /// <summary>
+        /// Save the context
+        /// </summary>
         public void Save()
         {
             context.SaveChanges();
@@ -57,6 +78,10 @@ namespace CeMeOCore.DAL.UnitsOfWork
 
         private bool disposed = false;
 
+        /// <summary>
+        /// Disposes the context
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -69,6 +94,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
             this.disposed = true;
         }
 
+        /// <summary>
+        /// Dispose function
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

@@ -7,11 +7,23 @@ using System.Web;
 
 namespace CeMeOCore.DAL.UnitsOfWork
 {
+    /// <summary>
+    /// This is the Unit of Work for the LocationController
+    /// </summary>
     public class LocationUoW : IDisposable
     {
+        /// <summary>
+        /// The initialization of the context.
+        /// </summary>
         private CeMeoContext context = new CeMeoContext();
+        /// <summary>
+        /// The repository needed here
+        /// </summary>
         private GenericRepository<Location> _locationRepository;
 
+        /// <summary>
+        /// The GenericRepository initialized with Location 
+        /// </summary>
         public GenericRepository<Location> LocationRepository
         {
             get
@@ -25,6 +37,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
             }
         }
 
+        /// <summary>
+        /// Save the context
+        /// </summary>
         public void Save()
         {
             context.SaveChanges();
@@ -32,6 +47,10 @@ namespace CeMeOCore.DAL.UnitsOfWork
 
         private bool disposed = false;
 
+        /// <summary>
+        /// Dispose the context
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -44,6 +63,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
             this.disposed = true;
         }
 
+        /// <summary>
+        /// Dispose method
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

@@ -8,6 +8,9 @@ using CeMeOCore.Logic.Range;
 
 namespace CeMeOCore.Logic.Spots
 {
+    /// <summary>
+    /// Interface for a spot
+    /// </summary>
     public interface ISpot
     {
         SpotBoolean isAvailable(DateTime value);

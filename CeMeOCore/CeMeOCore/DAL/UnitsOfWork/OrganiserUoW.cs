@@ -7,13 +7,27 @@ using System.Web;
 
 namespace CeMeOCore.DAL.UnitsOfWork
 {
+    /// <summary>
+    /// This is the Unit of Work for the Organiser Class
+    /// </summary>
     public class OrganiserUoW
     {
+        /// <summary>
+        /// The initialization of the context.
+        /// </summary>
         private CeMeoContext context = new CeMeoContext();
+        /// <summary>
+        /// The repositories used in the organiser
+        /// </summary>
         private InviteeRepository _inviteeRepository;
         private PropositionRepository _propositionRepository;
+        private RoomRepository _roomRepository;
+        private UserProfileRepository _userProfileRepository;
 
-        public InviteeRepository UserProfileRepository
+        /// <summary>
+        /// The InviteeRepository Property
+        /// </summary>
+        public InviteeRepository InviteeRepository
         {
             get
             {
@@ -25,6 +39,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
             }
         }
 
+        /// <summary>
+        /// The PropositionRepository Property
+        /// </summary>
         public PropositionRepository PropositionRepository
         {
             get
@@ -37,6 +54,39 @@ namespace CeMeOCore.DAL.UnitsOfWork
             }
         }
 
+        /// <summary>
+        /// The RoomRepository Property
+        /// </summary>
+        public RoomRepository RoomRepository
+        {
+            get
+            {
+                if(this._roomRepository == null)
+                {
+                    this._roomRepository = new RoomRepository(context);
+                }
+                return this._roomRepository;
+            }
+        }
+
+        /// <summary>
+        /// The UserProfileRepository Property
+        /// </summary>
+        public UserProfileRepository UserProfileRepository
+        {
+            get
+            {
+                if (this._userProfileRepository == null)
+                {
+                    this._userProfileRepository = new UserProfileRepository(context);
+                }
+                return this._userProfileRepository;
+            }
+        }
+
+        /// <summary>
+        /// Save the context
+        /// </summary>
         public void Save()
         {
             context.SaveChanges();
@@ -44,6 +94,10 @@ namespace CeMeOCore.DAL.UnitsOfWork
 
         private bool disposed = false;
 
+        /// <summary>
+        /// Dispose the context
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -56,6 +110,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
             this.disposed = true;
         }
 
+        /// <summary>
+        /// Dispose method
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

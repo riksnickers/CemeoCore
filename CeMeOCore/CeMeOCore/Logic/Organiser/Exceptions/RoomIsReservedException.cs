@@ -5,6 +5,9 @@ using System.Web;
 
 namespace CeMeOCore.Logic.Organiser.Exceptions
 {
+    /// <summary>
+    /// Exception for when a room is reserved
+    /// </summary>
     public class RoomIsReservedException : Exception
     {
     }

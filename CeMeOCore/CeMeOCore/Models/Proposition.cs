@@ -7,6 +7,9 @@ using System.Web;
 
 namespace CeMeOCore.Models
 {
+    /// <summary>
+    /// A proposition will be added to Invitee, this will be send to a user.
+    /// </summary>
     public class Proposition
     {
         [Key]
@@ -15,6 +18,7 @@ namespace CeMeOCore.Models
         // A proposition is for an invitee wich contains a Room (+location) and a start span
         public Proposition( Guid reservedSpotGuid)
         {
+            this.Id = Guid.NewGuid().ToString();
             this.ReservedSpotGuid = reservedSpotGuid;
         }
         
@@ -30,6 +34,7 @@ namespace CeMeOCore.Models
     }
 
     //This is the bindingModel for when a user request their proposition.
+    //hmm..
     public class GetPropositionBindingModel
     {
         [Required]

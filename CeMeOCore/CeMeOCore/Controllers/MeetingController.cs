@@ -20,13 +20,14 @@ namespace CeMeOCore.Controllers
     [RoutePrefix("api/Meeting")]
     public class MeetingController : ApiController
     {
-        private CeMeoContext _db = new CeMeoContext();
-
-        private SampleUoW suow;
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        private static readonly ILog log = LogManager.GetLogger(typeof(MeetingController));
 
         public MeetingController ()
         {
-            suow = new SampleUoW();
+            
         }
 
         ///<summary>
@@ -78,8 +79,6 @@ namespace CeMeOCore.Controllers
             return new string[]{"Latest "+ latest +" Upcomming "};
         }
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(MeetingController));
-
         /// <summary>
         ///   This will start scheduling a meeting.
         /// </summary>
@@ -110,6 +109,7 @@ namespace CeMeOCore.Controllers
         }
 
         /// <summary>
+        /// Not used, can be maybe deleted.
         /// If you provide a InviteeID and a OrganiserID you get a proposition returned.
         /// </summary>
         /// <param name="Invitee_id"></param>
@@ -122,6 +122,11 @@ namespace CeMeOCore.Controllers
             return null;
         }
 
+        /// <summary>
+        /// Not used, can be maybe deleted.
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
         [AcceptVerbs("GET")]
         [Route("Proposition")]
         public Proposition GetPropositions(int userid)
@@ -144,10 +149,13 @@ namespace CeMeOCore.Controllers
         }
 
         
-
+        /// <summary>
+        /// Dispose the context and the controller
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            //this._contactUoW.Dispose();
+            //this.context.Dispose();
             base.Dispose(disposing);
         }
     }

@@ -7,6 +7,11 @@ using System.Web;
 
 namespace CeMeOCore.DAL.UnitsOfWork
 {
+    /// <summary>
+    /// Still in progress, no comments yet, please come back soon...
+    /// Still thinking about the function of this UoW..
+    /// Sorry..
+    /// </summary>
     public class MeetingControllerUoW
     {
         private CeMeoContext context = new CeMeoContext();

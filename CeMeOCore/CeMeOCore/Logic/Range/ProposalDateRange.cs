@@ -5,6 +5,9 @@ using System.Web;
 
 namespace CeMeOCore.Logic.Range
 {
+    /// <summary>
+    /// A proposal dataRange is a mini version of the normal DateRange
+    /// </summary>
     public class ProposalDateRange : DateRange
     {
         public ProposalDateRange(DateTime start, DateTime end) : base(start, end)

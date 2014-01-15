@@ -8,11 +8,20 @@ using System.Web.Http;
 
 namespace CeMeOCore.Controllers
 {
+    /// <summary>
+    /// The WebAPI Contact controller. This will handle all contact actions
+    /// </summary>
     [RoutePrefix("api/Contact")]
     public class ContactController : ApiController
     {
+        /// <summary>
+        /// This is the private property for the Contact Unit of Work
+        /// </summary>
         private ContactUoW _contactUoW;
 
+        /// <summary>
+        /// The constructor will initialize the Unit of Work
+        /// </summary>
         public ContactController()
         {
             this._contactUoW = new ContactUoW();
@@ -30,9 +39,16 @@ namespace CeMeOCore.Controllers
             return this._contactUoW.UserProfileRepository.GetContactsCompact();
         }
 
+        /// <summary>
+        /// Dispose the Controller + Unit of work
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            this._contactUoW.Dispose();
+            if (this._contactUoW != null)
+            {
+                this._contactUoW.Dispose();
+            }
             base.Dispose(disposing);
         }
     }
