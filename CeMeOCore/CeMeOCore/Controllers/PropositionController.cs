@@ -69,11 +69,6 @@ namespace CeMeOCore.Controllers
             return propositions;
         }
 
-
-        public PropositionController()
-        {
-
-        }
         // GET api/<controller>
         public IEnumerable<string> Get()
         {
