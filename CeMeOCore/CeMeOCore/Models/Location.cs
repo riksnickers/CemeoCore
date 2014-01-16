@@ -12,6 +12,7 @@ namespace CeMeOCore.Models
         [Key]
         public int LocationID { get; set; }
 
+        //Name of a locations
         [Required]
         [StringLength(100)]
         public String Name { get; set; }

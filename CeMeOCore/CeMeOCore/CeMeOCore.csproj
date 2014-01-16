@@ -399,7 +399,7 @@
     <Content Include="Views\Appointment\Delete.cshtml" />
     <Content Include="Views\Appointment\Details.cshtml" />
     <Content Include="Views\Appointment\Edit.cshtml" />
-    <Content Include="Views\Appointment\Index.cshtml" />
+    <Content Include="Views\Appointment\Indexr.cshtml" />
     <Content Include="Views\Calendar\Create.cshtml" />
     <Content Include="Views\Calendar\Delete.cshtml" />
     <Content Include="Views\Calendar\Details.cshtml" />
@@ -420,6 +420,8 @@
     <Content Include="Views\UserProfile\Details.cshtml" />
     <Content Include="Views\UserProfile\Edit.cshtml" />
     <Content Include="Views\UserProfile\Index.cshtml" />
+    <Content Include="Views\Shared\AdminHeader.cshtml" />
+    <Content Include="Views\Shared\AdminFooter.cshtml" />
     <Content Include="Views\Appointment\Try.cshtml" />
   </ItemGroup>
   <ItemGroup>

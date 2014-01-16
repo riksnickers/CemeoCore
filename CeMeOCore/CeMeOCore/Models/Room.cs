@@ -27,6 +27,7 @@ namespace CeMeOCore.Models
         [Display(Name = "LocationID")]
         public virtual Location LocationID { get; set; }
 
+        //boolean for if there is a beamer already in the room
         [Required]
         [Display(Name = "Is there a beamer present?")]
         public bool BeamerPresent { get; set; }

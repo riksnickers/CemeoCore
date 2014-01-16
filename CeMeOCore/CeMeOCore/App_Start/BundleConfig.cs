@@ -36,7 +36,9 @@ namespace CeMeOCore
 
             bundles.Add(new ScriptBundle("~/bundles/adminjs").Include(
                 "~/assets/js/jquery-1.10.2.js",
-                "~/assets/js/bootstrap.js"
+                "~/assets/js/bootstrap.js",
+                "~/assets/js/tablesorter/jquery.tablesorter.js",
+                "~/assets/js/tablesorter/tables.js"
                 ));
         }
     }

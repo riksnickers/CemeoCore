@@ -21,6 +21,7 @@ namespace CeMeOCore.Controllers
         // GET: /Appointment/
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            //Takes care of the sorting
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Description" : "";
             ViewBag.DescriptionSortParm = sortOrder == "Description" ? "Description" : "Description";
@@ -29,6 +30,7 @@ namespace CeMeOCore.Controllers
             ViewBag.EndTimeSortParm = sortOrder == "EndTime" ? "EndTime" : "EndTime";
             ViewBag.LocationSortParm = sortOrder == "Location" ? "Location" : "Location";
 
+            //paging and sorting
             if (searchString != null)
             {
                 page = 1;
@@ -40,11 +42,13 @@ namespace CeMeOCore.Controllers
             ViewBag.CurrentFilter = searchString;
             var apps = from s in _db.Appointments select s;
 
+            //control if there is a search
             if (!String.IsNullOrEmpty(searchString))
             {
                 apps = apps.Where(s => s.Description.ToUpper().Contains(searchString.ToUpper()));
             }
 
+            //sorting
             switch (sortOrder)
             {
                 case "Description":
@@ -67,15 +71,17 @@ namespace CeMeOCore.Controllers
                     break;
             }
 
+            //paging
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(apps.ToPagedList(pageNumber, pageSize));
+            return PartialView("AdminHeader", apps.ToPagedList(pageNumber, pageSize));
         }
 
         //
         // GET: /Appointment/Details/5
         public ActionResult Details(int id)
         {
+            //Shows the details of a specific appointment
             var App = _db.Appointments.Find(id);
             return View(App);
         }
