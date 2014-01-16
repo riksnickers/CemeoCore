@@ -74,7 +74,7 @@ namespace CeMeOCore.Controllers
             //paging
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return PartialView("AdminHeader", apps.ToPagedList(pageNumber, pageSize));
+            return View(apps.ToPagedList(pageNumber, pageSize));
         }
 
         //

@@ -1,87 +1,133 @@
-﻿
-@model PagedList.IPagedList<CeMeOCore.Models.Location>
+﻿@model PagedList.IPagedList<CeMeOCore.Models.Location>
 @using PagedList.Mvc;
- 
+
 @{
-    ViewBag.Title = "Locations";
+    ViewBag.title = "Locations";
+    Layout = "~/Views/Shared/AdminHeader.cshtml";
 }
 
-<h2>Locations</h2>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 @using (Html.BeginForm("Index", "Location", FormMethod.Get))
 {
-    <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "control-label col-md-2" })
-        <input type="submit" value="Search" class="btn btn-default" />
-    </p>
+    <div class="form-group input-group" role="search">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-default"><i class="fa fa-search">Search</i></button>
+        </span>
+    </div>
 }
-<table class="table">
-    <tr>
-        <th>
-           @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Street", "Index", new { sortOrder = ViewBag.StreetSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Number", "Index", new { sortOrder = ViewBag.NumberSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Addition", "Index", new { sortOrder = ViewBag.AdditionSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Zip", "Index", new { sortOrder = ViewBag.ZipSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParm })
-        </th>
-        <th>
-            @Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StateSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Country", "Index", new { sortOrder = ViewBag.CountrySortParm })
-        </th>
-        <th></th>
-    </tr>
+<div class="col-lg-6">
+    <h2>Striped Rows</h2>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped tablesorter">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Street", "Index", new { sortOrder = ViewBag.StreetSortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Number", "Index", new { sortOrder = ViewBag.NumberSortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Addition", "Index", new { sortOrder = ViewBag.AdditionSortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Zip", "Index", new { sortOrder = ViewBag.ZipSortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StateSortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Country", "Index", new { sortOrder = ViewBag.CountrySortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                </tr>
+            </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Street)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Number)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Addition)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Zip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Country)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.LocationID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.LocationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.LocationID })
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Street)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Number)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Addition)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Zip)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.State)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Country)
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-wrench"></span>
+                                </button>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <span class="glyphicon glyphicon-pencil">
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.LocationID })
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-search">
+                                            @Html.ActionLink("Details", "Details", new { id = item.LocationID })
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-remove-circle">
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.LocationID })
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                        </td>
+                    </tr>
+                </tbody>
+            }
 
-</table>
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        </table>
+        <!-- /btn-group -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Create New", "Create")</li>
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </ul>
+        </div><!-- /btn-group -->
+    </div>
+</div>
+
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

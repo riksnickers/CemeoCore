@@ -1,6 +1,65 @@
-﻿@{
-    Layout = "~/Views/Shared/AdminHeader.cshtml";
+﻿@model PagedList.IPagedList<CeMeOCore.Models.Appointment>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Appointments";
 }
+
+<h2>Appointments</h2>
+@using (Html.BeginForm("Index", "Appointment", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "control-label col-md-2" }))
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescriptionSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("BeginTime", "Index", new { sortOrder = ViewBag.BeginTimeSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("EndTime", "Index", new { sortOrder = ViewBag.EndTimeSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeginTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.appointmentID })
+                @Html.ActionLink("Details", "Details", new { id = item.appointmentID })
+                @Html.ActionLink("Delete", "Delete", new { id = item.appointmentID })
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
 
 
 <div class="col-lg-6">
@@ -9,56 +68,54 @@
         <table class="table table-hover table-striped tablesorter">
             <thead>
                 <tr>
-                    <th>Page <i class="fa fa-sort"></i></th>
-                    <th>Visits <i class="fa fa-sort"></i></th>
-                    <th>% New Visits <i class="fa fa-sort"></i></th>
-                    <th>Revenue <i class="fa fa-sort"></i></th>
+                    <th>
+                        @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescriptionSortParm, currentFilter = ViewBag.CurrentFilter })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("BeginTime", "Index", new { sortOrder = ViewBag.BeginTimeSortParm, currentFilter = ViewBag.CurrentFilter })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("EndTime", "Index", new { sortOrder = ViewBag.EndTimeSortParm, currentFilter = ViewBag.CurrentFilter })
+                        <i class="fa fa-sort"></i>
+                    </th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>/index.html</td>
-                    <td>1265</td>
-                    <td>32.3%</td>
-                    <td>$321.33</td>
-                </tr>
-                <tr>
-                    <td>/about.html</td>
-                    <td>261</td>
-                    <td>33.3%</td>
-                    <td>$234.12</td>
-                </tr>
-                <tr>
-                    <td>/sales.html</td>
-                    <td>665</td>
-                    <td>21.3%</td>
-                    <td>$16.34</td>
-                </tr>
-                <tr>
-                    <td>/blog.html</td>
-                    <td>9516</td>
-                    <td>89.3%</td>
-                    <td>$1644.43</td>
-                </tr>
-                <tr>
-                    <td>/404.html</td>
-                    <td>23</td>
-                    <td>34.3%</td>
-                    <td>$23.52</td>
-                </tr>
-                <tr>
-                    <td>/services.html</td>
-                    <td>421</td>
-                    <td>60.3%</td>
-                    <td>$724.32</td>
-                </tr>
-                <tr>
-                    <td>/blog/post.html</td>
-                    <td>1233</td>
-                    <td>93.2%</td>
-                    <td>$126.34</td>
-                </tr>
-            </tbody>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BeginTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndTime)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.appointmentID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.appointmentID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.appointmentID })
+                        </td>
+                    </tr>
+                </tbody>
+            }
         </table>
     </div>
 </div>
+
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

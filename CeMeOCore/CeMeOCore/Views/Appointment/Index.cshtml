@@ -1,0 +1,106 @@
+﻿@model PagedList.IPagedList<CeMeOCore.Models.Appointment>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.title = "Appointments";
+    ViewBag.page= "List";
+    Layout = "~/Views/Shared/AdminHeader.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@using (Html.BeginForm("Index", "Appointment", FormMethod.Get))
+{
+    <div class="form-group input-group" role="search">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search">Search</i></button>
+            </span>
+    </div>
+}
+
+<div class="col-lg-6">
+    <h2>Striped Rows</h2>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped tablesorter">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescriptionSortParm, currentFilter = ViewBag.CurrentFilter })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("BeginTime", "Index", new { sortOrder = ViewBag.BeginTimeSortParm, currentFilter = ViewBag.CurrentFilter })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("EndTime", "Index", new { sortOrder = ViewBag.EndTimeSortParm, currentFilter = ViewBag.CurrentFilter })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BeginTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndTime)
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-wrench"></span>
+                                </button>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <span class="glyphicon glyphicon-pencil">
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.appointmentID })
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-search">
+                                            @Html.ActionLink("Details", "Details", new { id = item.appointmentID })
+                                        </span>
+                                    </li>   
+                                    <li>
+                                        <span class="glyphicon glyphicon-remove-circle">
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.appointmentID })
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+        <!-- /btn-group -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Create New", "Create")</li>
+
+            </ul>
+        </div><!-- /btn-group -->
+    </div>
+</div>
+
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
