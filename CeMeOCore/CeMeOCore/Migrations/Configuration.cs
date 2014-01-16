@@ -112,8 +112,17 @@ namespace CeMeOCore.Migrations
                     State = "",
                     Addition = 0
             };
-            
-            context.Locations.AddOrUpdate(
+
+            context.Locations.AddOrUpdate(KantoorVeenendaal);
+            context.Locations.AddOrUpdate(HoofdkantoorHasselt);
+            context.Locations.AddOrUpdate(KantoorAntwerpen);
+            context.Locations.AddOrUpdate(KantoorLeuven);
+            context.Locations.AddOrUpdate(KantoorWetteren);
+            context.Locations.AddOrUpdate(KantoorLuik);
+            context.Locations.AddOrUpdate(KantoorBraine);
+            context.Locations.AddOrUpdate(KantoorNamen);
+
+            /*context.Locations.AddOrUpdate(
                  l => l.Name,
                    KantoorVeenendaal,
                    HoofdkantoorHasselt,
@@ -123,7 +132,7 @@ namespace CeMeOCore.Migrations
                    KantoorLuik,
                    KantoorBraine,
                    KantoorNamen
-               );
+               );*/
             
             //Rooms
             Room ConferenceRoomFirstFloor = new Room

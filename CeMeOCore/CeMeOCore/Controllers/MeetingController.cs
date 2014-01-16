@@ -134,19 +134,7 @@ namespace CeMeOCore.Controllers
             return null;
         }
 
-        /// <summary>
-        /// When the server sends a pushnotification/payload
-        /// it includes an ID that identifies Which inviter is being used.
-        /// </summary>
-        /// <param name="model"><seealso cref="PropositionAnswerBindingModel"/></param>
-        /// <returns></returns>
-        [AcceptVerbs("POST")]
-        [Route("PropositionAnswer")]
-        public IHttpActionResult InviteResponse([FromBody]PropositionAnswerBindingModel model)
-        {
-            Startup.OrganiserManagerFactory.NotifyOrganiser(model);
-            return Ok();
-        }
+
 
         
         /// <summary>

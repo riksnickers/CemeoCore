@@ -40,7 +40,7 @@ namespace CeMeOCore.DAL.UnitsOfWork
         }
 
         /// <summary>
-        /// The UserProfileRepository property
+        /// The LocationRepository property
         /// </summary>
         public GenericRepository<Location> LocationRepository
         {
@@ -55,7 +55,7 @@ namespace CeMeOCore.DAL.UnitsOfWork
         }
 
         /// <summary>
-        /// The UserProfileRepository property
+        /// The InviteeRepository property
         /// </summary>
         public InviteeRepository InviteeRepository
         {

@@ -11,7 +11,7 @@ namespace CeMeOCore.DAL.UnitsOfWork
     /// <summary>
     /// This is the Unit of Work for the Organiser Class
     /// </summary>
-    public class OrganiserUoW
+    public class OrganiserUoW : IDisposable
     {
         /// <summary>
         /// The initialization of the context.

@@ -1,6 +1,5 @@
 ﻿using CeMeOCore.DAL.Context;
 using CeMeOCore.DAL.Repositories;
-using CeMeOCore.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,35 +7,25 @@ using System.Web;
 
 namespace CeMeOCore.DAL.UnitsOfWork
 {
-    /// <summary>
-    /// Still in progress, no comments yet, please come back soon...
-    /// Still thinking about the function of this UoW..
-    /// Sorry..
-    /// </summary>
-    public class MeetingControllerUoW : IDisposable
+    public class PropositionControllerUoW : IDisposable
     {
+        /// <summary>
+        /// The initialization of the context.
+        /// </summary>
         private CeMeoContext context = new CeMeoContext();
-        private UserProfileRepository _userProfileRepository;
+        /// <summary>
+        /// The needed repositories
+        /// </summary>
         private InviteeRepository _inviteeRepository;
 
-        public UserProfileRepository UserProfileRepository
-        {
-            get
-            {
-
-                if (this._userProfileRepository == null)
-                {
-                    this._userProfileRepository = new UserProfileRepository(context);
-                }
-                return this._userProfileRepository;
-            }
-        }
-
+        /// <summary>
+        /// The InviteeRepository property
+        /// </summary>
         public InviteeRepository InviteeRepository
         {
             get
             {
-                if(this._inviteeRepository == null)
+                if (this._inviteeRepository == null)
                 {
                     this._inviteeRepository = new InviteeRepository(context);
                 }
@@ -44,6 +33,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
             }
         }
 
+        /// <summary>
+        /// Save the context
+        /// </summary>
         public void Save()
         {
             context.SaveChanges();
@@ -51,6 +43,10 @@ namespace CeMeOCore.DAL.UnitsOfWork
 
         private bool disposed = false;
 
+        /// <summary>
+        /// Disposes the context
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -63,6 +59,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
             this.disposed = true;
         }
 
+        /// <summary>
+        /// Dispose function
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

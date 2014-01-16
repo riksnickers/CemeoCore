@@ -1,5 +1,5 @@
 ﻿using CeMeOCore.DAL.UnitsOfWork;
-using CeMeOCore.Models;
+using CeMeOCore.DAL.Models;
 using log4net;
 using System;
 using System.Collections.Generic;
