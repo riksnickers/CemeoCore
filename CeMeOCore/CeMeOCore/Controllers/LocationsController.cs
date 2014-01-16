@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using CeMeOCore.DAL.Context;
 
 namespace CeMeOCore.Controllers
 {
@@ -14,7 +15,12 @@ namespace CeMeOCore.Controllers
     {
         //
         // GET: /Locations/
-        private CeMeoContext _db = new CeMeoContext();
+        private LocationUoW _locationUoW;
+
+        public LocationsController()
+        {
+            this._locationUoW = new LocationUoW();
+        }
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -46,12 +52,14 @@ namespace CeMeOCore.Controllers
             ViewBag.CurrentFilter = searchString;
             //End paging
 
-            var locs = from s in _db.Locations select s;
+            // var locs = from s in _db.Locations select s;
+            var locs = from s in this._locationUoW.LocationRepository.Get() select s;
 
             //Searching
             if (!String.IsNullOrEmpty(searchString))
             {
                 locs = locs.Where(s => s.Name.Contains(searchString));
+                
             }
             //End searching
 
