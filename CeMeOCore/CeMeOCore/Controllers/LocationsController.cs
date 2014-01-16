@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace CeMeOCore.Controllers
 {
@@ -22,12 +23,15 @@ namespace CeMeOCore.Controllers
 
             //Sorting
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.UserNameSortParm = String.IsNullOrEmpty(sortOrder) ? "UserName" : "";
-            ViewBag.FirstNameSortParm = sortOrder == "FirstName" ? "FirstName" : "FirstName";
-            ViewBag.LastNameSortParm = sortOrder == "LastName" ? "LastName" : "LastName";
-            ViewBag.EMailPresentSortParm = sortOrder == "EMail" ? "EMail" : "EMail";
-            ViewBag.PreferedLocationSortParm = sortOrder == "PreferedLocation" ? "PreferedLocation" : "PreferedLocation";
-            ViewBag.UserCalendarSortParm = sortOrder == "UserCalendar" ? "UserCalendar" : "UserCalendar";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name" : "";
+            ViewBag.StreetSortParm = sortOrder == "Street" ? "Street" : "Street";
+            ViewBag.NumberSortParm = sortOrder == "Number" ? "Number" : "Number";
+            ViewBag.ZipSortParm = sortOrder == "Zip" ? "Zip" : "Zip";
+            ViewBag.CitySortParm = sortOrder == "City" ? "City" : "City";
+            ViewBag.StateSortParm = sortOrder == "State" ? "State" : "State";
+            ViewBag.ZipSortParm = sortOrder == "Zip" ? "Zip" : "Zip";
+            ViewBag.CountrySortParm = sortOrder == "Country" ? "Country" : "Country";
+            ViewBag.AdditionSortParm = sortOrder == "Addition" ? "Addition" : "Addition";
 
             //Paging
             if (searchString != null)
@@ -42,44 +46,50 @@ namespace CeMeOCore.Controllers
             ViewBag.CurrentFilter = searchString;
             //End paging
 
-            var users = from s in _db.Users select s;
+            var locs = from s in _db.Locations select s;
 
             //Searching
             if (!String.IsNullOrEmpty(searchString))
             {
-                users = users.Where(s => s.UserName.Contains(searchString));
+                locs = locs.Where(s => s.Name.Contains(searchString));
             }
             //End searching
 
             switch (sortOrder)
             {
-                case "UserName":
-                    users = users.OrderByDescending(s => s.UserName);
+                case "Name":
+                    locs = locs.OrderByDescending(s => s.Name);
                     break;
-                case "FirstName":
-                    users = users.OrderBy(s => s.FirstName);
+                case "Street":
+                    locs = locs.OrderBy(s => s.Street);
                     break;
-                case "LastName":
-                    users = users.OrderByDescending(s => s.LastName);
+                case "Number":
+                    locs = locs.OrderByDescending(s => s.Number);
                     break;
-                case "EMail":
-                    users = users.OrderByDescending(s => s.EMail);
+                case "Zip":
+                    locs = locs.OrderByDescending(s => s.Zip);
                     break;
-                case "Preferedlocation":
-                    users = users.OrderByDescending(s => s.PreferedLocation);
+                case "City":
+                    locs = locs.OrderByDescending(s => s.City);
                     break;
-                case "UserCalendar":
-                    users = users.OrderByDescending(s => s.UserCalendar);
+                case "State":
+                    locs = locs.OrderByDescending(s => s.State);
+                    break;
+                case "Country":
+                    locs = locs.OrderByDescending(s => s.Country);
+                    break;
+                case "Addition":
+                    locs = locs.OrderByDescending(s => s.Addition);
                     break;
                 default:
-                    users = users.OrderBy(s => s.UserName);
+                    locs = locs.OrderBy(s => s.Name);
                     break;
             }
 
             //Paging
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(users.ToPagedList(pageNumber, pageSize));
+            return View(locs.ToPagedList(pageNumber, pageSize));
             //End sorting
         }
 
