@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CeMeOCore.DAL.UnitsOfWork;
 
 namespace CeMeOCore.Controllers
 {
@@ -19,6 +20,13 @@ namespace CeMeOCore.Controllers
         /// Logger instance
         /// </summary>
         private readonly ILog logger = log4net.LogManager.GetLogger(typeof(PropositionController));
+
+        private PropositionControllerUoW _propositionUoW;
+
+        public PropositionController()
+        {
+            this._propositionUoW = new PropositionControllerUoW();
+        }
 
         /// <summary>
         /// When the server sends a pushnotification/payload
@@ -45,12 +53,12 @@ namespace CeMeOCore.Controllers
         {
             //Get UserProfileID
             string aspID = User.Identity.GetUserId();
-            int upID = this._userUoW.UserProfileRepository.Get(u => u.aspUser == aspID).Select(u => u.UserId).First();
+            int upID = this._propositionUoW.UserProfileRepository.Get(u => u.aspUser == aspID).Select(u => u.UserId).First();
 
 
             HashSet<Proposition> propositions = new HashSet<Proposition>();
 
-            foreach (Invitee invitee in this._userUoW.InviteeRepository.GetInviteeIDsByUserProfileID(upID))
+            foreach (Invitee invitee in this._propositionUoW.InviteeRepository.GetInviteeIDsByUserProfileID(upID))
             {
                 Proposition p = invitee.GetProposition();
                 if (p != null)
@@ -59,7 +67,7 @@ namespace CeMeOCore.Controllers
                 }
             }
             return propositions;
-        }*/
+        }
 
 
         public PropositionController()

@@ -17,6 +17,8 @@ namespace CeMeOCore.DAL.UnitsOfWork
         /// The needed repositories
         /// </summary>
         private InviteeRepository _inviteeRepository;
+        private UserProfileRepository _userProfileRepository;
+
 
         /// <summary>
         /// The InviteeRepository property
@@ -30,6 +32,21 @@ namespace CeMeOCore.DAL.UnitsOfWork
                     this._inviteeRepository = new InviteeRepository(context);
                 }
                 return this._inviteeRepository;
+            }
+        }
+
+        /// <summary>
+        /// The UserProfileRepository property
+        /// </summary>
+        public UserProfileRepository UserProfileRepository
+        {
+            get
+            {
+                if (this._userProfileRepository == null)
+                {
+                    this._userProfileRepository = new UserProfileRepository(context);
+                }
+                return this._userProfileRepository;
             }
         }
 
