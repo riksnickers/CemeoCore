@@ -17,12 +17,12 @@ namespace CeMeOCore
         /// </summary>
         public void ConfigureOrganiser()
         {
-            OrganiserManagerFactory = () => new OrganiserManager();
-            SpotManagerFactory = () => new SpotManager();
+            OrganiserManagerFactory = new OrganiserManager();
+            SpotManagerFactory = new SpotManager();
         }
 
-        public static Func<OrganiserManager> OrganiserManagerFactory { get; set; }
-        public static Func<SpotManager> SpotManagerFactory { get; set; }
+        public static OrganiserManager OrganiserManagerFactory { get; set; }
+        public static SpotManager SpotManagerFactory { get; set; }
 
         //public static WorkSchedule WorkSchedule { get; set; }
     }

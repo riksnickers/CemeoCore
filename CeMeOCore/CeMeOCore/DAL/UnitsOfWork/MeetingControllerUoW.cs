@@ -8,35 +8,39 @@ using System.Web;
 
 namespace CeMeOCore.DAL.UnitsOfWork
 {
-    public class SampleUoW : IDisposable
+    /// <summary>
+    /// Still in progress, no comments yet, please come back soon...
+    /// Still thinking about the function of this UoW..
+    /// Sorry..
+    /// </summary>
+    public class MeetingControllerUoW
     {
         private CeMeoContext context = new CeMeoContext();
-        private GenericRepository<Room> departmentRepository;
-        private GenericRepository<Location> courseRepository;
+        private UserProfileRepository _userProfileRepository;
+        private InviteeRepository _inviteeRepository;
 
-        public GenericRepository<Room> RoomRepository
+        public UserProfileRepository UserProfileRepository
         {
             get
             {
 
-                if (this.departmentRepository == null)
+                if (this._userProfileRepository == null)
                 {
-                    this.departmentRepository = new GenericRepository<Room>(context);
+                    this._userProfileRepository = new UserProfileRepository(context);
                 }
-                return departmentRepository;
+                return this._userProfileRepository;
             }
         }
 
-        public GenericRepository<Location> LocationRepository
+        public InviteeRepository InviteeRepository
         {
             get
             {
-
-                if (this.courseRepository == null)
+                if(this._inviteeRepository == null)
                 {
-                    this.courseRepository = new GenericRepository<Location>(context);
+                    this._inviteeRepository = new InviteeRepository(context);
                 }
-                return courseRepository;
+                return this._inviteeRepository;
             }
         }
 

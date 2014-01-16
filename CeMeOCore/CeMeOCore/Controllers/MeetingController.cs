@@ -1,6 +1,6 @@
 ﻿using CeMeOCore.DAL.UnitsOfWork;
 using CeMeOCore.Logic.Organiser;
-using CeMeOCore.Models;
+using CeMeOCore.DAL.Models;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -20,13 +20,14 @@ namespace CeMeOCore.Controllers
     [RoutePrefix("api/Meeting")]
     public class MeetingController : ApiController
     {
-        private CeMeoContext _db = new CeMeoContext();
-
-        private SampleUoW suow;
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        private static readonly ILog log = LogManager.GetLogger(typeof(MeetingController));
 
         public MeetingController ()
         {
-            suow = new SampleUoW();
+            
         }
 
         ///<summary>
@@ -78,8 +79,6 @@ namespace CeMeOCore.Controllers
             return new string[]{"Latest "+ latest +" Upcomming "};
         }
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(MeetingController));
-
         /// <summary>
         ///   This will start scheduling a meeting.
         /// </summary>
@@ -90,15 +89,9 @@ namespace CeMeOCore.Controllers
         [ResponseType(typeof(ScheduleMeetingBindingModel))]
         public IHttpActionResult Schedule(HttpRequestMessage mes, [FromBody]ScheduleMeetingBindingModel model)
         {
-            Startup.OrganiserManagerFactory().Create(model);
-            ScheduleMeetingBindingModel sm = new ScheduleMeetingBindingModel()
-            {
-                BeforeDate = new DateTime(),
-                Creator = "t",
-                Dateindex = 0,
-                InvitedParticipants = new List<InvitedParticipant>() { new InvitedParticipant() { id = 1, Important = false }, new InvitedParticipant() { id = 2, Important = true } }
-            };
-            return Ok(sm);
+            Startup.OrganiserManagerFactory.Create(model);
+
+            return Ok();
         }
 
         /// <summary>
@@ -116,6 +109,7 @@ namespace CeMeOCore.Controllers
         }
 
         /// <summary>
+        /// Not used, can be maybe deleted.
         /// If you provide a InviteeID and a OrganiserID you get a proposition returned.
         /// </summary>
         /// <param name="Invitee_id"></param>
@@ -124,7 +118,19 @@ namespace CeMeOCore.Controllers
         [Route("Proposition")]
         public Proposition GetProposition([FromBody] GetPropositionBindingModel model)
         {
-            Startup.OrganiserManagerFactory().GetProposition(model);
+            //Startup.OrganiserManagerFactory().GetProposition(model);
+            return null;
+        }
+
+        /// <summary>
+        /// Not used, can be maybe deleted.
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        [AcceptVerbs("GET")]
+        [Route("Proposition")]
+        public Proposition GetPropositions(int userid)
+        {
             return null;
         }
 
@@ -138,13 +144,18 @@ namespace CeMeOCore.Controllers
         [Route("PropositionAnswer")]
         public IHttpActionResult InviteResponse([FromBody]PropositionAnswerBindingModel model)
         {
-            Startup.OrganiserManagerFactory().NotifyOrganiser(model);
+            Startup.OrganiserManagerFactory.NotifyOrganiser(model);
             return Ok();
         }
 
+        
+        /// <summary>
+        /// Dispose the context and the controller
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            //this._contactUoW.Dispose();
+            //this.context.Dispose();
             base.Dispose(disposing);
         }
     }

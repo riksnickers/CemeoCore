@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Models
 {
     public class Location
     {
@@ -39,5 +39,11 @@ namespace CeMeOCore.Models
         public String Country { get; set; }
 
         public int Addition { get; set; }
+    }
+
+    public class SetLocationBindingModel
+    {
+        [Required]
+        public int LocationID { get; set; }
     }
 }

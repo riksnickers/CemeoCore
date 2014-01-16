@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using CeMeOCore.Models;
+using CeMeOCore.DAL.Models;
 using CeMeOCore.Providers;
 using CeMeOCore.Results;
 using CeMeOCore.DAL.UnitsOfWork;
@@ -27,15 +27,31 @@ namespace CeMeOCore.Controllers
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
+
+        /// <summary>
+        /// Unit of Work private holder
+        /// </summary>
         private UserUoW _userUoW;
 
+        /// <summary>
+        /// Logger instance
+        /// </summary>
         private readonly ILog logger = log4net.LogManager.GetLogger(typeof(AccountController));
 
+        /// <summary>
+        /// Empty Constructor, will call other constructor
+        /// </summary>
         public AccountController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
         {
         }
 
+
+        /// <summary>
+        /// Param constructor. Constructor will initialize the Work of unit and other ASP functions
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="accessTokenFormat"></param>
         public AccountController(UserManager<IdentityUser> userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
@@ -44,7 +60,13 @@ namespace CeMeOCore.Controllers
             this._userUoW = new UserUoW();
         }
 
+        /// <summary>
+        /// The usermanager holder
+        /// </summary>
         public UserManager<IdentityUser> UserManager { get; private set; }
+        /// <summary>
+        /// AccessTokenFormat holder
+        /// </summary>
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
@@ -62,9 +84,16 @@ namespace CeMeOCore.Controllers
             };
         }
 
+        /// <summary>
+        /// Get the profile data of the current logged in user.
+        /// GET Request
+        /// </summary>
+        /// <returns>UserProfileBindingModel</returns>
         [Route("Profile")]
-        public UserProfileBindingModel GetProfile()
+        public UserProfileBindingModel GetProfile(string ID)
         {
+            //ID = device ID
+
             string id = User.Identity.GetUserId();
 
             UserProfile up = this._userUoW.UserProfileRepository.Get(u => u.aspUser == id).First();
@@ -171,16 +200,26 @@ namespace CeMeOCore.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// This POST request will update the user his prefered location
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>IHttpActionResult</returns>
         [Route("SetLocation")]
-        public IHttpActionResult SetLocation([FromBody] int LocationID)
+        public IHttpActionResult SetLocation([FromBody] SetLocationBindingModel model)
         {
+            //Get asp user id
             string id = User.Identity.GetUserId();
             
             try
             {
+                //Get UserProfile
                 UserProfile up = this._userUoW.UserProfileRepository.Get(u => u.aspUser == id).FirstOrDefault();
-                up.PreferedLocation = this._userUoW.LocationRepository.GetByID(LocationID);
+                //Get the location
+                up.PreferedLocation = this._userUoW.LocationRepository.GetByID(model.LocationID);
+                //Update the userprofile with the location
                 this._userUoW.UserProfileRepository.Update(up);
+                //Save it
                 this._userUoW.Save();
             }
             catch( DbEntityValidationException ex)
@@ -443,6 +482,34 @@ namespace CeMeOCore.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Get all propositions for the logged in user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [AcceptVerbs("GET")]
+        [Route("Propositions")]
+        public IEnumerable<Proposition> GetPropositions(GetPropositionBindingModel model)
+        {
+            //Get UserProfileID
+            string aspID = User.Identity.GetUserId();
+            int upID = this._userUoW.UserProfileRepository.Get(u => u.aspUser == aspID).Select(u=>u.UserId).First();
+            
+
+            HashSet<Proposition> propositions = new HashSet<Proposition>();
+            
+            foreach (Invitee invitee in this._userUoW.InviteeRepository.GetInviteeIDsByUserProfileID(upID))
+            {
+                Proposition p = invitee.GetProposition();
+                if(p != null)
+                {
+                    propositions.Add(p);
+                }
+            }
+            return propositions;
+        }
+
+        //Dispose all.
         protected override void Dispose(bool disposing)
         {
             if (disposing)

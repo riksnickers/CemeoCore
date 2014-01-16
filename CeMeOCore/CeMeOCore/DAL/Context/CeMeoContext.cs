@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CeMeOCore.DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Context
 {
     public class CeMeoContext : DbContext
     {
@@ -22,6 +23,8 @@ namespace CeMeOCore.Models
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Calendar> Calendars{ get; set; }
         public DbSet<GuestUser> GuestUsers { get; set; }
+        public DbSet<Invitee> Invitees { get; set; }
+        public DbSet<Proposition> Propositions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

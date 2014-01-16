@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CeMeOCore.Models;
+using CeMeOCore.DAL.Models;
 using CeMeOCore.Logic.Organiser;
 
 namespace CeMeOCore.Tests.Logic.MeetingOrganiser

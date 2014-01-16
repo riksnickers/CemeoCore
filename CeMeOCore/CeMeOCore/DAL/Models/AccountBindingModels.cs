@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Models
 {
     // Models used as parameters to AccountController actions.
 

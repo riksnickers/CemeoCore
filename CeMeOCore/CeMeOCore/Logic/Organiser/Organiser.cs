@@ -1,23 +1,25 @@
-﻿using CeMeOCore.Logic.Organiser.Exceptions;
+﻿using CeMeOCore.DAL.Repositories;
+using CeMeOCore.DAL.UnitsOfWork;
+using CeMeOCore.Logic.Organiser.Exceptions;
 using CeMeOCore.Logic.Range;
 using CeMeOCore.Logic.Spots;
-using CeMeOCore.Models;
+using CeMeOCore.DAL.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Web;
 
 namespace CeMeOCore.Logic.Organiser
 {
+    /// <summary>
+    /// The organiser will organise a meeting
+    /// </summary>
     public class Organiser : IOrganiser
     {
-        /// <summary>
-        /// An instance of the CeMeOContext
-        /// </summary>
-        private CeMeoContext _db = new CeMeoContext();
-
         /// <summary>
         /// The id of the OrganiserID process that will be used.
         /// </summary>
@@ -50,6 +52,10 @@ namespace CeMeOCore.Logic.Organiser
         private int TotalInviteesUnanswered { get; set; }
 
         private double Duration { get; set; }
+
+        private OrganiserUoW _organiserUoW { get; set; }
+
+        private ILog logger = log4net.LogManager.GetLogger(typeof(Organiser));
         
         /// <summary>
         /// To start organising a meeting the constructor must be called
@@ -58,8 +64,11 @@ namespace CeMeOCore.Logic.Organiser
         /// <param name="dateRequested">When the organiser was started</param>
         /// <param name="deadLineInDays">This is the deadline</param>
         /// <param name="requestedById">Who requested to organise this meeting ID</param>
-        public Organiser(IEnumerable<InvitedParticipant> participants, DateTime dateRequested, DateIndex deadLineInDays, string requestedById, double duration)
+        public Organiser(IEnumerable<InvitedParticipant> participants, DateTime dateRequested, DateIndex deadLineInDays, int requestedById, double duration)
         {
+            //Init organiserUoW
+            this._organiserUoW = new OrganiserUoW();
+
             //Set counters to 0
             TotalImporantInviteesAbsent = 0;
             TotalInvitees = 0;
@@ -92,15 +101,24 @@ namespace CeMeOCore.Logic.Organiser
             //  CreateMeeting
         }
 
-
+        /// <summary>
+        /// This method will convert the invited participants to invitees.
+        /// </summary>
+        /// <param name="invitedParticipants"></param>
+        /// <returns>boolean</returns>
         public Boolean ConvertParticipantsToInvitees(IEnumerable<InvitedParticipant> invitedParticipants)
         {
+            if( this._invitees == null)
+            {
+                this._invitees = new Dictionary<string, Invitee>();
+            }
             try
             {
                 foreach (var invitedParticipant in invitedParticipants)
                 {
                     Invitee invitee = new Invitee(OrganiserID, invitedParticipant.id, invitedParticipant.Important);
                     this._invitees.Add(invitee.InviteeID, invitee);
+                    this._organiserUoW.InviteeRepository.Insert(invitee);
                     TotalInviteesUnanswered++;
                     TotalInvitees++;
                 }
@@ -109,6 +127,10 @@ namespace CeMeOCore.Logic.Organiser
             catch (Exception)
             {
                 return false;
+            }
+            finally
+            {
+                this._organiserUoW.Save();
             }
         }
 
@@ -134,11 +156,17 @@ namespace CeMeOCore.Logic.Organiser
             return returnVal.ToString();
         }
 
+        /// <summary>
+        /// This method will change the reserved entry, first add a new one then remove the old one
+        /// </summary>
+        /// <param name="ReservedSpotGuid"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         private void ChangeReservedSpot(Guid ReservedSpotGuid, DateTime start, DateTime end)
         {
-            ReservedSpot r = Startup.SpotManagerFactory().GetReservedSpot(ReservedSpotGuid);
+            ReservedSpot r = Startup.SpotManagerFactory.GetReservedSpot(ReservedSpotGuid);
             ReservedSpot rnew = new ReservedSpot(){DateRange = new DateRange(start, end), Guid = ReservedSpotGuid};
-            Startup.SpotManagerFactory().ChangeReservedSpot(r.DateRange, rnew);
+            Startup.SpotManagerFactory.ChangeReservedSpot(r.DateRange, rnew);
         }
         
         /// <summary>
@@ -146,10 +174,10 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         private void CalculateEarliestProposition()
         {
-            //TODO: Add room logic
+            //TODO: Add more room logic
             //HACK: Refactor Person available logic.
             //This is our start proposal daterange
-            ProposalDateRange proposalDateRange = null;
+            ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this.Duration));
             Room proposalRoom = null;
 
             //A reserved spot will be added to the list to reserve this proposition.
@@ -157,7 +185,7 @@ namespace CeMeOCore.Logic.Organiser
             reservedSpot.DateRange = proposalDateRange;
             Guid ReservedSpotGuid = reservedSpot.Guid;
             //TODO: change key reservedspot when daterange changes
-            Startup.SpotManagerFactory().AddSpot(reservedSpot);
+            Startup.SpotManagerFactory.AddSpot(reservedSpot);
 
             //A new proposel to send to the invitees will be created
             Proposition proposition = new Proposition(ReservedSpotGuid);
@@ -165,13 +193,38 @@ namespace CeMeOCore.Logic.Organiser
             //Try to make a proposal
             try
             {
-                proposalDateRange = GetProposalDate(proposition.ReservedSpotGuid);
+                proposalDateRange = GetProposalDate(proposalDateRange, proposition.ReservedSpotGuid);
                 proposalRoom = GetProposalRoom(proposalDateRange, proposition.ReservedSpotGuid);
 
                 //Now let's create the proposal.
-                proposition.ProposedRoom = proposalRoom;
-                proposition.BeginTime = proposalDateRange.Start;
-                proposition.EndTime = proposalDateRange.End;
+                Proposition p = new Proposition(reservedSpot.Guid);
+                p.ProposedRoom = proposalRoom;
+                p.BeginTime = proposalDateRange.Start;
+                p.EndTime = proposalDateRange.End;
+                this._organiserUoW.PropositionRepository.Insert(p);
+                foreach (Invitee inv in this._invitees.Values)
+                {
+                    try
+                    {
+                        inv.Proposal = p;
+                        this._organiserUoW.InviteeRepository.Update(inv);
+                    }
+                    catch(Exception)
+                    {
+                        
+                    }
+                }
+                this._organiserUoW.Save();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    foreach (DbValidationError error in item.ValidationErrors)
+                    {
+                        logger.Error(error.ErrorMessage);
+                    }
+                }
             }
             catch (Exception)
             {
@@ -180,11 +233,17 @@ namespace CeMeOCore.Logic.Organiser
             }          
         }
 
-        private ProposalDateRange GetProposalDate(Guid reservedSpot)
+        /// <summary>
+        /// This method will check if all invitees are able to come to a meeting at a certain time.
+        /// </summary>
+        /// <param name="prop">The current proposalDateRange</param>
+        /// <param name="reservedSpot">The reserved spot Guid</param>
+        /// <returns>DateRange</returns>
+        private ProposalDateRange GetProposalDate(ProposalDateRange prop, Guid reservedSpot)
         {
-            ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this.Duration));
+            ProposalDateRange proposalDateRange = prop;
 
-            SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory().GetPersonBlackSpots(this.OrganiserID);
+            SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory.GetPersonBlackSpots(this.OrganiserID);
             //Try to find a good daterange looking at persons
             try
             {
@@ -200,6 +259,7 @@ namespace CeMeOCore.Logic.Organiser
                             {
                                 throw new PersonNotAvailableException();
                             }
+                            //TODO: Add to check reserved persons..
                         }
                     }
                     catch (PersonNotAvailableException)
@@ -227,14 +287,20 @@ namespace CeMeOCore.Logic.Organiser
             return proposalDateRange;
         }
 
+        /// <summary>
+        /// Get a room for a specific datarange
+        /// </summary>
+        /// <param name="proposalDateRange"></param>
+        /// <param name="reservedSpot"></param>
+        /// <returns></returns>
         private Room GetProposalRoom(ProposalDateRange proposalDateRange, Guid reservedSpot) 
         {
-            SortedList<DateRange, RoomBlackSpot> rbss = Startup.SpotManagerFactory().GetRoomBlackSpots();
-            SortedList<DateRange, ReservedSpot> rss = Startup.SpotManagerFactory().GetReservedSpots();
+            SortedList<DateRange, RoomBlackSpot> rbss = Startup.SpotManagerFactory.GetRoomBlackSpots();
+            SortedList<DateRange, ReservedSpot> rss = Startup.SpotManagerFactory.GetReservedSpots();
 
             Room proposalRoom = null;
-            //TODO determine best location
-            IEnumerable<Room> rooms = _db.Rooms;
+            //TODO: determine best location
+            IEnumerable<Room> rooms = this._organiserUoW.RoomRepository.Get();
 
             //Let's try to find a room
             try
@@ -277,6 +343,9 @@ namespace CeMeOCore.Logic.Organiser
                                 }
                             }
                         }
+
+                        //If we reach this line the room is ok!, let's break out the loop
+                        break;
                     }
                     catch (RoomNotAvailableException)
                     {
@@ -305,6 +374,11 @@ namespace CeMeOCore.Logic.Organiser
                 {
                     throw new NoRoomsFoundException();
                 }
+                else
+                {
+                    return proposalRoom;
+                }
+                
             }
             catch (NoRoomsFoundException)
             {
@@ -319,7 +393,6 @@ namespace CeMeOCore.Logic.Organiser
                 //Throw it up!
                 throw;
             }
-            return proposalRoom;
         }
 
         /// <summary>
@@ -328,6 +401,7 @@ namespace CeMeOCore.Logic.Organiser
         private void sendPropositionToInvitees()
         {
             //This will need to send the proposition to the right invitee
+            //Push notification
         }
 
         /// <summary>
@@ -336,11 +410,11 @@ namespace CeMeOCore.Logic.Organiser
         /// <param name="userProfileId">The id of who requested the meeting
         /// </param>
         /// <returns></returns>
-        private UserProfile resolveRequestedBy( string userProfileId)
+        private UserProfile resolveRequestedBy( int userProfileId)
         {
             try
             {
-                return _db.Users.Find(userProfileId);
+                return this._organiserUoW.UserProfileRepository.GetByID(userProfileId);
             }
             catch (Exception)
             {
@@ -348,6 +422,10 @@ namespace CeMeOCore.Logic.Organiser
             }
         }
 
+        /// <summary>
+        /// Is the meeting ready?
+        /// </summary>
+        /// <returns></returns>
         public Boolean IsTheMeetingReadyToGo()
         {
             /*
@@ -358,8 +436,14 @@ namespace CeMeOCore.Logic.Organiser
             return false;
         }
 
+        /// <summary>
+        /// Register the response of the invitee.
+        /// </summary>
+        /// <param name="model">Contains the Organiser ID and invitee id</param>
+        /// <returns>Boolean</returns>
         public Boolean registerAvailabilityInvitee(PropositionAnswerBindingModel model)
         {
+            //HACK: Change the propositionAnswerBindingModel
             if (this._invitees.ContainsKey(model.InviteeID))
             {
                 this._invitees[model.InviteeID].Answer = model.Answer;
@@ -374,6 +458,11 @@ namespace CeMeOCore.Logic.Organiser
             return false;
         }
 
+        /// <summary>
+        /// Check what the invitee response was
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private Boolean CheckAnswer(string id)
         {
             //TODO: If their is send a new proposition reduce Totals!
@@ -410,18 +499,30 @@ namespace CeMeOCore.Logic.Organiser
             return true;
         }
 
+        /// <summary>
+        /// Get the status of the organiser
+        /// </summary>
+        /// <returns></returns>
         public OrganiserResponse GetStatus()
         {
             //TODO: Get the status of the organiser
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Get the proposition for a invitee
+        /// </summary>
+        /// <param name="inviteeID"></param>
+        /// <returns></returns>
         public Proposition GetProposition(string inviteeID)
         {
             throw new NotImplementedException();
         }
     }
 
+    /// <summary>
+    /// The model of for inviting a participant
+    /// </summary>
     public class InvitedParticipant
     {
         [Required]

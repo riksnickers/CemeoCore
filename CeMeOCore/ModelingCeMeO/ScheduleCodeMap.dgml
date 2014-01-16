@@ -1,0 +1,538 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph DataVirtualized="True" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="(@1 @12 @13 Member=(Name=Get OverloadingParameters=[(@35 Namespace=System.Linq.Expressions Type=(Name=Expression @4 GenericArguments=[(@5 @6 Type=(Name=Func GenericParameterCount=2 GenericArguments=[(@1 @12 @13 ParameterIdentifier=0),(@5 @6 Type=Boolean)]))])),(@5 @6 Type=(Name=Func GenericParameterCount=2 GenericArguments=[(@35 Namespace=System.Linq Type=(Name=IQueryable @4 GenericArguments=[(@1 @12 @13 ParameterIdentifier=0)])),(@35 Namespace=System.Linq Type=(Name=IOrderedQueryable @4 GenericArguments=[(@1 @12 @13 ParameterIdentifier=0)]))])),(@5 @6 Type=String)]))" Category="CodeSchema_Method" Bounds="1865.99166666667,360.1575,54.5766666666666,25.96" CodeSchemaProperty_IsPublic="True" CodeSchemaProperty_IsVirtual="True" CommonLabel="Get" FunctionTypeFlags="Method Virtual" Label="Get" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/Repositories/GenericRepository.cs StartLineNumber=28 StartCharacterOffset=0 EndLineNumber=28 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @12 @13 Member=(Name=Insert OverloadingParameters=[(@1 @12 @13 ParameterIdentifier=0)]))" Category="CodeSchema_Method" Bounds="514.483333333334,288.2375,65.5933333333332,25.96" CodeSchemaProperty_IsPublic="True" CodeSchemaProperty_IsVirtual="True" CommonLabel="Insert" FunctionTypeFlags="Method Virtual" Label="Insert" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/Repositories/GenericRepository.cs StartLineNumber=56 StartCharacterOffset=0 EndLineNumber=56 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @12 @13 Member=(Name=Update OverloadingParameters=[(@1 @12 @13 ParameterIdentifier=0)]))" Category="CodeSchema_Method" Bounds="1721.87333333333,288.2375,74.8133333333335,25.96" CodeSchemaProperty_IsPublic="True" CodeSchemaProperty_IsVirtual="True" CommonLabel="Update" FunctionTypeFlags="Method Virtual" Label="Update" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/Repositories/GenericRepository.cs StartLineNumber=77 StartCharacterOffset=0 EndLineNumber=77 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @12 Type=PropositionRepository @16)" Category="CodeSchema_Method" Bounds="2521.57333333333,360.1575,153.413333333333,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="PropositionRepository" FunctionTypeFlags="Constructor" Label="PropositionRepository" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/Repositories/PropositionRepository.cs StartLineNumber=10 StartCharacterOffset=0 EndLineNumber=10 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @12 Type=RoomRepository @16)" Category="CodeSchema_Method" Bounds="2356.18666666667,417.805,124.186666666667,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="RoomRepository" FunctionTypeFlags="Constructor" Label="RoomRepository" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/Repositories/RoomRepository.cs StartLineNumber=10 StartCharacterOffset=0 EndLineNumber=10 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @15 Type=CeMeoContext @37)" Category="CodeSchema_Method" Bounds="368.801666666667,288.2375,114.956666666666,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="CeMeoContext" FunctionTypeFlags="Constructor" Label="CeMeoContext" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Models/CeMeoContext.cs StartLineNumber=10 StartCharacterOffset=0 EndLineNumber=10 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @15 Type=Invitee Member=(Name=DateHash OverloadingParameters=[(@5 @6 Type=String)]))" Category="CodeSchema_Method" Bounds="602.593333333334,360.1575,87.3733333333334,25.96" CodeSchemaProperty_IsPrivate="True" CommonLabel="DateHash" FunctionTypeFlags="Method" Label="DateHash" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Models/Invitee.cs StartLineNumber=36 StartCharacterOffset=0 EndLineNumber=36 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @15 Type=Proposition Member=(@14 OverloadingParameters=[(@5 @6 Type=Guid)]))" Category="CodeSchema_Method" Bounds="1594.88,288.2375,96.8000000000002,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="Proposition" FunctionTypeFlags="Constructor" Label="Proposition" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Models/Proposition.cs StartLineNumber=15 StartCharacterOffset=0 EndLineNumber=15 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @15 Type=UserProfile @37)" Category="CodeSchema_Method" Bounds="195.501666666667,360.1575,93.5566666666668,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="UserProfile" FunctionTypeFlags="Constructor" Label="UserProfile" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Models/UserProfile.cs StartLineNumber=42 StartCharacterOffset=0 EndLineNumber=42 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=set_End OverloadingParameters=[@7]))" Category="CodeSchema_Method" Bounds="1007.10833333333,417.805,76.3433333333332,25.96" CodeSchemaProperty_IsPublic="True" FunctionTypeFlags="Property Set" IsCodeType="False" IsOverloaded="False" IsOverridable="False" Label="set_End" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" MustImplement="False" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Range/DateRange.cs StartLineNumber=50 StartCharacterOffset=0 EndLineNumber=50 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=set_Start OverloadingParameters=[@7]))" Category="CodeSchema_Method" Bounds="1113.67833333333,417.805,81.2033333333334,25.96" CodeSchemaProperty_IsPublic="True" FunctionTypeFlags="Property Set" IsCodeType="False" IsOverloaded="False" IsOverridable="False" Label="set_Start" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" MustImplement="False" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Range/DateRange.cs StartLineNumber=41 StartCharacterOffset=0 EndLineNumber=41 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @20 @21 Member=(Name=Includes OverloadingParameters=[(@1 @15 Type=Room)]))" Category="CodeSchema_Method" Bounds="1951.45,360.1575,79.6600000000001,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="Includes" FunctionTypeFlags="Method" Label="Includes" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Spot/ReservedSpot.cs StartLineNumber=71 StartCharacterOffset=0 EndLineNumber=71 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @20 @21 Member=(Name=set_DateRange OverloadingParameters=[(@1 @2 @3)]))" Category="CodeSchema_Method" Bounds="2196.93166666667,288.2375,114.696666666667,25.96" CodeSchemaProperty_IsPublic="True" FunctionTypeFlags="Property Set" IsCodeType="False" IsOverloaded="False" IsOverridable="False" Label="set_DateRange" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" MustImplement="False" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Spot/ReservedSpot.cs StartLineNumber=27 StartCharacterOffset=0 EndLineNumber=27 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @20 @21 Member=get_DateRange)" Category="CodeSchema_Method" Bounds="1440.945,360.1575,116.67,25.96" CodeSchemaProperty_IsPublic="True" FunctionTypeFlags="Property Get" IsCodeType="False" IsOverloaded="False" IsOverridable="False" Label="get_DateRange" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" MustImplement="False" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Spot/ReservedSpot.cs StartLineNumber=26 StartCharacterOffset=0 EndLineNumber=26 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @20 @23 Member=(Name=GetPersonBlackSpots OverloadingParameters=[(@5 @6 Type=String)]))" Category="CodeSchema_Method" Bounds="1231.44166666667,360.1575,147.676666666667,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="GetPersonBlackSpots" FunctionTypeFlags="Method" Label="GetPersonBlackSpots" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Spot/SpotManager.cs StartLineNumber=24 StartCharacterOffset=0 EndLineNumber=24 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @20 @23 Member=GetReservedSpots)" Category="CodeSchema_Method" Bounds="1703.14,360.1575,132.28,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="GetReservedSpots" FunctionTypeFlags="Method" Label="GetReservedSpots" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Spot/SpotManager.cs StartLineNumber=38 StartCharacterOffset=0 EndLineNumber=38 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @20 @23 Member=GetRoomBlackSpots)" Category="CodeSchema_Method" Bounds="2171.69666666667,360.1575,143.166666666667,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="GetRoomBlackSpots" FunctionTypeFlags="Method" Label="GetRoomBlackSpots" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Spot/SpotManager.cs StartLineNumber=33 StartCharacterOffset=0 EndLineNumber=33 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @9 @10 Member=CheckAvailabilityInvitees)" Category="CodeSchema_Method" Bounds="305.523333333334,230.59,165.513333333333,25.96" CodeSchemaProperty_IsPrivate="True" CommonLabel="CheckAvailabilityInvitees" FunctionTypeFlags="Method" Label="CheckAvailabilityInvitees" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/Organiser.cs StartLineNumber=133 StartCharacterOffset=0 EndLineNumber=133 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @9 @10 Member=DateHash)" Category="CodeSchema_Method" Bounds="187.593333333334,230.59,87.3733333333333,25.96" CodeSchemaProperty_IsPrivate="True" CommonLabel="DateHash" FunctionTypeFlags="Method" Label="DateHash" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/Organiser.cs StartLineNumber=138 StartCharacterOffset=0 EndLineNumber=138 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @9 @10 Member=sendPropositionToInvitees)" Category="CodeSchema_Method" Bounds="869.433333333334,230.59,175.693333333333,25.96" CodeSchemaProperty_IsPrivate="True" CommonLabel="sendPropositionToInvitees" FunctionTypeFlags="Method" Label="sendPropositionToInvitees" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/Organiser.cs StartLineNumber=375 StartCharacterOffset=0 EndLineNumber=375 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @9 Type=OrganiserManager Member=(Name=AddOrganiser OverloadingParameters=[(@1 @9 @10)]))" Category="CodeSchema_Method" Bounds="374.526666666667,172.9425,109.506666666667,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="AddOrganiser" FunctionTypeFlags="Method" Label="AddOrganiser" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/OrganiserManager.cs StartLineNumber=45 StartCharacterOffset=0 EndLineNumber=45 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 Namespace=CeMeOCore.Controllers Type=MeetingController Member=(Name=Dispose OverloadingParameters=[(@5 @6 Type=Boolean)]))" Category="CodeSchema_Method" Bounds="630.346666666667,57.6475,77.8666666666668,25.96" CodeSchemaProperty_IsProtected="True" CommonLabel="Dispose" FunctionTypeFlags="Method" IsOverloaded="True" Label="Dispose" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Controllers/MeetingController.cs StartLineNumber=148 StartCharacterOffset=0 EndLineNumber=148 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+      <Category Ref="CurrentCallStackEntry" />
+    </Node>
+    <Node Id="@11" Category="CodeSchema_Method" Bounds="645.923333333334,230.59,192.713333333333,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="ConvertParticipantsToInvitees" FunctionTypeFlags="Method" Label="ConvertParticipantsToInvitees" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/Organiser.cs StartLineNumber=125 StartCharacterOffset=0 EndLineNumber=125 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@17" Category="CodeSchema_Method" Bounds="717.873333333333,417.805,132.813333333333,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="GenericRepository" FunctionTypeFlags="Constructor" Label="GenericRepository" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/Repositories/GenericRepository.cs StartLineNumber=17 StartCharacterOffset=0 EndLineNumber=17 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@18" Category="CodeSchema_Method" Bounds="720.345,360.1575,127.87,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="InviteeRepository" FunctionTypeFlags="Constructor" Label="InviteeRepository" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/Repositories/InviteeRepository.cs StartLineNumber=11 StartCharacterOffset=0 EndLineNumber=11 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@19" Category="CodeSchema_Method" Bounds="15.1950000000002,360.1575,150.17,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="UserProfileRepository" FunctionTypeFlags="Constructor" Label="UserProfileRepository" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/Repositories/UserProfileRepository.cs StartLineNumber=10 StartCharacterOffset=0 EndLineNumber=10 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@22" Category="CodeSchema_Method" Bounds="15.1400000000003,230.59,142.28,25.96" CodeSchemaProperty_IsPrivate="True" CommonLabel="resolveRequestedBy" FunctionTypeFlags="Method" Label="resolveRequestedBy" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/Organiser.cs StartLineNumber=390 StartCharacterOffset=0 EndLineNumber=390 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@24" Category="CodeSchema_Method" Bounds="1482.08166666667,288.2375,82.3966666666665,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="AddSpot" FunctionTypeFlags="Method" Label="AddSpot" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Spot/SpotManager.cs StartLineNumber=70 StartCharacterOffset=0 EndLineNumber=70 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@25" Category="CodeSchema_Method" Bounds="202.845,288.2375,78.8699999999999,25.96" CodeSchemaProperty_IsPublic="True" CodeSchemaProperty_IsVirtual="True" CommonLabel="GetByID" FunctionTypeFlags="Method Virtual" Label="GetByID" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/Repositories/GenericRepository.cs StartLineNumber=53 StartCharacterOffset=0 EndLineNumber=53 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@26" Category="CodeSchema_Method" Bounds="523.115,115.295,70.3299999999999,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="Create" FunctionTypeFlags="Method" Label="Create" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/OrganiserManager.cs StartLineNumber=60 StartCharacterOffset=0 EndLineNumber=60 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@27" Category="CodeSchema_Method" Bounds="1588.07666666667,360.1575,84.4066666666668,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="Compare" FunctionTypeFlags="Method" Label="Compare" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Range/DateRange.cs StartLineNumber=79 StartCharacterOffset=0 EndLineNumber=79 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@28" Category="CodeSchema_Method" Bounds="1107.14,360.1575,94.28,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="DateRange" FunctionTypeFlags="Constructor" Label="DateRange" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Range/DateRange.cs StartLineNumber=30 StartCharacterOffset=0 EndLineNumber=30 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@29" Category="CodeSchema_Method" Bounds="984.083333333333,288.2375,140.393333333333,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="ProposalDateRange" FunctionTypeFlags="Constructor" Label="ProposalDateRange" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Range/ProposalDateRange.cs StartLineNumber=9 StartCharacterOffset=0 EndLineNumber=9 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@30" Category="CodeSchema_Method" Bounds="1294.50333333333,288.2375,125.553333333333,25.96" CodeSchemaProperty_IsPrivate="True" CommonLabel="GetProposalDate" FunctionTypeFlags="Method" Label="GetProposalDate" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/Organiser.cs StartLineNumber=225 StartCharacterOffset=0 EndLineNumber=225 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@31" Category="CodeSchema_Method" Bounds="1827.14833333333,288.2375,132.263333333333,25.96" CodeSchemaProperty_IsPrivate="True" CommonLabel="GetProposalRoom" FunctionTypeFlags="Method" Label="GetProposalRoom" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/Organiser.cs StartLineNumber=312 StartCharacterOffset=0 EndLineNumber=312 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@33" Category="CodeSchema_Method" Bounds="516.268333333333,57.6475,84.0233333333333,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="Schedule" FunctionTypeFlags="Method" Label="Schedule" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Controllers/MeetingController.cs StartLineNumber=92 StartCharacterOffset=0 EndLineNumber=92 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@34" Category="CodeSchema_Method" Bounds="610.651666666667,288.2375,71.2566666666667,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="Invitee" FunctionTypeFlags="Constructor" Label="Invitee" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Models/Invitee.cs StartLineNumber=27 StartCharacterOffset=0 EndLineNumber=27 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@36" Category="CodeSchema_Method" Bounds="514.463333333334,172.9425,87.6333333333334,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="Organiser" FunctionTypeFlags="Constructor" Label="Organiser" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/Organiser.cs StartLineNumber=91 StartCharacterOffset=0 EndLineNumber=91 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@40" Category="CodeSchema_Method" Bounds="501.221666666667,230.59,114.116666666667,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="OrganiserUoW" FunctionTypeFlags="Constructor" Label="OrganiserUoW" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/UnitsOfWork/OrganiserUoW.cs StartLineNumber=11 StartCharacterOffset=0 EndLineNumber=11 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@41" Category="CodeSchema_Method" Bounds="1154.975,288.2375,108.61,25.96" CodeSchemaProperty_IsConstructor="True" CodeSchemaProperty_IsPublic="True" CommonLabel="ReservedSpot" FunctionTypeFlags="Constructor" Label="ReservedSpot" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Spot/ReservedSpot.cs StartLineNumber=18 StartCharacterOffset=0 EndLineNumber=18 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@42" Category="CodeSchema_Method" Bounds="1360.01333333333,230.59,182.533333333333,25.96" CodeSchemaProperty_IsPrivate="True" CommonLabel="CalculateEarliestProposition" FunctionTypeFlags="Method" Label="CalculateEarliestProposition" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Organiser/Organiser.cs StartLineNumber=203 StartCharacterOffset=0 EndLineNumber=203 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@43" Category="CodeSchema_Method" Bounds="2511.12166666667,417.805,78.3166666666666,25.96" CodeSchemaProperty_IsPublic="True" FunctionTypeFlags="Property Get" IsCodeType="False" IsOverloaded="False" IsOverridable="False" Label="get_End" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" MustImplement="False" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Range/DateRange.cs StartLineNumber=49 StartCharacterOffset=0 EndLineNumber=49 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@44" Category="CodeSchema_Method" Bounds="803.15,288.2375,150.26,25.96" CodeSchemaProperty_IsPublic="True" FunctionTypeFlags="Property Get" IsCodeType="False" IsOverloaded="False" IsOverridable="False" Label="get_InviteeRepository" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" MustImplement="False" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/UnitsOfWork/OrganiserUoW.cs StartLineNumber=20 StartCharacterOffset=0 EndLineNumber=20 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@45" Category="CodeSchema_Method" Bounds="1990.37833333333,288.2375,175.803333333333,25.96" CodeSchemaProperty_IsPublic="True" FunctionTypeFlags="Property Get" IsCodeType="False" IsOverloaded="False" IsOverridable="False" Label="get_PropositionRepository" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" MustImplement="False" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/UnitsOfWork/OrganiserUoW.cs StartLineNumber=35 StartCharacterOffset=0 EndLineNumber=35 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@46" Category="CodeSchema_Method" Bounds="2344.99166666667,360.1575,146.576666666667,25.96" CodeSchemaProperty_IsPublic="True" FunctionTypeFlags="Property Get" IsCodeType="False" IsOverloaded="False" IsOverridable="False" Label="get_RoomRepository" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" MustImplement="False" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/UnitsOfWork/OrganiserUoW.cs StartLineNumber=47 StartCharacterOffset=0 EndLineNumber=47 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@47" Category="CodeSchema_Method" Bounds="1588.69166666667,417.805,83.1766666666667,25.96" CodeSchemaProperty_IsPublic="True" FunctionTypeFlags="Property Get" IsCodeType="False" IsOverloaded="False" IsOverridable="False" Label="get_Start" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" MustImplement="False" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Range/DateRange.cs StartLineNumber=40 StartCharacterOffset=0 EndLineNumber=40 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@48" Category="CodeSchema_Method" Bounds="0,288.2375,172.56,25.96" CodeSchemaProperty_IsPublic="True" FunctionTypeFlags="Property Get" IsCodeType="False" IsOverloaded="False" IsOverridable="False" Label="get_UserProfileRepository" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" MustImplement="False" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/UnitsOfWork/OrganiserUoW.cs StartLineNumber=59 StartCharacterOffset=0 EndLineNumber=59 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@49" Category="CodeSchema_Method" Bounds="712.028333333334,288.2375,60.5033333333333,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="Save" FunctionTypeFlags="Method" Label="Save" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/DAL/UnitsOfWork/OrganiserUoW.cs StartLineNumber=66 StartCharacterOffset=0 EndLineNumber=66 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@8" Category="CodeSchema_Method" Bounds="2061.45,360.1575,79.6600000000003,25.96" CodeSchemaProperty_IsPublic="True" CommonLabel="Includes" FunctionTypeFlags="Method" Label="Includes" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/Logic/Range/DateRange.cs StartLineNumber=70 StartCharacterOffset=0 EndLineNumber=70 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="ExternalCodeRootNode" Category="ExternalCallStackEntry" Bounds="622.786666666667,0,92.9866666666667,25.96" Label="External Code">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CurrentCallStackEntry" />
+    </Node>
+  </Nodes>
+  <Links>
+    <Link Source="@11" Target="(@1 @12 @13 Member=(Name=Insert OverloadingParameters=[(@1 @12 @13 ParameterIdentifier=0)]))" Category="CallStackDirectCall" Bounds="588.707397460938,256.549987792969,109.666076660156,32.42041015625" />
+    <Link Source="@11" Target="@34" Category="CallStackDirectCall" Bounds="675.611267089844,256.549987792969,45.05322265625,27.0542297363281" />
+    <Link Source="@11" Target="@44" Category="CallStackDirectCall" Bounds="772.901977539063,256.549987792969,66.4697265625,28.1751098632813" />
+    <Link Source="@11" Target="@49" Category="CallStackDirectCall" Bounds="742.280029296875,256.549987792969,0,22.6875" />
+    <Link Source="@18" Target="@17" Category="CallStackDirectCall" Bounds="784.280029296875,386.117492675781,0,22.6875" />
+    <Link Source="@19" Target="@17" Category="CallStackDirectCall" Bounds="163.606643676758,385.848480224609,545.285751342773,40.0230712890625" />
+    <Link Source="@22" Target="@25" Category="CallStackDirectCall" Bounds="121.405197143555,256.549987792969,77.3075714111328,28.56787109375" />
+    <Link Source="@22" Target="@48" Category="CallStackDirectCall" Bounds="86.2799987792969,256.549987792969,0,22.6875" />
+    <Link Source="@24" Target="(@1 @20 @21 Member=get_DateRange)" Category="CallStackDirectCall" Bounds="1499.42834472656,314.197509765625,15.188720703125,36.9612121582031" />
+    <Link Source="@24" Target="@27" Category="CallStackIndirectCall" Bounds="1552.15649414063,314.197509765625,62.913330078125,38.8086547851563" Label="External Code" LabelBounds="1530.29333333333,329.1975,72.9866666666667,15.96" />
+    <Link Source="@25" Target="(@1 @15 Type=UserProfile @37)" Category="CallStackIndirectCall" Bounds="242.279998779297,314.197509765625,0,36.9599914550781" Label="External Code" LabelBounds="169.293333333333,329.1975,72.9866666666667,15.96" />
+    <Link Source="@26" Target="(@1 @9 Type=OrganiserManager Member=(Name=AddOrganiser OverloadingParameters=[(@1 @9 @10)]))" Category="CallStackDirectCall" Bounds="466.542694091797,141.255004882813,62.6914367675781,28.0155487060547" />
+    <Link Source="@26" Target="@36" Category="CallStackDirectCall" Bounds="558.280029296875,141.255004882813,0,22.6875" />
+    <Link Source="@27" Target="@47" Category="CallStackDirectCall" Bounds="1630.28002929688,386.117492675781,0,22.6875" />
+    <Link Source="@28" Target="(@1 @2 @3 Member=(Name=set_End OverloadingParameters=[@7]))" Category="CallStackDirectCall" Bounds="1077.77844238281,386.117492675781,51.958984375,27.4798583984375" />
+    <Link Source="@28" Target="(@1 @2 @3 Member=(Name=set_Start OverloadingParameters=[@7]))" Category="CallStackDirectCall" Bounds="1154.28002929688,386.117492675781,0,22.6875" />
+    <Link Source="@29" Target="@28" Category="CallStackDirectCall" Bounds="1072.32788085938,314.197509765625,56.59765625,40.7051086425781" />
+    <Link Source="@30" Target="(@1 @20 @23 Member=(Name=GetPersonBlackSpots OverloadingParameters=[(@5 @6 Type=String)]))" Category="CallStackDirectCall" Bounds="1319.93811035156,314.197509765625,27.95703125,38.6666564941406" />
+    <Link Source="@31" Target="(@1 @12 @13 Member=(Name=Get OverloadingParameters=[(@35 Namespace=System.Linq.Expressions Type=(Name=Expression @4 GenericArguments=[(@5 @6 Type=(Name=Func GenericParameterCount=2 GenericArguments=[(@1 @12 @13 ParameterIdentifier=0),(@5 @6 Type=Boolean)]))])),(@5 @6 Type=(Name=Func GenericParameterCount=2 GenericArguments=[(@35 Namespace=System.Linq Type=(Name=IQueryable @4 GenericArguments=[(@1 @12 @13 ParameterIdentifier=0)])),(@35 Namespace=System.Linq Type=(Name=IOrderedQueryable @4 GenericArguments=[(@1 @12 @13 ParameterIdentifier=0)]))])),(@5 @6 Type=String)]))" Category="CallStackDirectCall" Bounds="1893.28002929688,314.197509765625,0,36.9599914550781" />
+    <Link Source="@31" Target="(@1 @20 @21 Member=(Name=Includes OverloadingParameters=[(@1 @15 Type=Room)]))" Category="CallStackDirectCall" Bounds="1910.96691894531,314.197509765625,55.3704833984375,40.6351623535156" />
+    <Link Source="@31" Target="(@1 @20 @23 Member=GetReservedSpots)" Category="CallStackDirectCall" Bounds="1810.87048339844,314.197509765625,70.85888671875,42.6835632324219" />
+    <Link Source="@31" Target="(@1 @20 @23 Member=GetRoomBlackSpots)" Category="CallStackDirectCall" Bounds="1956.44641113281,314.197296142578,214.850463867188,44.148681640625" />
+    <Link Source="@31" Target="@27" Category="CallStackIndirectCall" Bounds="1680.54370117188,314.197509765625,163.651000976563,44.7093200683594" Label="External Code" LabelBounds="1757.29333333333,329.1975,72.9866666666667,15.96" />
+    <Link Source="@31" Target="@46" Category="CallStackDirectCall" Bounds="1959.41149902344,311.223266601563,376.663940429688,50.6530151367188" />
+    <Link Source="@31" Target="@8" Category="CallStackDirectCall" Bounds="1930.81945800781,314.197509765625,124.566528320313,43.0712890625" />
+    <Link Source="@33" Target="@26" Category="CallStackDirectCall" Bounds="558.280029296875,83.6074981689453,0,22.6875" />
+    <Link Source="@34" Target="(@1 @15 Type=Invitee Member=(Name=DateHash OverloadingParameters=[(@5 @6 Type=String)]))" Category="CallStackDirectCall" Bounds="646.280029296875,314.197509765625,0,36.9599914550781" />
+    <Link Source="@36" Target="(@1 @9 @10 Member=CheckAvailabilityInvitees)" Category="CallStackDirectCall" Bounds="435.080749511719,198.902496337891,84.9218139648438,28.7972412109375" />
+    <Link Source="@36" Target="(@1 @9 @10 Member=DateHash)" Category="CallStackDirectCall" Bounds="283.809906005859,194.759735107422,230.653411865234,38.324951171875" />
+    <Link Source="@36" Target="(@1 @9 @10 Member=sendPropositionToInvitees)" Category="CallStackDirectCall" Bounds="602.0966796875,192.253128051758,259.793579101563,37.5349731445313" />
+    <Link Source="@36" Target="@11" Category="CallStackDirectCall" Bounds="599.583068847656,198.862808227539,92.6788330078125,29.0364379882813" />
+    <Link Source="@36" Target="@22" Category="CallStackDirectCall" Bounds="166.275833129883,196.96955871582,348.383712768555,34.8540191650391" />
+    <Link Source="@36" Target="@40" Category="CallStackDirectCall" Bounds="558.280029296875,198.902496337891,0,22.6875" />
+    <Link Source="@36" Target="@42" Category="CallStackDirectCall" Bounds="602.0966796875,188.751083374023,748.935302734375,48.3474273681641" />
+    <Link Source="@40" Target="(@1 @15 Type=CeMeoContext @37)" Category="CallStackDirectCall" Bounds="464.249084472656,256.549987792969,64.3095703125,28.0855102539063" />
+    <Link Source="@41" Target="@28" Category="CallStackDirectCall" Bounds="1169.67346191406,314.197509765625,29.68017578125,38.8108825683594" />
+    <Link Source="@42" Target="(@1 @12 @13 Member=(Name=Update OverloadingParameters=[(@1 @12 @13 ParameterIdentifier=0)]))" Category="CallStackDirectCall" Bounds="1525.23571777344,256.549987792969,187.835205078125,34.2399291992188" />
+    <Link Source="@42" Target="(@1 @15 Type=Proposition Member=(@14 OverloadingParameters=[(@5 @6 Type=Guid)]))" Category="CallStackDirectCall" Bounds="1494.51098632813,256.549987792969,96.9180908203125,29.0994262695313" />
+    <Link Source="@42" Target="(@1 @20 @21 Member=(Name=set_DateRange OverloadingParameters=[(@1 @2 @3)]))" Category="CallStackDirectCall" Bounds="1542.54663085938,248.162475585938,648.0390625,38.8385314941406" />
+    <Link Source="@42" Target="@24" Category="CallStackDirectCall" Bounds="1467.49157714844,256.549987792969,32.55126953125,26.0624389648438" />
+    <Link Source="@42" Target="@29" Category="CallStackDirectCall" Bounds="1133.37573242188,256.480346679688,228.994873046875,33.2518310546875" />
+    <Link Source="@42" Target="@30" Category="CallStackDirectCall" Bounds="1386.11730957031,256.549987792969,43.99755859375,26.9823913574219" />
+    <Link Source="@42" Target="@31" Category="CallStackDirectCall" Bounds="1542.322265625,254.688461303711,275.951538085938,34.8194122314453" />
+    <Link Source="@42" Target="@41" Category="CallStackDirectCall" Bounds="1270.83911132813,256.549987792969,125.951782226563,30.0033569335938" />
+    <Link Source="@42" Target="@43" Category="CallStackDirectCall" Bounds="1542.54663085938,245.666137695313,1163.7333984375,176.248443603516" />
+    <Link Source="@42" Target="@44" Category="CallStackDirectCall" Bounds="961.620788574219,252.752014160156,398.392517089844,35.3807373046875" />
+    <Link Source="@42" Target="@45" Category="CallStackDirectCall" Bounds="1542.54663085938,250.853057861328,439.684692382813,37.3591613769531" />
+    <Link Source="@42" Target="@47" Category="CallStackDirectCall" Bounds="1427.55969238281,256.549987792969,152.208251953125,167.617065429688" />
+    <Link Source="@42" Target="@49" Category="CallStackDirectCall" Bounds="780.748229980469,250.99072265625,579.265075683594,36.1600646972656" />
+    <Link Source="@44" Target="@18" Category="CallStackDirectCall" Bounds="808.392822265625,314.197509765625,52.9222412109375,40.4911193847656" />
+    <Link Source="@45" Target="(@1 @12 Type=PropositionRepository @16)" Category="CallStackDirectCall" Bounds="2165.35913085938,313.261199951172,347.36376953125,48.0431213378906" />
+    <Link Source="@46" Target="(@1 @12 Type=RoomRepository @16)" Category="CallStackDirectCall" Bounds="2418.28002929688,386.117492675781,0,22.6875" />
+    <Link Source="@48" Target="@19" Category="CallStackDirectCall" Bounds="87.0019149780273,314.197509765625,2.05638885498047,36.973876953125" />
+    <Link Source="@8" Target="@43" Category="CallStackDirectCall" Bounds="2141.02612304688,383.822174072266,361.344482421875,34.5538635253906" />
+    <Link Source="@8" Target="@47" Category="CallStackDirectCall" Bounds="1680.82775878906,384.088592529297,380.783813476563,41.878662109375" />
+    <Link Source="ExternalCodeRootNode" Target="(@1 Namespace=CeMeOCore.Controllers Type=MeetingController Member=(Name=Dispose OverloadingParameters=[(@5 @6 Type=Boolean)]))" Category="CallStackIndirectCall" Bounds="669.280029296875,25.9599990844727,0,22.6875">
+      <Category Ref="CurrentCallStackCall" />
+    </Link>
+    <Link Source="ExternalCodeRootNode" Target="@33" Category="CallStackIndirectCall" Bounds="591.260009765625,25.9599990844727,53.0270385742188,27.5394325256348" />
+  </Links>
+  <Categories>
+    <Category Id="CallStackDirectCall" Label="Call Stack direct call" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Call Stack direct call" OutgoingActionLabel="Call Stack direct call" />
+    <Category Id="CallStackEntry" Label="Call Stack Entry" CanBeDataDriven="True" IsProviderRoot="False" NavigationActionLabel="Call Stack Entry" />
+    <Category Id="CallStackIndirectCall" Label="Call Stack indirect call" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Call Stack indirect call" OutgoingActionLabel="Call Stack indirect call" />
+    <Category Id="CodeSchema_Member" Label="Member" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="CodeSchema_Field" NavigationActionLabel="Members" />
+    <Category Id="CodeSchema_Method" Label="Method" BasedOn="CodeSchema_Member" CanBeDataDriven="True" DefaultAction="Link:Forward:CodeSchema_Calls" Icon="CodeSchema_Method" NavigationActionLabel="Methods" />
+    <Category Id="CodeSchema_SourceLocation" Label="Source Location" Icon="File" />
+    <Category Id="CurrentCallStackCall" Label="Current Call Stack call" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Current Call Stack call" OutgoingActionLabel="Current Call Stack call" />
+    <Category Id="CurrentCallStackEntry" Label="Current Call Stack Entry" CanBeDataDriven="True" IsProviderRoot="False" NavigationActionLabel="Current Call Stack Entry" />
+    <Category Id="ExternalCallStackEntry" Label="External Call Stack Entry" CanBeDataDriven="True" IsProviderRoot="False" NavigationActionLabel="External Call Stack Entry" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsConstructor" Label="Is Constructor" Description="Flag to indicate the method is a constructor" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsPrivate" Label="Is Private" Description="Flag to indicate the scope is Private" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsProtected" Label="Is Protected" Description="Flag to indicate the scope is Protected" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsPublic" Label="Is Public" Description="Flag to indicate the scope is Public" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsVirtual" Label="Is Virtual" Description="Flag to indicate the method can be overridden" DataType="System.Boolean" />
+    <Property Id="CommonLabel" DataType="System.String" />
+    <Property Id="DataVirtualized" Label="Data Virtualized" Description="If true, the graph can contain nodes and links that represent data for virtualized nodes/links (i.e. not actually created in the graph)." DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="FunctionTypeFlags" Label="FunctionTypeFlags" Description="FunctionTypeFlags" DataType="System.String" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="Icon" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsCodeType" Label="IsCodeType" Description="IsCodeType" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="IsOverloaded" Label="IsOverloaded" Description="IsOverloaded" DataType="System.Boolean" />
+    <Property Id="IsOverridable" Label="IsOverridable" Description="IsOverridable" DataType="System.Boolean" />
+    <Property Id="IsProviderRoot" Label="IsProviderRoot" Description="IsProviderRoot" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="LabelBounds" DataType="System.Windows.Rect" />
+    <Property Id="Language" Label="Language" Description="Language" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="MustImplement" Label="MustImplement" Description="MustImplement" DataType="System.Boolean" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="SourceLocation" Label="Start Line Number" DataType="Microsoft.VisualStudio.GraphModel.CodeSchema.SourceLocation" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+    <Property Id="Visibility" Label="Visibility" Description="Defines whether a node in the graph is visible or not" DataType="System.Windows.Visibility" />
+  </Properties>
+  <QualifiedNames>
+    <Name Id="Assembly" Label="Assembly" ValueType="Uri" />
+    <Name Id="GenericArguments" Label="Generic Arguments" ValueType="Microsoft.VisualStudio.GraphModel.GraphNodeIdCollection" />
+    <Name Id="GenericParameterCount" Label="Generic Parameter Count" ValueType="System.String" />
+    <Name Id="Member" Label="Member" ValueType="System.Object" />
+    <Name Id="Name" Label="Name" ValueType="System.String" />
+    <Name Id="Namespace" Label="Namespace" ValueType="System.String" />
+    <Name Id="OverloadingParameters" Label="Parameter" ValueType="Microsoft.VisualStudio.GraphModel.GraphNodeIdCollection" Formatter="NameValueNoEscape" />
+    <Name Id="ParameterIdentifier" Label="Parameter Identifier" ValueType="System.String" />
+    <Name Id="ParentType" Label="Parent Type" ValueType="System.Object" />
+    <Name Id="Type" Label="Type" ValueType="System.Object" />
+  </QualifiedNames>
+  <IdentifierAliases>
+    <Alias n="1" Uri="Assembly=$(b08edaac-af78-4191-8358-45e19b038f7c.OutputPathUri)" />
+    <Alias n="2" Id="Namespace=CeMeOCore.Logic.Range" />
+    <Alias n="3" Id="Type=DateRange" />
+    <Alias n="4" Id="GenericParameterCount=1" />
+    <Alias n="5" Uri="Assembly=$(FxReferenceAssembliesUri)/.NETFramework/v4.5/mscorlib.dll" />
+    <Alias n="6" Id="Namespace=System" />
+    <Alias n="7" Id="(@5 @6 Type=DateTime)" />
+    <Alias n="8" Id="(@1 @2 @3 Member=(Name=Includes OverloadingParameters=[(@1 @2 Type=(Name=IRange @4 GenericArguments=[@7]))]))" />
+    <Alias n="9" Id="Namespace=CeMeOCore.Logic.Organiser" />
+    <Alias n="10" Id="Type=Organiser" />
+    <Alias n="11" Id="(@1 @9 @10 Member=(Name=ConvertParticipantsToInvitees OverloadingParameters=[(@5 Namespace=System.Collections.Generic Type=(Name=IEnumerable @4 GenericArguments=[(@1 @9 Type=InvitedParticipant)]))]))" />
+    <Alias n="12" Id="Namespace=CeMeOCore.DAL.Repositories" />
+    <Alias n="13" Id="Type=(Name=GenericRepository @4)" />
+    <Alias n="14" Id="Name=.ctor" />
+    <Alias n="15" Id="Namespace=CeMeOCore.Models" />
+    <Alias n="16" Id="Member=(@14 OverloadingParameters=[(@1 @15 Type=CeMeoContext)])" />
+    <Alias n="17" Id="(@1 @12 @13 @16)" />
+    <Alias n="18" Id="(@1 @12 Type=InviteeRepository @16)" />
+    <Alias n="19" Id="(@1 @12 Type=UserProfileRepository @16)" />
+    <Alias n="20" Id="Namespace=CeMeOCore.Logic.Spots" />
+    <Alias n="21" Id="Type=ReservedSpot" />
+    <Alias n="22" Id="(@1 @9 @10 Member=(Name=resolveRequestedBy OverloadingParameters=[(@5 @6 Type=Int32)]))" />
+    <Alias n="23" Id="Type=SpotManager" />
+    <Alias n="24" Id="(@1 @20 @23 Member=(Name=AddSpot OverloadingParameters=[(@1 @20 Type=ISpot)]))" />
+    <Alias n="25" Id="(@1 @12 @13 Member=(Name=GetByID OverloadingParameters=[(@5 @6 Type=Object)]))" />
+    <Alias n="26" Id="(@1 @9 Type=OrganiserManager Member=(Name=Create OverloadingParameters=[(@1 @15 Type=ScheduleMeetingBindingModel)]))" />
+    <Alias n="27" Id="(@1 @2 Type=(Name=Comparer ParentType=DateRange) Member=(Name=Compare OverloadingParameters=[(@1 @2 @3),(@1 @2 @3)]))" />
+    <Alias n="28" Id="(@1 @2 @3 Member=(@14 OverloadingParameters=[@7,@7]))" />
+    <Alias n="29" Id="(@1 @2 Type=ProposalDateRange Member=(@14 OverloadingParameters=[@7,@7]))" />
+    <Alias n="30" Id="(@1 @9 @10 Member=(Name=GetProposalDate OverloadingParameters=[(@1 @2 Type=ProposalDateRange),(@5 @6 Type=Guid)]))" />
+    <Alias n="31" Id="(@1 @9 @10 Member=(Name=GetProposalRoom OverloadingParameters=[(@1 @2 Type=ProposalDateRange),(@5 @6 Type=Guid)]))" />
+    <Alias n="32" Uri="Assembly=$(FxReferenceAssembliesUri)/.NETFramework/v4.5/System.Net.Http.dll" />
+    <Alias n="33" Id="(@1 Namespace=CeMeOCore.Controllers Type=MeetingController Member=(Name=Schedule OverloadingParameters=[(@32 Namespace=System.Net.Http Type=HttpRequestMessage),(@1 @15 Type=ScheduleMeetingBindingModel)]))" />
+    <Alias n="34" Id="(@1 @15 Type=Invitee Member=(@14 OverloadingParameters=[(@5 @6 Type=String),(@5 @6 Type=Int32),(@5 @6 Type=Boolean)]))" />
+    <Alias n="35" Uri="Assembly=$(FxReferenceAssembliesUri)/.NETFramework/v4.5/System.Core.dll" />
+    <Alias n="36" Id="(@1 @9 @10 Member=(@14 OverloadingParameters=[(@5 Namespace=System.Collections.Generic Type=(Name=IEnumerable @4 GenericArguments=[(@1 @9 Type=InvitedParticipant)])),@7,(@1 @9 Type=DateIndex),(@5 @6 Type=Int32),(@5 @6 Type=Double)]))" />
+    <Alias n="37" Id="Member=.ctor" />
+    <Alias n="38" Id="Namespace=CeMeOCore.DAL.UnitsOfWork" />
+    <Alias n="39" Id="Type=OrganiserUoW" />
+    <Alias n="40" Id="(@1 @38 @39 @37)" />
+    <Alias n="41" Id="(@1 @20 @21 @37)" />
+    <Alias n="42" Id="(@1 @9 @10 Member=CalculateEarliestProposition)" />
+    <Alias n="43" Id="(@1 @2 @3 Member=get_End)" />
+    <Alias n="44" Id="(@1 @38 @39 Member=get_InviteeRepository)" />
+    <Alias n="45" Id="(@1 @38 @39 Member=get_PropositionRepository)" />
+    <Alias n="46" Id="(@1 @38 @39 Member=get_RoomRepository)" />
+    <Alias n="47" Id="(@1 @2 @3 Member=get_Start)" />
+    <Alias n="48" Id="(@1 @38 @39 Member=get_UserProfileRepository)" />
+    <Alias n="49" Id="(@1 @38 @39 Member=Save)" />
+  </IdentifierAliases>
+  <Styles>
+    <Style TargetType="Link" GroupLabel="Current Call Stack Link" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CurrentCallStackCall')" />
+      <Setter Property="Stroke" Value="#FFD93701" />
+      <Setter Property="Weight" Value="1" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Call Stack Indirect Link" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CallStackIndirectCall')" />
+      <Setter Property="Stroke" Value="#FFB8B8B8" />
+      <Setter Property="StrokeDashArray" Value="4 1" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Call Stack Direct Link" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CallStackDirectCall')" />
+      <Setter Property="Stroke" Value="#FFB8B8B8" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="External And Current" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('ExternalCallStackEntry') And HasCategory('CurrentCallStackEntry')" />
+      <Setter Property="Background" Value="#FFFFF8F0" />
+      <Setter Property="Stroke" Value="#FFCE5100" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Current Call Stack Node" ValueLabel="True">
+      <Condition Expression="HasCategory('CurrentCallStackEntry') And !HasCategory('QueryResult')" />
+      <Setter Property="Background" Value="#FFFFE3C6" />
+      <Setter Property="Stroke" Value="#FFD93701" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="External Call Stack Entry" ValueLabel="True">
+      <Condition Expression="HasCategory('ExternalCallStackEntry')" />
+      <Setter Property="Background" Value="#FFF7F7F7" />
+      <Setter Property="StrokeDashArray" Value="1 3" />
+      <Setter Property="Foreground" Value="#FFA5A5A5" />
+      <Setter Property="Stroke" Value="#FFA5A5A5" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Results" ValueLabel="True">
+      <Condition Expression="HasCategory('QueryResult')" />
+      <Setter Property="Background" Value="#FFBCFFBE" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Assembly" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Assembly')" />
+      <Setter Property="Background" Value="#FF094167" />
+      <Setter Property="Stroke" Value="#FF094167" />
+      <Setter Property="Icon" Value="CodeSchema_Assembly" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Namespace" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Namespace')" />
+      <Setter Property="Background" Value="#FF0E619A" />
+      <Setter Property="Stroke" Value="#FF0E619A" />
+      <Setter Property="Icon" Value="CodeSchema_Namespace" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Interface" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Interface')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Interface" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Struct" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Struct')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Struct" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Enumeration" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Enum')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Enum" />
+      <Setter Property="LayoutSettings" Value="List" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Delegate" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Delegate')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Delegate" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Class" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Type')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Class" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Property')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Property" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Method" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Method') Or HasCategory('CodeSchema_CallStackUnresolvedMethod')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Method" />
+      <Setter Property="LayoutSettings" Value="List" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Event" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Event')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Event" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field" ValueLabel="Has category">
+      <Condition Expression="HasCategory('CodeSchema_Field')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Field" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Out Parameter" ValueLabel="True">
+      <Condition Expression="CodeSchemaProperty_IsOut = 'True'" />
+      <Setter Property="Icon" Value="CodeSchema_OutParameter" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Parameter" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_Parameter')" />
+      <Setter Property="Icon" Value="CodeSchema_Parameter" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Local Variable" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_LocalExpression')" />
+      <Setter Property="Icon" Value="CodeSchema_LocalExpression" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Externals" ValueLabel="Has category">
+      <Condition Expression="HasCategory('Externals')" />
+      <Setter Property="Background" Value="#FF424242" />
+      <Setter Property="Stroke" Value="#FF424242" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Inherits From" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('InheritsFrom') And Target.HasCategory('CodeSchema_Class')" />
+      <Setter Property="TargetDecorator" Value="OpenArrow" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Implements" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('Implements') And Target.HasCategory('CodeSchema_Interface')" />
+      <Setter Property="TargetDecorator" Value="OpenArrow" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Field Read" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="Target.HasCategory('CodeSchema_Field') And HasCategory('CodeSchema_FieldRead')" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Comment Link" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="Source.HasCategory('Comment')" />
+      <Setter Property="Stroke" Value="#FFE5C365" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Cursor Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="IsCursorLocation" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Disabled Breakpoint Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="DisabledBreakpointCount" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Enabled Breakpoint Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="EnabledBreakpointCount" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Instruction Pointer Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="IsInstructionPointerLocation" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Current Callstack Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="IsCurrentCallstackFrame" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+  </Styles>
+  <Paths>
+    <Path Id="b08edaac-af78-4191-8358-45e19b038f7c.OutputPathUri" Value="file:///Z:/School/2013-2014/Bachelorproef/CemeoCore/CeMeOCore/CeMeOCore/bin/CeMeOCore.dll" />
+    <Path Id="FxReferenceAssembliesUri" Value="file:///C:/Program Files (x86)/Reference Assemblies/Microsoft/Framework" />
+  </Paths>
+</DirectedGraph>

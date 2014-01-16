@@ -5,6 +5,9 @@ using System.Web;
 
 namespace CeMeOCore.Logic.Organiser
 {
+    /// <summary>
+    /// Not used yet.. Still need to make a use for this if we are using this. (experimental)
+    /// </summary>
     public class OrganiserResponse
     {
         public string OrganiserResponseID { get; set; }

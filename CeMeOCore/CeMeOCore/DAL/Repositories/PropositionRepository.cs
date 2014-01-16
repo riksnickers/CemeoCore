@@ -7,13 +7,13 @@ using System.Web;
 
 namespace CeMeOCore.DAL.Repositories
 {
-    public class RoomRepository : GenericRepository<Room>
+    public class PropositionRepository : GenericRepository<Proposition>
     {
         /// <summary>
         /// This constructor will pass the context through the base
         /// </summary>
         /// <param name="dbContext">The database context</param>
-        public RoomRepository(CeMeoContext dbContext) : base(dbContext)
+        public PropositionRepository( CeMeoContext dbContext ) : base(dbContext)
         {
 
         }

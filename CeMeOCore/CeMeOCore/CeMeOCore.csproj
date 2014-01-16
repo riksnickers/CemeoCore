@@ -221,10 +221,10 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
-    <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\MeetingsController.cs" />
     <Compile Include="Controllers\RoomApiController.cs" />
@@ -233,11 +233,16 @@
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\Repositories\GenericRepository.cs" />
+    <Compile Include="DAL\Repositories\InviteeRepository.cs" />
     <Compile Include="DAL\Repositories\MeetingRepository.cs" />
+    <Compile Include="DAL\Repositories\OrganiserRepository.cs" />
+    <Compile Include="DAL\Repositories\PropositionRepository.cs" />
     <Compile Include="DAL\Repositories\RoomRepository.cs" />
     <Compile Include="DAL\Repositories\UserProfileRepository.cs" />
     <Compile Include="DAL\UnitsOfWork\ContactUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\LocationUoW.cs" />
+    <Compile Include="DAL\UnitsOfWork\MeetingControllerUoW.cs" />
+    <Compile Include="DAL\UnitsOfWork\OrganiserUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\SampleUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\UserUoW.cs" />
     <Compile Include="Global.asax.cs">
@@ -253,6 +258,7 @@
     <Compile Include="Logic\Organiser\Exceptions\RoomIsReservedException.cs" />
     <Compile Include="Logic\Organiser\Exceptions\RoomNotAvailableException.cs" />
     <Compile Include="Logic\Organiser\IOrganiser.cs" />
+    <Compile Include="Logic\PushNotifications\ApplePushNotification.cs" />
     <Compile Include="Logic\Range\ProposalDateRange.cs" />
     <Compile Include="Logic\TextRecognition\Recognition.cs" />
     <Compile Include="Logic\WorkSchedule\WorkSchedule.cs" />
@@ -261,7 +267,7 @@
     <Compile Include="Logic\Organiser\Organiser.cs" />
     <Compile Include="Logic\Organiser\OrganiserManager.cs" />
     <Compile Include="Logic\Organiser\OrganiserResponse.cs" />
-    <Compile Include="Logic\Organiser\Proposition.cs" />
+    <Compile Include="DAL\Models\Proposition.cs" />
     <Compile Include="Logic\Spot\ISpot.cs" />
     <Compile Include="Logic\Spot\BlackSpot.cs" />
     <Compile Include="Logic\Spot\IPersonSpot.cs" />
@@ -272,47 +278,33 @@
     <Compile Include="Logic\Spot\SpotBoolean.cs" />
     <Compile Include="Logic\Spot\SpotManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountBindingModels.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Appointment.cs" />
-    <Compile Include="Models\Calendar.cs" />
-    <Compile Include="Models\CeMeoContext.cs" />
-    <Compile Include="Models\GuestUser.cs" />
-    <Compile Include="Models\IMeeting.cs" />
-    <Compile Include="Models\Invitee.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\Meeting.cs" />
-    <Compile Include="Models\MeetingUser.cs" />
-    <Compile Include="Models\Room.cs" />
-    <Compile Include="Models\RoomEdit.cs" />
-    <Compile Include="Models\UserProfile.cs" />
+    <Compile Include="DAL\Models\AccountBindingModels.cs" />
+    <Compile Include="DAL\Models\AccountViewModels.cs" />
+    <Compile Include="DAL\Models\Appointment.cs" />
+    <Compile Include="DAL\Models\Calendar.cs" />
+    <Compile Include="DAL\Context\CeMeoContext.cs" />
+    <Compile Include="DAL\Models\GuestUser.cs" />
+    <Compile Include="DAL\Models\IMeeting.cs" />
+    <Compile Include="DAL\Models\Invitee.cs" />
+    <Compile Include="DAL\Models\Location.cs" />
+    <Compile Include="DAL\Models\LoginModel.cs" />
+    <Compile Include="DAL\Models\Meeting.cs" />
+    <Compile Include="DAL\Models\MeetingUser.cs" />
+    <Compile Include="DAL\Models\Room.cs" />
+    <Compile Include="DAL\Models\RoomEdit.cs" />
+    <Compile Include="DAL\Models\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
-    <Content Include="Assets\css\bootstrap.css" />
-    <Content Include="Assets\css\morris-0.4.3.min.css" />
-    <Content Include="Assets\css\sb-admin.css" />
-    <Content Include="Assets\font-awesome\css\font-awesome.css" />
-    <Content Include="Assets\font-awesome\css\font-awesome.min.css" />
-    <Content Include="Assets\font-awesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="Assets\js\bootstrap.js" />
-    <Content Include="Assets\js\flot\chart-data-flot.js" />
-    <Content Include="Assets\js\flot\excanvas.min.js" />
-    <Content Include="Assets\js\flot\jquery.flot.js" />
-    <Content Include="Assets\js\flot\jquery.flot.pie.js" />
-    <Content Include="Assets\js\flot\jquery.flot.resize.js" />
-    <Content Include="Assets\js\flot\jquery.flot.tooltip.min.js" />
-    <Content Include="Assets\js\jquery-1.10.2.js" />
-    <Content Include="Assets\js\morris-0.4.3.min.js" />
-    <Content Include="Assets\js\morris\chart-data-morris.js" />
-    <Content Include="Assets\js\raphael-min.js" />
-    <Content Include="Assets\js\tablesorter\jquery.tablesorter.js" />
-    <Content Include="Assets\js\tablesorter\tables.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -332,36 +324,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <Content Include="Assets\font-awesome\fonts\fontawesome-webfont.eot" />
-    <Content Include="Assets\font-awesome\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Assets\font-awesome\fonts\fontawesome-webfont.woff" />
-    <Content Include="Assets\font-awesome\fonts\FontAwesome.otf" />
-    <Content Include="Assets\font-awesome\less\bordered-pulled.less" />
-    <Content Include="Assets\font-awesome\less\core.less" />
-    <Content Include="Assets\font-awesome\less\fixed-width.less" />
-    <Content Include="Assets\font-awesome\less\font-awesome.less" />
-    <Content Include="Assets\font-awesome\less\icons.less" />
-    <Content Include="Assets\font-awesome\less\larger.less" />
-    <Content Include="Assets\font-awesome\less\list.less" />
-    <Content Include="Assets\font-awesome\less\mixins.less" />
-    <Content Include="Assets\font-awesome\less\path.less" />
-    <Content Include="Assets\font-awesome\less\rotated-flipped.less" />
-    <Content Include="Assets\font-awesome\less\spinning.less" />
-    <Content Include="Assets\font-awesome\less\stacked.less" />
-    <Content Include="Assets\font-awesome\less\variables.less" />
-    <Content Include="Assets\font-awesome\scss\font-awesome.scss" />
-    <Content Include="Assets\font-awesome\scss\_bordered-pulled.scss" />
-    <Content Include="Assets\font-awesome\scss\_core.scss" />
-    <Content Include="Assets\font-awesome\scss\_fixed-width.scss" />
-    <Content Include="Assets\font-awesome\scss\_icons.scss" />
-    <Content Include="Assets\font-awesome\scss\_larger.scss" />
-    <Content Include="Assets\font-awesome\scss\_list.scss" />
-    <Content Include="Assets\font-awesome\scss\_mixins.scss" />
-    <Content Include="Assets\font-awesome\scss\_path.scss" />
-    <Content Include="Assets\font-awesome\scss\_rotated-flipped.scss" />
-    <Content Include="Assets\font-awesome\scss\_spinning.scss" />
-    <Content Include="Assets\font-awesome\scss\_stacked.scss" />
-    <Content Include="Assets\font-awesome\scss\_variables.scss" />
+    <None Include="Resources\CeMeOPush.p12" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cemeo.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -395,6 +358,16 @@
     <Content Include="Views\Room\Create.cshtml" />
     <Content Include="Views\Room\Edit.cshtml" />
     <Content Include="Views\Room\Delete.cshtml" />
+    <Content Include="Views\Appointment\Create.cshtml" />
+    <Content Include="Views\Appointment\Delete.cshtml" />
+    <Content Include="Views\Appointment\Details.cshtml" />
+    <Content Include="Views\Appointment\Edit.cshtml" />
+    <Content Include="Views\Appointment\Index.cshtml" />
+    <Content Include="Views\Calendar\Create.cshtml" />
+    <Content Include="Views\Calendar\Delete.cshtml" />
+    <Content Include="Views\Calendar\Details.cshtml" />
+    <Content Include="Views\Calendar\Edit.cshtml" />
+    <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\Location\Create.cshtml" />
     <Content Include="Views\Location\Delete.cshtml" />
     <Content Include="Views\Location\Details.cshtml" />
@@ -410,12 +383,9 @@
     <Content Include="Views\UserProfile\Details.cshtml" />
     <Content Include="Views\UserProfile\Edit.cshtml" />
     <Content Include="Views\UserProfile\Index.cshtml" />
-    <Content Include="Views\Shared\AdminHeader.cshtml" />
-    <Content Include="Views\Shared\AdminFooter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Locations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -423,6 +393,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

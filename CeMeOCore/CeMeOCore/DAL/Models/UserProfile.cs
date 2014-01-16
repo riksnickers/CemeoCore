@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Models
 {
     [Table("UserProfile")]
     public class UserProfile

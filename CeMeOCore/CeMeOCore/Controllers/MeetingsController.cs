@@ -1,4 +1,4 @@
-﻿using CeMeOCore.Models;
+﻿using CeMeOCore.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,11 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using CeMeOCore.DAL.Context;
 
 namespace CeMeOCore.Controllers
 {
     public class MeetingsController : Controller
     {
+        //Still need to delete the _db things...
         private CeMeoContext _db = new CeMeoContext();
         //
         // GET: /Meetings/

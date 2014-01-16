@@ -6,7 +6,7 @@ using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
 using System.Web;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Models
 {
     public class Room
     {

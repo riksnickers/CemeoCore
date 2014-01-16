@@ -9,53 +9,24 @@ using System.Web;
 namespace CeMeOCore.DAL.UnitsOfWork
 {
     /// <summary>
-    /// The unit of work used in the AccountController.
+    /// This is the Unit of Work for the Organiser Class
     /// </summary>
-    public class UserUoW : IDisposable
+    public class OrganiserUoW
     {
         /// <summary>
         /// The initialization of the context.
         /// </summary>
         private CeMeoContext context = new CeMeoContext();
         /// <summary>
-        /// The needed repositories
+        /// The repositories used in the organiser
         /// </summary>
-        private UserProfileRepository _userProfileRepository;
-        private GenericRepository<Location> _locationRepository;
         private InviteeRepository _inviteeRepository;
+        private PropositionRepository _propositionRepository;
+        private RoomRepository _roomRepository;
+        private UserProfileRepository _userProfileRepository;
 
         /// <summary>
-        /// The UserProfileRepository property
-        /// </summary>
-        public UserProfileRepository UserProfileRepository
-        {
-            get
-            {
-                if (this._userProfileRepository == null)
-                {
-                    this._userProfileRepository = new UserProfileRepository(context);
-                }
-                return this._userProfileRepository;
-            }
-        }
-
-        /// <summary>
-        /// The UserProfileRepository property
-        /// </summary>
-        public GenericRepository<Location> LocationRepository
-        {
-            get
-            {
-                if( this._locationRepository == null )
-                {
-                    this._locationRepository = new GenericRepository<Location>(context);
-                }
-                return this._locationRepository;
-            }
-        }
-
-        /// <summary>
-        /// The UserProfileRepository property
+        /// The InviteeRepository Property
         /// </summary>
         public InviteeRepository InviteeRepository
         {
@@ -70,6 +41,51 @@ namespace CeMeOCore.DAL.UnitsOfWork
         }
 
         /// <summary>
+        /// The PropositionRepository Property
+        /// </summary>
+        public PropositionRepository PropositionRepository
+        {
+            get
+            {
+                if(this._propositionRepository == null )
+                {
+                    this._propositionRepository = new PropositionRepository(context);
+                }
+                return this._propositionRepository;
+            }
+        }
+
+        /// <summary>
+        /// The RoomRepository Property
+        /// </summary>
+        public RoomRepository RoomRepository
+        {
+            get
+            {
+                if(this._roomRepository == null)
+                {
+                    this._roomRepository = new RoomRepository(context);
+                }
+                return this._roomRepository;
+            }
+        }
+
+        /// <summary>
+        /// The UserProfileRepository Property
+        /// </summary>
+        public UserProfileRepository UserProfileRepository
+        {
+            get
+            {
+                if (this._userProfileRepository == null)
+                {
+                    this._userProfileRepository = new UserProfileRepository(context);
+                }
+                return this._userProfileRepository;
+            }
+        }
+
+        /// <summary>
         /// Save the context
         /// </summary>
         public void Save()
@@ -80,7 +96,7 @@ namespace CeMeOCore.DAL.UnitsOfWork
         private bool disposed = false;
 
         /// <summary>
-        /// Disposes the context
+        /// Dispose the context
         /// </summary>
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
@@ -96,7 +112,7 @@ namespace CeMeOCore.DAL.UnitsOfWork
         }
 
         /// <summary>
-        /// Dispose function
+        /// Dispose method
         /// </summary>
         public void Dispose()
         {
