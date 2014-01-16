@@ -14,12 +14,11 @@ namespace CeMeOCore.Controllers
         private CeMeoContext _db = new CeMeoContext();
         public ActionResult Index()
         {
-
             int countMeetings = _db.Meetings.Count();
             int countLocations = _db.Locations.Count();
             int countUsers = _db.Users.Count();
             int countRooms = _db.Rooms.Count();
-
+            
             return View();
         }
 
