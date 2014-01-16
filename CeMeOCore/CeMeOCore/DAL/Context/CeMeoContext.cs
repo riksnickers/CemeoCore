@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CeMeOCore.DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Context
 {
     public class CeMeoContext : DbContext
     {

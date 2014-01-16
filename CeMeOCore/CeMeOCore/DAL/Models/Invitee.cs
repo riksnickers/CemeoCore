@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Models
 {
     /// <summary>
     /// An invitee is a user that is invited for a meeting. But the meeting is not planned yet. This will cover all the interaction responses for scheduling a meeting.

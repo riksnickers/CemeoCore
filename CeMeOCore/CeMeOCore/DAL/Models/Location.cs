@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Models
 {
     public class Location
     {

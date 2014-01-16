@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Models
 {
     // Models returned by AccountController actions.
 

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Models
 {
     //Model for the Appointment table
     public class Appointment

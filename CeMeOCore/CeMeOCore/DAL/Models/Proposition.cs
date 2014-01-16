@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Models
 {
     /// <summary>
     /// A proposition will be added to Invitee, this will be send to a user.

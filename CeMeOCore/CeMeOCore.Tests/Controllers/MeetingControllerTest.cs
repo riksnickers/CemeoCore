@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using CeMeOCore;
-using CeMeOCore.Models;
+using CeMeOCore.DAL.Models;
 using System;
 using System.Web.Http;
 

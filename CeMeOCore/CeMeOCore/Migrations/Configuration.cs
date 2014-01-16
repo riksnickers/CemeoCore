@@ -1,12 +1,12 @@
 namespace CeMeOCore.Migrations
 {
-    using CeMeOCore.Models;
+    using CeMeOCore.DAL.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CeMeOCore.Models.CeMeoContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<CeMeOCore.DAL.Context.CeMeoContext>
     {
         public Configuration()
         {
@@ -15,7 +15,7 @@ namespace CeMeOCore.Migrations
         }
 
         //Method that takes care of the dummy data
-        protected override void Seed(CeMeOCore.Models.CeMeoContext context)
+        protected override void Seed(CeMeOCore.DAL.Context.CeMeoContext context)
         {
             //locations
             Location HoofdkantoorHasselt = new Location

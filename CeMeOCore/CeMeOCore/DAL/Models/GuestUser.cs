@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace CeMeOCore.Models
+namespace CeMeOCore.DAL.Models
 {
     //This is a sor of an useraccount that can be enabled temporary for external people, so they can use the app too.
     public class GuestUser

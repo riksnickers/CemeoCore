@@ -1,4 +1,4 @@
-﻿using CeMeOCore.Models;
+﻿using CeMeOCore.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
 using PagedList;
+using CeMeOCore.DAL.Context;
 
 namespace CeMeOCore.Controllers
 {

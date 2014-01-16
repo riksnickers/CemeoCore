@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using CeMeOCore.Models;
+using CeMeOCore.DAL.Models;
 using CeMeOCore.Providers;
 using CeMeOCore.Results;
 using CeMeOCore.DAL.UnitsOfWork;
@@ -90,8 +90,10 @@ namespace CeMeOCore.Controllers
         /// </summary>
         /// <returns>UserProfileBindingModel</returns>
         [Route("Profile")]
-        public UserProfileBindingModel GetProfile()
+        public UserProfileBindingModel GetProfile(string ID)
         {
+            //ID = device ID
+
             string id = User.Identity.GetUserId();
 
             UserProfile up = this._userUoW.UserProfileRepository.Get(u => u.aspUser == id).First();

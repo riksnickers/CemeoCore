@@ -3,7 +3,7 @@ using CeMeOCore.DAL.UnitsOfWork;
 using CeMeOCore.Logic.Organiser.Exceptions;
 using CeMeOCore.Logic.Range;
 using CeMeOCore.Logic.Spots;
-using CeMeOCore.Models;
+using CeMeOCore.DAL.Models;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -174,7 +174,7 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         private void CalculateEarliestProposition()
         {
-            //TODO: Add room logic
+            //TODO: Add more room logic
             //HACK: Refactor Person available logic.
             //This is our start proposal daterange
             ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this.Duration));
@@ -259,6 +259,7 @@ namespace CeMeOCore.Logic.Organiser
                             {
                                 throw new PersonNotAvailableException();
                             }
+                            //TODO: Add to check reserved persons..
                         }
                     }
                     catch (PersonNotAvailableException)
