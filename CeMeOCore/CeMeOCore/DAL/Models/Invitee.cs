@@ -26,6 +26,11 @@ namespace CeMeOCore.DAL.Models
 
         public Proposition Proposal { get; set; }
 
+        public Invitee()
+        {
+            //Needed for EF
+        }
+
         public Invitee(string organiserID, int userID, Boolean important)
         {
             InviteeID = DateHash(organiserID) + "#" + userID;
