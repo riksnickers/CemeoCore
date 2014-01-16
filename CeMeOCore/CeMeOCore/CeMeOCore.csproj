@@ -225,8 +225,10 @@
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\MeetingsController.cs" />
+    <Compile Include="Controllers\PropositionController.cs" />
     <Compile Include="Controllers\RoomApiController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\Repositories\GenericRepository.cs" />
     <Compile Include="DAL\Repositories\InviteeRepository.cs" />
+    <Compile Include="DAL\Repositories\LocationRepository.cs" />
     <Compile Include="DAL\Repositories\MeetingRepository.cs" />
     <Compile Include="DAL\Repositories\OrganiserRepository.cs" />
     <Compile Include="DAL\Repositories\PropositionRepository.cs" />
