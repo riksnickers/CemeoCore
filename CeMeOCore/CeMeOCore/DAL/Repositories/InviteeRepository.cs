@@ -30,7 +30,7 @@ namespace CeMeOCore.DAL.Repositories
         /// <returns>IEnumerable<Invitee></returns>
         public IEnumerable<Invitee> GetInviteeIDsByUserProfileID(int upID)
         {
-            return this.dbSet.Where(u => u.UserID == upID);
+            return this.dbSet.Where(u => u.UserID == upID).Select(u => u).ToList();
         }
     }
 }

@@ -21,8 +21,10 @@ namespace CeMeOCore.DAL.Models
             this.Id = Guid.NewGuid().ToString();
             this.ReservedSpotGuid = reservedSpotGuid;
         }
+
+        public Proposition() { }
         
-        public Room ProposedRoom { get; set; }
+        public virtual Room ProposedRoom { get; set; }
 
         //Time when the meeting starts
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]

@@ -24,7 +24,7 @@ namespace CeMeOCore.DAL.Models
 
         public Availability Answer { get; set; }
 
-        public Proposition Proposal { get; set; }
+        public virtual Proposition Proposal { get; set; }
 
         public Invitee()
         {
