@@ -214,6 +214,15 @@ table {
   border-spacing: 0;
 }
 
+#smaller{
+    width: 300px;
+}
+
+#bigger{
+    width: 100px;
+    text-align:left;
+}
+
 @media print {
   * {
     color: #000 !important;

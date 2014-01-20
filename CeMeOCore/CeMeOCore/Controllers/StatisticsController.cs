@@ -25,8 +25,8 @@ namespace CeMeOCore.Controllers
 
             //Meeting statistics
             //Statistics to get the number of meeting in the forenoon and the afternoon and put them in a pie chart.
-           // int countMeetingsForenoon = from n in _db.Meetings where n.
-           // int countMeetingAfternoon = _db.Meetings.Count();
+            //int countMeetingsForenoon = from n in _db.Meetings where n.
+            //int countMeetingAfternoon = _db.Meetings.Count();
 
             //Location statistics
 
@@ -36,7 +36,7 @@ namespace CeMeOCore.Controllers
 
             //Users statistics
             //Statistics to get the user with the most organized meetings
-           // var countUsersWithMostMeetings = from s in _db.Users where 
+            //var countUsersWithMostMeetings = from s in _db.Users where 
 
 
             return View(stats);

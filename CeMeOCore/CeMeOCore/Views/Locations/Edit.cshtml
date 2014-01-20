@@ -9,75 +9,58 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>EditLocation</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.LocationID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Name:</span>
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.Name)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Street, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Street)
-                @Html.ValidationMessageFor(model => model.Street)
-            </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Street:</span>
+            @Html.TextBoxFor(model => model.Street, new { @class = "form-control", @placeholder = "Street", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.Street)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Number)
-                @Html.ValidationMessageFor(model => model.Number)
-            </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Number:</span>
+            @Html.TextBoxFor(model => model.Number, new { @class = "form-control", @placeholder = "Number", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.Number)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Zip, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Zip)
-                @Html.ValidationMessageFor(model => model.Zip)
-            </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Zip:</span>
+            @Html.TextBoxFor(model => model.Zip, new { @class = "form-control", @placeholder = "Zip", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.Zip)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.City)
-                @Html.ValidationMessageFor(model => model.City)
-            </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">City:</span>
+            @Html.TextBoxFor(model => model.City, new { @class = "form-control", @placeholder = "City", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.City)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Country, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Country)
-                @Html.ValidationMessageFor(model => model.Country)
-            </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Country:</span>
+            @Html.TextBoxFor(model => model.Country, new { @class = "form-control", @placeholder = "Country", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.Country)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.State)
-                @Html.ValidationMessageFor(model => model.State)
-            </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">State:</span>
+            @Html.TextBoxFor(model => model.State, new { @class = "form-control", @placeholder = "State", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.State)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Addition, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Addition)
-                @Html.ValidationMessageFor(model => model.Addition)
-            </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Addition:</span>
+            @Html.TextBoxFor(model => model.Addition, new { @class = "form-control", @placeholder = "Addition", @id = "smaller"})
+            @Html.ValidationMessageFor(model => model.Addition)
         </div>
-
+        <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -85,7 +68,7 @@
         </div>
     </div>
 }
+    <span class="glyphicon glyphicon-arrow-down">
+        @Html.ActionLink("Back to List", "Index")
+    </span>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

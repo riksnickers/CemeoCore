@@ -136,18 +136,28 @@ namespace CeMeOCore.Controllers
         // GET: /Locations/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var loca = this._locationUoW.LocationRepository.dbSet.Find(id);
+            return View(loca);
         }
 
         //
         // POST: /Locations/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Location loc)
         {
             try
             {
                 // TODO: Add update logic here
-
+                var loca = this._locationUoW.LocationRepository.dbSet.Find(loc.LocationID);
+                loca.Name = loc.Name;
+                loca.Street = loc.Street;
+                loca.Number = loc.Number;
+                loca.Zip = loc.Zip;
+                loca.City = loc.City;
+                loca.Country = loc.Country;
+                loca.State = loc.State;
+                loca.Addition = loc.Addition;
+                this._locationUoW.LocationRepository.context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
