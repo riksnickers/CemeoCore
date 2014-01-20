@@ -58,4 +58,12 @@ namespace CeMeOCore.DAL.Models
         [Required]
         public Availability Answer { get; set; }
     }
+
+ 
+    public class AdvancedProposition
+    {
+        public Proposition Proposition { get; set; }
+
+        public List<UserProfileCompact> Others { get; set; }
+    }
 }

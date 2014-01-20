@@ -71,4 +71,18 @@ namespace CeMeOCore.DAL.Models
 
         public Location PreferedLocation { get; set; }
     }
+
+    public class UserProfileCompact
+    {
+        [Required]
+        public int UserId { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string LastName { get; set; }
+    }
 }

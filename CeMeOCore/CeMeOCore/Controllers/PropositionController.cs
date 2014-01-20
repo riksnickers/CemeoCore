@@ -48,22 +48,28 @@ namespace CeMeOCore.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [AcceptVerbs("GET")]
-        [Route("Propositions")]
-        public IEnumerable<Proposition> GetPropositions(GetPropositionBindingModel model)
+        [Route("All")]
+        public IEnumerable<AdvancedProposition> GetPropositions(GetPropositionBindingModel model)
         {
             //Get UserProfileID
             string aspID = User.Identity.GetUserId();
             int upID = this._propositionUoW.UserProfileRepository.Get(u => u.aspUser == aspID).Select(u => u.UserId).First();
 
 
-            HashSet<Proposition> propositions = new HashSet<Proposition>();
+            HashSet<AdvancedProposition> propositions = new HashSet<AdvancedProposition>();
 
             foreach (Invitee invitee in this._propositionUoW.InviteeRepository.GetInviteeIDsByUserProfileID(upID))
             {
-                Proposition p = invitee.GetProposition();
-                if (p != null)
+                AdvancedProposition ap = new AdvancedProposition();
+                ap.Proposition = invitee.GetProposition();
+                //Add all other intitees to the return
+                foreach (Invitee other in this._propositionUoW.InviteeRepository.GetInviteeByOrganiserID(invitee.OrganiserID))
                 {
-                    propositions.Add(p);
+                   ap.Others.Add(this._propositionUoW.UserProfileRepository.GetByIDCompact(other.UserID));
+                }
+                if (ap != null && ap.Proposition != null)
+                {
+                    propositions.Add(ap);
                 }
             }
             return propositions;
