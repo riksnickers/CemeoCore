@@ -139,50 +139,43 @@ namespace CeMeOCore.Migrations
                     {
                         Name = "Conference room first floor Hasselt",
                         Type = "Conference room for online meetings",
-                        LocationID = KantoorAntwerpen,
-                        BeamerPresent = true
+                        LocationID = KantoorAntwerpen
                     };
             Room meetingRoomFirstFloor = new Room
                     {
                         Name = "Meetingroom first floor",
                         Type = "Normal meetingroom for live meetings",
-                        LocationID = KantoorBraine,
-                        BeamerPresent = false
+                        LocationID = KantoorBraine
                     };
             Room MeetingRoomSecondFloor = new Room
                     {
                         Name = "Meetingroom second floor",
                         Type = "Normal meetingroom for live meetings",
-                        LocationID = KantoorLuik,
-                        BeamerPresent = false
+                        LocationID = KantoorLuik
                     };
             Room MeetingRoomThordFloor = new Room
                     {
                         Name = "Meetingroom third floor",
                         Type = "Normal meetingroom for live meetings",
-                        LocationID = KantoorLeuven,
-                        BeamerPresent = false
+                        LocationID = KantoorLeuven
                     };
             Room ConferenceRoomSecondFloor = new Room
                     {
                         Name = "Conference room second floor",
                         Type = "Conference room for online meetings",
-                        LocationID = KantoorNamen,
-                        BeamerPresent = true
+                        LocationID = KantoorNamen
                     };
             Room ConferenceRoomThirdFloor = new Room
                     {
                         Name = "Conference room third floor",
                         Type = "Conference room for online meetings",
-                        LocationID = KantoorVeenendaal,
-                        BeamerPresent = true
+                        LocationID = KantoorVeenendaal
                     };
             Room MeetingRoomBasement = new Room
                     {
                         Name = "Meetingroom basement",
                         Type = "meetingroom for small teammeetings",
-                        LocationID = KantoorWetteren,
-                        BeamerPresent = false
+                        LocationID = KantoorWetteren
                     };
 
             context.Rooms.AddOrUpdate(

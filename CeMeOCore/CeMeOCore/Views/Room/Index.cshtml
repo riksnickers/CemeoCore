@@ -1,60 +1,79 @@
-﻿@model PagedList.IPagedList<CeMeOCore.Models.Room>
+﻿@model PagedList.IPagedList<CeMeOCore.DAL.Models.Room>
 @using PagedList.Mvc;
 @{
     ViewBag.Title = "Rooms";
+    ViewBag.page = "List";
+    Layout = "~/Views/Shared/AdminHeader.cshtml";
 }
 
-<h2>Rooms</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @using (Html.BeginForm("Index", "Room", FormMethod.Get))
 {
-    <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "control-label col-md-2" })
-        <input type="submit" value="Search" class="btn btn-default" />
-    </p>
+    <div class="form-group input-group" role="search">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-default"><i class="fa fa-search">Search</i></button>
+        </span>
+    </div>
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Beamerpresent", "Index", new { sortOrder = ViewBag.BeamerPresentSortParm })
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationID.LocationID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BeamerPresent)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RoomID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RoomID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RoomID })
-        </td>
-    </tr>
-}
-</table>
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<div class="col-lg-6">
+    <h2>Striped Rows</h2>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped tablesorter">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>
+                        @Html.ActionLink("Beamerpresent", "Index", new { sortOrder = ViewBag.BeamerPresentSortParm })
+                        <i class="fa fa-sort"></i>
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LocationID.LocationID)
+                        </td>
+                        <td>
+                            <span class="glyphicon glyphicon-pencil">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.RoomID })
+                            </span>
+                            <span class="glyphicon glyphicon-search">
+                                @Html.ActionLink("Details", "Details", new { id = item.RoomID })
+                            </span>
+                            <span class="glyphicon glyphicon-remove-circle">
+                                @Html.ActionLink("Delete", "Delete", new { id = item.RoomID })
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+        <button type="submit" class="btn btn-default">@Html.ActionLink("Create New", "Create")</button>
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+</div>

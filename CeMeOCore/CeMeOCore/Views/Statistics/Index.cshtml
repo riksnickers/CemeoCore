@@ -1,0 +1,119 @@
+﻿@model CeMeOCore.DAL.Models.Statistics
+@{
+    ViewBag.page = "List";
+    ViewBag.title = "Statistics";
+    Layout = "~/Views/Shared/AdminHeader.cshtml";
+}
+<div class="row">
+    <div class="col-lg-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p class="announcement-heading">@Model.countRooms</p>
+                        <p class="announcement-text">Meeting rooms</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer announcement-bottom">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            View all rooms
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <i class="fa fa-check fa-5x"></i>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p class="announcement-heading">@Model.countLocations</p>
+                        <p class="announcement-text">Locations</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer announcement-bottom">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            view all locations
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p class="announcement-heading">@Model.countMeetings</p>
+                        <p class="announcement-text">Meetings</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer announcement-bottom">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            view all meetings
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p class="announcement-heading">@Model.countUsers</p>
+                        <p class="announcement-text">Users</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer announcement-bottom">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            View all users
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div><!-- /.row -->

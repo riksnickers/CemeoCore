@@ -25,7 +25,6 @@ namespace CeMeOCore.Controllers
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name" : "";
             ViewBag.TypeSortParm = sortOrder == "Type" ? "Type" : "Type";
             ViewBag.LocationSortParm = sortOrder == "Location" ? "Location" : "Location";
-            ViewBag.BeamerPresentSortParm = sortOrder == "BeamerPresent" ? "BeamerPresent" : "BeamerPresent";
 
             //Paging
             if (searchString != null)
@@ -51,17 +50,14 @@ namespace CeMeOCore.Controllers
 
             switch (sortOrder)
             {
-                case "Name_desc":
+                case "Name":
                     rooms = rooms.OrderByDescending(s => s.Name);
                     break;
-                case "Street":
+                case "Type":
                     rooms = rooms.OrderBy(s => s.Type);
                     break;
-                case "Number":
+                case "Location":
                     rooms = rooms.OrderByDescending(s => s.LocationID.Name);
-                    break;
-                case "City":
-                    rooms = rooms.OrderByDescending(s => s.BeamerPresent);
                     break;
                 default:
                     rooms = rooms.OrderBy(s => s.Name);
@@ -133,15 +129,6 @@ namespace CeMeOCore.Controllers
                 room.Name = temp.Name;
                 room.Type = temp.Type;
                 room.LocationID = temp.LocationID;
-
-                if (temp.BeamerPresent)
-                {
-                    room.BeamerPresent = true;
-                }
-                else
-                {
-                    room.BeamerPresent = false;
-                }
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
