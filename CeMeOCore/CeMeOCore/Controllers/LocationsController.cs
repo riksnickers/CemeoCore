@@ -167,27 +167,16 @@ namespace CeMeOCore.Controllers
         }
 
         //
-        // GET: /Locations/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
         // POST: /Locations/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public void DeleteLocation(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+                // TODO: Add delete logic here
+                var original = this._locationUoW.LocationRepository.dbSet.Find(id);
+                this._locationUoW.LocationRepository.dbSet.Remove(original);
+                this._locationUoW.LocationRepository.context.SaveChanges();
+                RedirectToAction("Index");
+
         }
     }
 }
