@@ -62,6 +62,10 @@ namespace CeMeOCore.DAL.Models
  
     public class AdvancedProposition
     {
+        public AdvancedProposition()
+        {
+            Others = new List<UserProfileCompact>();
+        }
         public Proposition Proposition { get; set; }
 
         public List<UserProfileCompact> Others { get; set; }
