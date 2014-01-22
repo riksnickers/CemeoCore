@@ -24,6 +24,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
         private PropositionRepository _propositionRepository;
         private RoomRepository _roomRepository;
         private UserProfileRepository _userProfileRepository;
+        private OrganiserProcessRepository _organiserProcessRepository;
+
+        //private OrganiserRepository _organiserRepository;
 
         /// <summary>
         /// The InviteeRepository Property
@@ -84,6 +87,38 @@ namespace CeMeOCore.DAL.UnitsOfWork
                 return this._userProfileRepository;
             }
         }
+
+        /// <summary>
+        /// The OrganiserProcessRepository Property
+        /// </summary>
+        public OrganiserProcessRepository OrganiserProcessRepository
+        {
+            get
+            {
+                if (this._organiserProcessRepository == null)
+                {
+                    this._organiserProcessRepository = new OrganiserProcessRepository(context);
+                }
+                return this._organiserProcessRepository;
+            }
+        }
+
+        /// <summary>
+        /// The OrganiserRepository Property
+        /// </summary>
+        /// 
+        //
+        /*        public OrganiserRepository OrganiserRepository
+        {
+            get
+            {
+                if (this._organiserRepository == null)
+                {
+                    this._organiserRepository = new OrganiserRepository(context);
+                }
+                return this._organiserRepository;
+            }
+        }*/
 
         /// <summary>
         /// Save the context

@@ -89,7 +89,7 @@ namespace CeMeOCore.Controllers
         [ResponseType(typeof(ScheduleMeetingBindingModel))]
         public IHttpActionResult Schedule(HttpRequestMessage mes, [FromBody]ScheduleMeetingBindingModel model)
         {
-            Startup.OrganiserManagerFactory.Create(model);
+            OrganiserManager.Create(model);
 
             return Ok();
         }

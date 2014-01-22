@@ -17,7 +17,7 @@ namespace CeMeOCore
         /// </summary>
         public void ConfigureOrganiser()
         {
-            OrganiserManagerFactory = new OrganiserManager();
+            OrganiserManager.Configure();
             SpotManagerFactory = new SpotManager();
         }
 

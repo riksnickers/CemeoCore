@@ -71,7 +71,7 @@ namespace CeMeOCore.Tests.Logic.TextAnalysers
         }
 
         [TestMethod]
-        public void TestAnalyserCreateAMeetingThisWeekSentence()
+        public void TestAnalyserCreateAMeetingThisWeekSentence2()
         {
             string sentence = "I want to create a meeting this week";
         }

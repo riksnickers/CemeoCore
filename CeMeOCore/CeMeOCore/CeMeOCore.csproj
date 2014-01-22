@@ -201,6 +201,9 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="DAL\Models\OrganiserProcess.cs" />
+    <Compile Include="DAL\Repositories\OrganiserProcessRepository.cs" />
+    <Compile Include="Logic\Organiser\OrganiserStatus.cs" />
     <Compile Include="Logic\PushNotifications\IPlatform.cs" />
     <Compile Include="Logic\PushNotifications\Push.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

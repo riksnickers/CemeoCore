@@ -12,5 +12,6 @@ namespace CeMeOCore.Logic.Organiser
     public interface IOrganiser
     {
         //public string OrganiserID { get; private set; }
+        event EventHandler DeadLineChanged;
     }
 }
