@@ -52,8 +52,6 @@ namespace CeMeOCore.DAL.Models
     public class PropositionAnswerBindingModel
     {
         [Required]
-        public string OrganiserID { get; set; }
-        [Required]
         public string InviteeID { get; set; }
         [Required]
         public Availability Answer { get; set; }
