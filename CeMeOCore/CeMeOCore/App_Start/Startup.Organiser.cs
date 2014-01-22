@@ -21,7 +21,6 @@ namespace CeMeOCore
             SpotManagerFactory = new SpotManager();
         }
 
-        public static OrganiserManager OrganiserManagerFactory { get; set; }
         public static SpotManager SpotManagerFactory { get; set; }
 
         //public static WorkSchedule WorkSchedule { get; set; }

@@ -83,9 +83,11 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         /// <param name="model">Passing the InviterAnswerBindingModel</param>
         /// <returns>Boolean</returns>
-        public Boolean NotifyOrganiser(PropositionAnswerBindingModel model)
+        public static Boolean NotifyOrganiser(PropositionAnswerBindingModel model)
         {
-            //return GetOrganiser(model.OrganiserID).registerAvailabilityInvitee(model);
+            OrganiserUoW uow = new OrganiserUoW();
+            GetOrganiser(uow.InviteeRepository.GetByID(model.InviteeID).OrganiserID).registerAvailabilityInvitee(model);
+            uow.Dispose();
             return true;
         }
 
@@ -98,6 +100,7 @@ namespace CeMeOCore.Logic.Organiser
                 Organiser o = new Organiser(organiserID);
                 AddOrganiser(o);
             }
+            uow.Dispose();
         }
 
     }

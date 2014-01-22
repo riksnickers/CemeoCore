@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CeMeOCore.DAL.UnitsOfWork;
+using CeMeOCore.Logic.Organiser;
 
 namespace CeMeOCore.Controllers
 {
@@ -38,7 +39,7 @@ namespace CeMeOCore.Controllers
         [Route("PropositionAnswer")]
         public IHttpActionResult InviteResponse([FromBody]PropositionAnswerBindingModel model)
         {
-            Startup.OrganiserManagerFactory.NotifyOrganiser(model);
+            OrganiserManager.NotifyOrganiser(model);
             return Ok();
         }
 
