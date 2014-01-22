@@ -275,6 +275,7 @@
     <Compile Include="Logic\PushNotifications\PushPlatform.cs" />
     <Compile Include="Logic\Range\ProposalDateRange.cs" />
     <Compile Include="Logic\TextAnalysers\AnalyserAction.cs" />
+    <Compile Include="Logic\TextAnalysers\Exceptions\CouldNotAnalyseTextException.cs" />
     <Compile Include="Logic\TextAnalysers\TextAnalyser.cs" />
     <Compile Include="Logic\WorkSchedule\WorkSchedule.cs" />
     <Compile Include="Logic\Range\DateRange.cs" />
