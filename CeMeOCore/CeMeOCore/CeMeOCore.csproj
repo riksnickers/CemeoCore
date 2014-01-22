@@ -201,6 +201,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Logic\PushNotifications\IPlatform.cs" />
+    <Compile Include="Logic\PushNotifications\Push.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.Organiser.cs" />
@@ -234,7 +236,10 @@
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DAL\Repositories\DeviceRepository.cs" />
+    <Compile Include="DAL\Repositories\DeviceRepositoryFactory.cs" />
     <Compile Include="DAL\Repositories\GenericRepository.cs" />
+    <Compile Include="DAL\Repositories\IDeviceRepository.cs" />
     <Compile Include="DAL\Repositories\InviteeRepository.cs" />
     <Compile Include="DAL\Repositories\LocationRepository.cs" />
     <Compile Include="DAL\Repositories\MeetingRepository.cs" />
@@ -262,7 +267,12 @@
     <Compile Include="Logic\Organiser\Exceptions\RoomIsReservedException.cs" />
     <Compile Include="Logic\Organiser\Exceptions\RoomNotAvailableException.cs" />
     <Compile Include="Logic\Organiser\IOrganiser.cs" />
-    <Compile Include="Logic\PushNotifications\ApplePushNotification.cs" />
+    <Compile Include="Logic\PushNotifications\Platform.cs" />
+    <Compile Include="DAL\Models\Device.cs" />
+    <Compile Include="Logic\PushNotifications\PushAndroid.cs" />
+    <Compile Include="Logic\PushNotifications\PushApple.cs" />
+    <Compile Include="Logic\PushNotifications\PushContext.cs" />
+    <Compile Include="Logic\PushNotifications\PushPlatform.cs" />
     <Compile Include="Logic\Range\ProposalDateRange.cs" />
     <Compile Include="Logic\TextAnalysers\AnalyserAction.cs" />
     <Compile Include="Logic\TextAnalysers\TextAnalyser.cs" />
@@ -382,6 +392,8 @@
     <None Include="Properties\PublishProfiles\Cemeo PXL.pubxml" />
     <None Include="Properties\PublishProfiles\cemeo.pubxml" />
     <None Include="Resources\CeMeOPush.p12" />
+    <None Include="Resources\Pusharp.PuchCert.Development.p12" />
+    <None Include="Resources\PushSharp.p12" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cemeo.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -456,6 +468,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

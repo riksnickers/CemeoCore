@@ -60,12 +60,13 @@ namespace CeMeOCore.DAL.Models
     }
 
  
-    public class AdvancedProposition
+    public class ExtendenProposition
     {
-        public AdvancedProposition()
+        public ExtendenProposition()
         {
             Others = new List<UserProfileCompact>();
         }
+        public string InviteeID { get; set; }
         public Proposition Proposition { get; set; }
 
         public List<UserProfileCompact> Others { get; set; }

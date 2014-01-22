@@ -49,27 +49,33 @@ namespace CeMeOCore.Controllers
         /// <returns></returns>
         [AcceptVerbs("GET")]
         [Route("All")]
-        public IEnumerable<AdvancedProposition> GetPropositions(GetPropositionBindingModel model)
+        public IEnumerable<ExtendenProposition> GetPropositions(GetPropositionBindingModel model)
         {
             //Get UserProfileID
             string aspID = User.Identity.GetUserId();
             int upID = this._propositionUoW.UserProfileRepository.Get(u => u.aspUser == aspID).Select(u => u.UserId).First();
 
 
-            HashSet<AdvancedProposition> propositions = new HashSet<AdvancedProposition>();
+            HashSet<ExtendenProposition> propositions = new HashSet<ExtendenProposition>();
 
             foreach (Invitee invitee in this._propositionUoW.InviteeRepository.GetInviteeIDsByUserProfileID(upID))
             {
-                AdvancedProposition ap = new AdvancedProposition();
-                ap.Proposition = invitee.GetProposition();
+                ExtendenProposition extendedProposition = new ExtendenProposition();
+
+                extendedProposition.InviteeID = invitee.InviteeID;
+                extendedProposition.Proposition = invitee.GetProposition();
+
                 //Add all other intitees to the return
                 foreach (Invitee other in this._propositionUoW.InviteeRepository.GetInviteeByOrganiserID(invitee.OrganiserID))
                 {
-                   ap.Others.Add(this._propositionUoW.UserProfileRepository.GetByIDCompact(other.UserID));
+                    if(other.UserID != invitee.UserID)
+                    {
+                        extendedProposition.Others.Add(this._propositionUoW.UserProfileRepository.GetByIDCompact(other.UserID));
+                    }
                 }
-                if (ap != null && ap.Proposition != null)
+                if (extendedProposition != null && extendedProposition.Proposition != null)
                 {
-                    propositions.Add(ap);
+                    propositions.Add(extendedProposition);
                 }
             }
             return propositions;

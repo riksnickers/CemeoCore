@@ -72,11 +72,11 @@ namespace CeMeOCore.Controllers
         ///</summary>
         ///<param name="latest">This is how many meetings you want</param>
         [AcceptVerbs("GET")]
-        [Route("Upcomming")]
+        [Route("Upcoming")]
         public IEnumerable<String> GetUpcomming(int latest = 1)
         {
-            log.Debug("GetUpcomming");
-            return new string[]{"Latest "+ latest +" Upcomming "};
+            log.Debug("GetUpcoming");
+            return new string[]{"Latest "+ latest +" Upcoming "};
         }
 
         /// <summary>
