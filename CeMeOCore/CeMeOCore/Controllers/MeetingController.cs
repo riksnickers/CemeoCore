@@ -108,19 +108,6 @@ namespace CeMeOCore.Controllers
             return false;
         }
 
-        /// <summary>
-        /// Not used, can be maybe deleted.
-        /// If you provide a InviteeID and a OrganiserID you get a proposition returned.
-        /// </summary>
-        /// <param name="Invitee_id"></param>
-        /// <returns></returns>
-        [AcceptVerbs("POST")]
-        [Route("Proposition")]
-        public Proposition GetProposition([FromBody] GetPropositionBindingModel model)
-        {
-            //Startup.OrganiserManagerFactory().GetProposition(model);
-            return null;
-        }
 
         /// <summary>
         /// Not used, can be maybe deleted.
