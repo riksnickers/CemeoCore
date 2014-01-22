@@ -1,82 +1,108 @@
-﻿@model CeMeOCore.Models.Location
+﻿@model CeMeOCore.DAL.Models.Location
 
 @{
-    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/AdminHeader.cshtml";
 }
 
-<h2>Details</h2>
 
 <div>
-    <h4>Location</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.LocationID)
+        <fieldset disabled>
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">Name:</span>
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">Street:</span>
+                @Html.TextBoxFor(model => model.Street, new { @class = "form-control", @placeholder = "Street", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.Street)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">Number:</span>
+                @Html.TextBoxFor(model => model.Number, new { @class = "form-control", @placeholder = "Number", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.Number)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">Zip:</span>
+                @Html.TextBoxFor(model => model.Zip, new { @class = "form-control", @placeholder = "Zip", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.Zip)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">City:</span>
+                @Html.TextBoxFor(model => model.City, new { @class = "form-control", @placeholder = "City", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">Country:</span>
+                @Html.TextBoxFor(model => model.Country, new { @class = "form-control", @placeholder = "Country", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.Country)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">State:</span>
+                @Html.TextBoxFor(model => model.State, new { @class = "form-control", @placeholder = "State", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.State)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">Addition:</span>
+                @Html.TextBoxFor(model => model.Addition, new { @class = "form-control", @placeholder = "Addition", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.Addition)
+            </div>
+            <br />
+        </fieldset>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <p>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Action <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.LocationID })
+                </li>
+                <li>
+                    <a data-toggle="modal" data-target="#myModal">
+                        Delete
+                    </a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                    @Html.ActionLink("Back to List", "Index")
+                </li>
+            </ul>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Street)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Street)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Number)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Number)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Addition)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Addition)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Zip)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Zip)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.State)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.State)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Country)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Country)
-        </dd>
-
-    </dl>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Delete location</h4>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete the following location? <br />
+                        It will not be possible to revert this action and the location will permanently be lost. <br />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("DeleteLocation", "Locations", new { id = Model.LocationID })'">Delete</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.LocationID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

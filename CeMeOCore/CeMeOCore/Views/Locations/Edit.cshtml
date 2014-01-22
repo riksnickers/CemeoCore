@@ -66,9 +66,23 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
+
+    <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Action <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </li>
+                <li>
+                    @Html.ActionLink("Back to List", "Index")
+                </li>
+            </ul>
+        </div>
     </div>
 }
-    <span class="glyphicon glyphicon-arrow-down">
-        @Html.ActionLink("Back to List", "Index")
-    </span>
+
 

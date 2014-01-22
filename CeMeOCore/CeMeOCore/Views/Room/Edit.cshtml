@@ -4,4 +4,54 @@
     Layout = "~/Views/Shared/AdminHeader.cshtml";
 }
 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.RoomID)
+
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Name:</span>
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Street:</span>
+            @Html.TextBoxFor(model => model.Type, new { @class = "form-control", @placeholder = "Street", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Number:</span>
+            @Html.TextBoxFor(model => model.LocationID.Name, new { @class = "form-control", @placeholder = "Number", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.LocationID.Name)
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Action <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </li>
+                <li>
+                    @Html.ActionLink("Back to List", "Index")
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+
 

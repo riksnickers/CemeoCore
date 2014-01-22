@@ -17,8 +17,6 @@
     </div>
 }
 
-
-
 <div class="col-lg-6">
     <h2>Striped Rows</h2>
     <div class="table-responsive">
@@ -57,15 +55,9 @@
                             @Html.DisplayFor(modelItem => item.LocationID.LocationID)
                         </td>
                         <td>
-                            <span class="glyphicon glyphicon-pencil">
-                                @Html.ActionLink("Edit", "Edit", new { id = item.RoomID })
-                            </span>
-                            <span class="glyphicon glyphicon-search">
-                                @Html.ActionLink("Details", "Details", new { id = item.RoomID })
-                            </span>
-                            <span class="glyphicon glyphicon-remove-circle">
-                                @Html.ActionLink("Delete", "Delete", new { id = item.RoomID })
-                            </span>
+                            <ul class="nav nav-pills">
+                                <li class="">@Html.ActionLink("Details", "Details", new { id = item.LocationID })</li>
+                            </ul>
                         </td>
                     </tr>
                 </tbody>

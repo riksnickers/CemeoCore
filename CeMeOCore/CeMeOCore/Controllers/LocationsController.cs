@@ -105,25 +105,36 @@ namespace CeMeOCore.Controllers
         // GET: /Locations/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Location detailedLocation = this._locationUoW.LocationRepository.dbSet.Find(id);
+            return View(detailedLocation);
         }
 
         //
         // GET: /Locations/Create
         public ActionResult Create()
         {
-            return View();
+            Location newLocation = new Location();
+            return View(newLocation);
         }
 
         //
         // POST: /Locations/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Location newLocation)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                Location newLocationToAdd = new Location();
+                newLocationToAdd.Name = newLocation.Name;
+                newLocationToAdd.Street = newLocation.Street;
+                newLocationToAdd.Number = newLocation.Number;
+                newLocationToAdd.Zip = newLocation.Zip;
+                newLocationToAdd.City = newLocation.City;
+                newLocationToAdd.Country = newLocation.Country;
+                newLocationToAdd.State = newLocation.State;
+                newLocationToAdd.Addition = newLocation.Addition;
+                this._locationUoW.LocationRepository.dbSet.Add(newLocation);
+                this._locationUoW.LocationRepository.context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -134,6 +145,7 @@ namespace CeMeOCore.Controllers
 
         //
         // GET: /Locations/Edit/5
+
         public ActionResult Edit(int id)
         {
             var loca = this._locationUoW.LocationRepository.dbSet.Find(id);
@@ -170,13 +182,18 @@ namespace CeMeOCore.Controllers
         // POST: /Locations/Delete/5
         public void DeleteLocation(int id)
         {
-
+            try
+            {
                 // TODO: Add delete logic here
                 var original = this._locationUoW.LocationRepository.dbSet.Find(id);
                 this._locationUoW.LocationRepository.dbSet.Remove(original);
                 this._locationUoW.LocationRepository.context.SaveChanges();
                 RedirectToAction("Index");
-
+            }
+            catch
+            {
+                RedirectToAction("Details");
+            }
         }
     }
 }

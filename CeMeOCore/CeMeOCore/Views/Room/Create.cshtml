@@ -1,48 +1,39 @@
 ﻿@model CeMeOCore.DAL.Models.Room
-
 @{
-    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/AdminHeader.cshtml";
 }
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Room</h4>
+        <h4>Location</h4>
         <hr />
         @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.LocationID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Name:</span>
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.Name)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Type)
-                @Html.ValidationMessageFor(model => model.Type)
-            </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Type:</span>
+            @Html.TextBoxFor(model => model.Type, new { @class = "form-control", @placeholder = "Street", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.Type)
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BeamerPresent, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BeamerPresent)
-                @Html.ValidationMessageFor(model => model.BeamerPresent)
-            </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span id="bigger" class="input-group-addon">Location:</span>
+            @Html.TextBoxFor(model => model.LocationID.Name, new { @class = "form-control", @placeholder = "Number", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.LocationID.Name)
         </div>
-
+        <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -51,7 +42,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
