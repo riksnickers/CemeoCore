@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity.Validation;
+using log4net;
 
 namespace CeMeOCore.DAL.UnitsOfWork
 {
@@ -27,6 +29,8 @@ namespace CeMeOCore.DAL.UnitsOfWork
         private OrganiserProcessRepository _organiserProcessRepository;
 
         //private OrganiserRepository _organiserRepository;
+
+        private readonly ILog logger = log4net.LogManager.GetLogger(typeof(OrganiserUoW));
 
         /// <summary>
         /// The InviteeRepository Property
@@ -125,7 +129,25 @@ namespace CeMeOCore.DAL.UnitsOfWork
         /// </summary>
         public void Save()
         {
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    foreach (DbValidationError error in item.ValidationErrors)
+                    {
+                        logger.Error(DateTime.Now.ToString() + " " + error.ErrorMessage);
+                    }
+                }
+            }
+            catch(Exception)
+            {
+
+            }
+            
         }
 
         private bool disposed = false;

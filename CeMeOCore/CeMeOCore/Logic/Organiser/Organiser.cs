@@ -58,11 +58,13 @@ namespace CeMeOCore.Logic.Organiser
             //Init organiserUoW
             this._organiserUoW = new OrganiserUoW();
 
+            //Create unique ID
+            OrganiserID = DateHash();
+
             this._organiserProcess = new OrganiserProcess( OrganiserID, requestedById );
             this._organiserUoW.OrganiserProcessRepository.Insert(this._organiserProcess);
             this._organiserUoW.Save();
-            //Create unique ID
-            OrganiserID = DateHash();
+            
 
             //Set the duration
             this._organiserProcess.Duration = duration;

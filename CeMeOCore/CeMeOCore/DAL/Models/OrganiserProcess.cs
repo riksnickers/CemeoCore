@@ -16,6 +16,8 @@ namespace CeMeOCore.DAL.Models
 
         public OrganiserProcess( string organiserID, int requestedBy )
         {
+            id = Guid.NewGuid().ToString();
+            OrganiserID = organiserID;
             Status = OrganiserStatus.Initializing;
             //Set counters to 0
             TotalImporantInviteesAbsent = 0;
@@ -29,6 +31,8 @@ namespace CeMeOCore.DAL.Models
         }
 
         [Key]
+        public string id { get; set; }
+        
         public string OrganiserID { get; set; }
 
         /// <summary>
