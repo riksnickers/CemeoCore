@@ -59,7 +59,8 @@ namespace CeMeOCore.Logic.Organiser
             this._organiserUoW = new OrganiserUoW();
 
             this._organiserProcess = new OrganiserProcess( OrganiserID, requestedById );
-
+            this._organiserUoW.OrganiserProcessRepository.Insert(this._organiserProcess);
+            this._organiserUoW.Save();
             //Create unique ID
             OrganiserID = DateHash();
 
