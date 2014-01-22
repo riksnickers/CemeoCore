@@ -35,17 +35,6 @@ namespace CeMeOCore.DAL.Models
         public DateTime EndTime { get; set; }
     }
 
-    //This is the bindingModel for when a user request their proposition.
-    //hmm..
-    public class GetPropositionBindingModel
-    {
-        [Required]
-        public string OrganiserID { get; set; }
-        [Required]
-        public string InviteeID { get; set; }
-    }
-
-
     /// <summary>
     /// This is the BindingModel for when an proposition answer is posted to the api.
     /// </summary>
@@ -65,6 +54,7 @@ namespace CeMeOCore.DAL.Models
             Others = new List<UserProfileCompact>();
         }
         public string InviteeID { get; set; }
+        public Availability Answer { get; set; } 
         public Proposition Proposition { get; set; }
 
         public List<UserProfileCompact> Others { get; set; }

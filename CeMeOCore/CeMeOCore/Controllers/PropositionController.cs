@@ -49,7 +49,7 @@ namespace CeMeOCore.Controllers
         /// <returns></returns>
         [AcceptVerbs("GET")]
         [Route("All")]
-        public IEnumerable<ExtendenProposition> GetPropositions(GetPropositionBindingModel model)
+        public IEnumerable<ExtendenProposition> GetPropositions()
         {
             //Get UserProfileID
             string aspID = User.Identity.GetUserId();
@@ -64,7 +64,7 @@ namespace CeMeOCore.Controllers
 
                 extendedProposition.InviteeID = invitee.InviteeID;
                 extendedProposition.Proposition = invitee.GetProposition();
-
+                extendedProposition.Answer = invitee.Answer;
                 //Add all other intitees to the return
                 foreach (Invitee other in this._propositionUoW.InviteeRepository.GetInviteeByOrganiserID(invitee.OrganiserID))
                 {
