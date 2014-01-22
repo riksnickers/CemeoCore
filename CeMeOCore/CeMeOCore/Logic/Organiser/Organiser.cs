@@ -44,6 +44,18 @@ namespace CeMeOCore.Logic.Organiser
         {
             OrganiserID = organiserID;
             this._organiserUoW = new OrganiserUoW();
+            try
+            {
+                this._organiserProcess = this._organiserUoW.OrganiserProcessRepository.Get(op => op.OrganiserID == OrganiserID).FirstOrDefault();
+                foreach (Invitee invitee in this._organiserUoW.InviteeRepository.Get(i => i.OrganiserID == OrganiserID))
+                {
+                    this._invitees.Add(invitee.InviteeID, invitee);
+                }
+            }
+            catch(Exception)
+            {
+
+            }
         }
 
         /// <summary>
@@ -442,6 +454,7 @@ namespace CeMeOCore.Logic.Organiser
                 Invitee invitee = this._invitees[model.InviteeID];
                 invitee.Answer = model.Answer;
                 this._organiserUoW.InviteeRepository.Update(invitee);
+                this._organiserUoW.Save();
                 CheckAnswer(model.InviteeID);
             }
 
