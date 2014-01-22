@@ -408,11 +408,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Meetings\Create.cshtml" />
-    <Content Include="Views\Meetings\Delete.cshtml" />
-    <Content Include="Views\Meetings\Details.cshtml" />
-    <Content Include="Views\Meetings\Editr.cshtml" />
-    <Content Include="Views\UserProfile\Details.cshtml" />
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\Shared\AdminHeader.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
@@ -426,6 +421,9 @@
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Room\Create.cshtml" />
     <Content Include="Views\Room\Details.cshtml" />
+    <Content Include="Views\Meetings\Details.cshtml" />
+    <Content Include="Views\UserProfile\Details.cshtml" />
+    <Content Include="Views\Meetings\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

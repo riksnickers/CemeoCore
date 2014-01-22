@@ -1,58 +1,49 @@
 ﻿@model CeMeOCore.DAL.Models.UserProfile
 
 @{
-    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/AdminHeader.cshtml";
 }
 
-<h2>Details</h2>
+
 
 <div>
-    <h4>UserProfile</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.aspUser)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.aspUser)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EMail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EMail)
-        </dd>
-
-    </dl>
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.UserId)
+        <fieldset disabled>
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">UserName:</span>
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "UserName", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.UserName)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">FirstName:</span>
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @placeholder = "FirstName", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">LastName:</span>
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "LastName", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">EMail:</span>
+                @Html.TextBoxFor(model => model.EMail, new { @class = "form-control", @placeholder = "EMail", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.EMail)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">PreferedLocation:</span>
+                @Html.TextBoxFor(model => model.PreferedLocation, new { @class = "form-control", @placeholder = "PreferedLocation", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.PreferedLocation)
+            </div>
+            <br />
+        </fieldset>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+

@@ -2,8 +2,8 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Meetings";
-    ViewBag.page = "List";
+    ViewBag.Title = "List";
+    ViewBag.page = "Meetings";
     Layout = "~/Views/Shared/AdminHeader.cshtml";
 }
 
@@ -31,14 +31,6 @@
                         @Html.ActionLink("MeetingDate", "Index", new { sortOrder = ViewBag.MeetingDateSortParm })
                         <i class="fa fa-sort"></i>
                     </th>
-                    <th>
-                        @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm })
-                        <i class="fa fa-sort"></i>
-                    </th>
-                    <th>
-                        @Html.ActionLink("State", "Index", new { sortOrder = ViewBag.StateSortParm })
-                        <i class="fa fa-sort"></i>
-                    </th>
                     <th></th>
                 </tr>
             </thead>
@@ -54,21 +46,9 @@
                             @Html.DisplayFor(modelItem => item.MeetingDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Location.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.State)
-                        </td>
-                        <td>
-                            <span class="glyphicon glyphicon-pencil">
-                                @Html.ActionLink("Edit", "Edit", new { id = item.MeetingID })
-                            </span>
-                            <span class="glyphicon glyphicon-search">
-                                @Html.ActionLink("Details", "Details", new { id = item.MeetingID })
-                            </span>
-                            <span class="glyphicon glyphicon-remove-circle">
-                                @Html.ActionLink("Delete", "Delete", new { id = item.MeetingID })
-                            </span>
+                            <ul class="nav nav-pills">
+                                <li class="">@Html.ActionLink("Details", "Details", new { id = item.LocationID })</li>
+                            </ul>
                         </td>
                     </tr>
                 </tbody>
