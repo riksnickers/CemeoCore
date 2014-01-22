@@ -30,12 +30,6 @@
             @Html.TextBoxFor(model => model.LocationID.Name, new { @class = "form-control", @placeholder = "Number", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.LocationID.Name)
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 Action <span class="caret"></span>

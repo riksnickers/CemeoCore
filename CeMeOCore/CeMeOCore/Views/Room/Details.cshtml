@@ -1,0 +1,78 @@
+﻿@model CeMeOCore.DAL.Models.Room
+@{
+    Layout = "~/Views/Shared/AdminHeader.cshtml";
+}
+
+
+<div>
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.RoomID)
+        <fieldset disabled>
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">Name:</span>
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">Type:</span>
+                @Html.TextBoxFor(model => model.Type, new { @class = "form-control", @placeholder = "Street", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.Type)
+            </div>
+            <br />
+            <div class="input-group input-group-sm">
+                <span id="bigger" class="input-group-addon">Location:</span>
+                @Html.TextBoxFor(model => model.LocationID.Name, new { @class = "form-control", @placeholder = "Number", @id = "smaller" })
+                @Html.ValidationMessageFor(model => model.LocationID.Name)
+            </div>
+            <br />
+        </fieldset>
+    </div>
+
+    <p>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Action <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.RoomID })
+                </li>
+                <li>
+                    <a data-toggle="modal" data-target="#myModal">
+                        Delete
+                    </a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                    @Html.ActionLink("Back to List", "Index")
+                </li>
+            </ul>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Delete room</h4>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete the following meeting room? <br />
+                        It will not be possible to revert this action and the location will permanently be lost. <br />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("DeleteRoom", "Locations", new { id = Model.RoomID })'">Delete</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </p>
+</div>
+
+

@@ -1,4 +1,6 @@
-﻿using CeMeOCore.DAL.Models;
+﻿using CeMeOCore.DAL.Context;
+using CeMeOCore.DAL.UnitsOfWork;
+using CeMeOCore.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,14 +9,19 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
 using PagedList;
-using CeMeOCore.DAL.Context;
+
 
 namespace CeMeOCore.Controllers
 {
     public class RoomController : Controller
     {
-        private CeMeoContext _db = new CeMeoContext();
-        List<Location> locations = new List<Location>();
+        private RoomUoW _roomUoW;
+
+        public RoomController()
+        {
+            this._roomUoW = new RoomUoW();
+        }
+
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             //Title of the page
@@ -39,7 +46,7 @@ namespace CeMeOCore.Controllers
             ViewBag.CurrentFilter = searchString;
             //End paging
 
-            var rooms = from s in _db.Rooms select s;
+            var rooms = from s in this._roomUoW.roomnRepository.Get() select s;
 
             //Searching
             if (!String.IsNullOrEmpty(searchString))
@@ -73,39 +80,44 @@ namespace CeMeOCore.Controllers
 
         public ActionResult Details(int id)
         {
-            var meetingRoom = _db.Rooms.Find(id);
+            var meetingRoom = this._roomUoW.roomnRepository.dbSet.Find(id);
             return View(meetingRoom);
         }
 
         public ActionResult Create()
         {
-            return View();
+            Room newRoom = new Room();
+            return View(newRoom);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Room room)
         {
-            if (ModelState.IsValid)
+            try
             {
-                room.LocationID.LocationID = 0;
-                //locations = _db.Locations.ToList();
-                _db.Rooms.Add(room);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    Room newRoomToAdd = new Room();
+                    newRoomToAdd.Name = room.Name;
+                    newRoomToAdd.Type = room.Type;
+                    newRoomToAdd.LocationID.Name = room.LocationID.Name;
+                    this._roomUoW.roomnRepository.dbSet.Add(newRoomToAdd);
+                    this._roomUoW.roomnRepository.context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            
-            return View(room);
+            catch
+            {
+                return View();
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: /RoomTest/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Room temp = _db.Rooms.Find(id);
+            Room temp = this._roomUoW.roomnRepository.dbSet.Find(id);
             if (temp == null)
             {
                 return HttpNotFound();
@@ -120,48 +132,43 @@ namespace CeMeOCore.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Room temp)
-        {
-            Room room = _db.Rooms.Find(temp.RoomID);
-            
-            if (ModelState.IsValid)
+       {
+            try
             {
-                
-                room.Name = temp.Name;
-                room.Type = temp.Type;
-                room.LocationID = temp.LocationID;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                Room room = this._roomUoW.roomnRepository.dbSet.Find(temp.RoomID);
             
-            return View(room);
-
-            
-        }
-
-        // GET: /RoomTest/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (ModelState.IsValid)
+                {   
+                    room.Name = temp.Name;
+                    room.Type = temp.Type;
+                    room.LocationID.Name = temp.LocationID.Name;
+                    this._roomUoW.roomnRepository.context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            Room room = _db.Rooms.Find(id);
-            if (room == null)
+            catch
             {
-                return HttpNotFound();
+                return View();
             }
-            return View(room);
-        }
-
-        // POST: /RoomTest/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Room room = _db.Rooms.Find(id);
-            _db.Rooms.Remove(room);
-            _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        //
+        // POST: /Locations/Delete/5
+        public void DeleteRoom(int id)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                var original = this._roomUoW.roomnRepository.dbSet.Find(id);
+                this._roomUoW.roomnRepository.dbSet.Remove(original);
+                this._roomUoW.roomnRepository.context.SaveChanges();
+                RedirectToAction("Index");
+            }
+            catch
+            {
+                RedirectToAction("Details");
+            }
         }
 
     }

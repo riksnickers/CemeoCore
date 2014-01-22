@@ -241,6 +241,7 @@
     <Compile Include="DAL\Repositories\RoomRepository.cs" />
     <Compile Include="DAL\Repositories\UserProfileRepository.cs" />
     <Compile Include="DAL\UnitsOfWork\ContactUoW.cs" />
+    <Compile Include="DAL\UnitsOfWork\RoomUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\LocationUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\MeetingControllerUoW.cs" />
     <Compile Include="DAL\UnitsOfWork\OrganiserUoW.cs" />
@@ -407,8 +408,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Room\Detailsr.cshtml" />
-    <Content Include="Views\Room\Creater.cshtml" />
     <Content Include="Views\Meetings\Create.cshtml" />
     <Content Include="Views\Meetings\Delete.cshtml" />
     <Content Include="Views\Meetings\Details.cshtml" />
@@ -426,6 +425,7 @@
     <Content Include="Views\Locations\Create.cshtml" />
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Room\Create.cshtml" />
+    <Content Include="Views\Room\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

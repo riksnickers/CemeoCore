@@ -31,14 +31,6 @@
                         @Html.ActionLink("Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
                         <i class="fa fa-sort"></i>
                     </th>
-                    <th>
-                        @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm })
-                        <i class="fa fa-sort"></i>
-                    </th>
-                    <th>
-                        @Html.ActionLink("Beamerpresent", "Index", new { sortOrder = ViewBag.BeamerPresentSortParm })
-                        <i class="fa fa-sort"></i>
-                    </th>
                 </tr>
             </thead>
             @foreach (var item in Model)
@@ -52,11 +44,8 @@
                             @Html.DisplayFor(modelItem => item.Type)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.LocationID.LocationID)
-                        </td>
-                        <td>
                             <ul class="nav nav-pills">
-                                <li class="">@Html.ActionLink("Details", "Details", new { id = item.LocationID })</li>
+                                <li class="">@Html.ActionLink("Details", "Details", new { id = item.RoomID })</li>
                             </ul>
                         </td>
                     </tr>
