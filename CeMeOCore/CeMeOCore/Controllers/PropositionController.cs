@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web.Http;
 using CeMeOCore.DAL.UnitsOfWork;
 using CeMeOCore.Logic.Organiser;
+using CeMeOCore.Logic.PushNotifications;
 
 namespace CeMeOCore.Controllers
 {
@@ -36,7 +37,7 @@ namespace CeMeOCore.Controllers
         /// <param name="model"><seealso cref="PropositionAnswerBindingModel"/></param>
         /// <returns></returns>
         [AcceptVerbs("POST")]
-        [Route("PropositionAnswer")]
+        [Route("Answer")]
         public IHttpActionResult InviteResponse([FromBody]PropositionAnswerBindingModel model)
         {
             OrganiserManager.NotifyOrganiser(model);
@@ -86,6 +87,19 @@ namespace CeMeOCore.Controllers
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
+        }
+
+        [Route("push")]
+        public string GetPush()
+        {
+            Device d = new Device();
+            d.DeviceID = "fc0e50bb4200be9a719e1650c01171d72ec8d9d29c39acc0e14ae8638bc5e4c4";
+            d.Platform = Platform.Apple;
+            d.userID = 1;
+
+            PushContext pc = new PushContext();
+            pc.Send(d, "Hoi jef!");
+            return "test";
         }
 
         // GET api/<controller>/5

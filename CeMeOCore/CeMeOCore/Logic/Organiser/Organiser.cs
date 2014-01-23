@@ -44,6 +44,7 @@ namespace CeMeOCore.Logic.Organiser
         {
             OrganiserID = organiserID;
             this._organiserUoW = new OrganiserUoW();
+            this._invitees = new Dictionary<string, Invitee>();
             try
             {
                 this._organiserProcess = this._organiserUoW.OrganiserProcessRepository.Get(op => op.OrganiserID == OrganiserID).FirstOrDefault();

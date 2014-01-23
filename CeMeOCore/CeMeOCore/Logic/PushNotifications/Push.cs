@@ -26,8 +26,9 @@ namespace CeMeOCore.Logic.PushNotifications
 
                     //Register Apple Service
                     var appleCert = Resources.Pusharp_PuchCert_Development;
-                    pushBroker.RegisterService<AppleNotification>(
-                            new ApplePushService(new ApplePushChannelSettings(appleCert, "!CeMeOKeyPass123")));
+                    pushBroker.RegisterAppleService(new ApplePushChannelSettings(false, appleCert, "!CeMeOKeyPass123"));
+                   /* pushBroker.RegisterService<AppleNotification>(
+                            new ApplePushService(new ApplePushChannelSettings(false, appleCert, "!CeMeOKeyPass123"))); */
 
                     //Register Android service
                     pushBroker.RegisterGcmService(new GcmPushChannelSettings("AIzaSyAPRV7yOnM8b2E5rl63X-cbgatBlH1NrFI"));
