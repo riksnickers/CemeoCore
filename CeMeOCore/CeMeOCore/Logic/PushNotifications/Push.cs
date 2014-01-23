@@ -2,6 +2,7 @@
 using CeMeOCore.Properties;
 using log4net;
 using PushSharp;
+using PushSharp.Android;
 using PushSharp.Apple;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace CeMeOCore.Logic.PushNotifications
                             new ApplePushService(new ApplePushChannelSettings(appleCert, "!CeMeOKeyPass123")));
 
                     //Register Android service
-
+                    pushBroker.RegisterGcmService(new GcmPushChannelSettings("AIzaSyAPRV7yOnM8b2E5rl63X-cbgatBlH1NrFI"));
                 }
                 return pushBroker; 
             }

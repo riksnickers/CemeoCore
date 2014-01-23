@@ -47,9 +47,9 @@ namespace CeMeOCore.Logic.Organiser
             try
             {
                 this._organiserProcess = this._organiserUoW.OrganiserProcessRepository.Get(op => op.OrganiserID == OrganiserID).FirstOrDefault();
-                foreach (Invitee invitee in this._organiserUoW.InviteeRepository.Get(i => i.OrganiserID == OrganiserID))
+                foreach (Invitee inv in this._organiserUoW.InviteeRepository.GetInviteeByOrganiserID(organiserID))
                 {
-                    this._invitees.Add(invitee.InviteeID, invitee);
+                    this._invitees.Add(inv.InviteeID, inv);
                 }
             }
             catch(Exception)
