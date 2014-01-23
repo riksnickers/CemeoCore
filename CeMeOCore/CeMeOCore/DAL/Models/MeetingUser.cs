@@ -26,7 +26,7 @@ namespace CeMeOCore.DAL.Models
         [Key]
         public virtual int MeetingId { get; set; }
 
-        [Key]
+        //[Key]
         public virtual int UserId { get; set; }
 
         [Required]
@@ -47,6 +47,9 @@ namespace CeMeOCore.DAL.Models
 
         [Required]
         [StringLength(100)]
-        public Room Room { get; set; }
+        public string Room { get; set; }
+
+        public virtual ICollection<UserProfile> users {get; set;}
+        public virtual ICollection<Meeting> meetings { get; set; }
     }
 }

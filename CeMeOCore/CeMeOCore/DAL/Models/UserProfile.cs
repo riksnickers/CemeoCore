@@ -38,11 +38,13 @@ namespace CeMeOCore.DAL.Models
         [Required]
         public virtual Calendar UserCalendar { get; set; }
 
-        public virtual ICollection<MeetingUser> MeetingUser { get; set; }
+        //public virtual ICollection<MeetingUser> MeetingUser { get; set; }
+        public virtual ICollection<Attendee> Attendees { get; set; }
         
         public UserProfile()
         {
-            MeetingUser = new List<MeetingUser>();
+            //MeetingUser = new List<MeetingUser>();
+            Attendees = new HashSet<Attendee>();
         }
     }
 

@@ -16,7 +16,7 @@ using System.Web;
 namespace CeMeOCore.Logic.Organiser
 {
     /// <summary>
-    /// The organiser will organise a meeting.
+    /// The organiser will organise a meeting
     /// </summary>
     public class Organiser : IOrganiser
     {
@@ -514,6 +514,16 @@ namespace CeMeOCore.Logic.Organiser
 
         public void OrganiseMeeting()
         {
+            Meeting newMeeting = new Meeting();
+            newMeeting.BeginTime = this._invitees.First().Value.Proposal.BeginTime;
+            newMeeting.Duration = this._organiserProcess.Duration;
+            newMeeting.Attendees = new HashSet<Attendee>();
+
+            foreach(Invitee invitee in this._invitees.Values)
+            {
+                MeetingUser mu = new MeetingUser();
+               // mu.Confirmed = MeetingUser
+            }
 
         }
 

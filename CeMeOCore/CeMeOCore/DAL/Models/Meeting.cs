@@ -15,6 +15,15 @@ namespace CeMeOCore.DAL.Models
         public int MeetingID { get; set; }
 
         [Required]
+        [Display(Name = "BeginTime")]
+        public DateTime BeginTime { get; set; }
+
+        [Required]
+        [Display(Name = "Duration")]
+        public double Duration { get; set; }
+
+        /*
+        [Required]
         [Display(Name = "Creator")]
         public UserProfile Creator { get; set; }
 
@@ -30,13 +39,17 @@ namespace CeMeOCore.DAL.Models
         [Display(Name = "Current state")]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number as state")]
         public int State { get; set; }
+        */
 
         //list of users taking part of a meeting
-        public virtual ICollection<MeetingUser> MeetingUser { get; set; }
+        //public virtual ICollection<MeetingUser> MeetingUser { get; set; }
+
+        public virtual ICollection<Attendee> Attendees { get; set; }
         
         public Meeting()
         {
-            MeetingUser = new List<MeetingUser>();
+            //MeetingUser = new List<MeetingUser>();
+            Attendees = new HashSet<Attendee>();
         }
     }
 

@@ -52,10 +52,13 @@ namespace CeMeOCore.Controllers
             //Searching
             if (!String.IsNullOrEmpty(searchString))
             {
-                mets = mets.Where(s => (s.Creator.LastName + " " + s.Creator.FirstName).Contains(searchString.ToUpper()));
+                //mets = mets.Where(s => (s.Creator.LastName + " " + s.Creator.FirstName).Contains(searchString.ToUpper()));
+                //TODO: Sorry Tycha!
+                mets = null;
             }
             //End searching
 
+            /*
             switch (sortOrder)
             {
                 case "Name_desc":
@@ -73,7 +76,8 @@ namespace CeMeOCore.Controllers
                 default:
                     mets = mets.OrderByDescending(s => s.Creator.LastName + " " + s.Creator.FirstName);
                     break;
-            }
+            }*/
+            //TODO: Sorry Tycha!
 
             //Paging
             int pageSize = 5;
