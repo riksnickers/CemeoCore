@@ -322,6 +322,11 @@
     <Content Include="Assets\img\2.png" />
     <Content Include="Assets\img\3.png" />
     <Content Include="Assets\img\4.png" />
+    <Content Include="Assets\img\5.png" />
+    <Content Include="Assets\img\6.png" />
+    <Content Include="Assets\img\7.png" />
+    <Content Include="Assets\img\8.png" />
+    <Content Include="Assets\img\9.png" />
     <Content Include="Assets\js\bootstrap.js" />
     <Content Include="Assets\js\flot\chart-data-flot.js" />
     <Content Include="Assets\js\flot\excanvas.min.js" />
