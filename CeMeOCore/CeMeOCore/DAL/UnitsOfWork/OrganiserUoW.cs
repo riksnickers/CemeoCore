@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity.Validation;
+using log4net;
 
 namespace CeMeOCore.DAL.UnitsOfWork
 {
@@ -24,6 +26,11 @@ namespace CeMeOCore.DAL.UnitsOfWork
         private PropositionRepository _propositionRepository;
         private RoomRepository _roomRepository;
         private UserProfileRepository _userProfileRepository;
+        private OrganiserProcessRepository _organiserProcessRepository;
+
+        //private OrganiserRepository _organiserRepository;
+
+        private readonly ILog logger = log4net.LogManager.GetLogger(typeof(OrganiserUoW));
 
         /// <summary>
         /// The InviteeRepository Property
@@ -86,11 +93,61 @@ namespace CeMeOCore.DAL.UnitsOfWork
         }
 
         /// <summary>
+        /// The OrganiserProcessRepository Property
+        /// </summary>
+        public OrganiserProcessRepository OrganiserProcessRepository
+        {
+            get
+            {
+                if (this._organiserProcessRepository == null)
+                {
+                    this._organiserProcessRepository = new OrganiserProcessRepository(context);
+                }
+                return this._organiserProcessRepository;
+            }
+        }
+
+        /// <summary>
+        /// The OrganiserRepository Property
+        /// </summary>
+        /// 
+        //
+        /*        public OrganiserRepository OrganiserRepository
+        {
+            get
+            {
+                if (this._organiserRepository == null)
+                {
+                    this._organiserRepository = new OrganiserRepository(context);
+                }
+                return this._organiserRepository;
+            }
+        }*/
+
+        /// <summary>
         /// Save the context
         /// </summary>
         public void Save()
         {
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    foreach (DbValidationError error in item.ValidationErrors)
+                    {
+                        logger.Error(DateTime.Now.ToString() + " " + error.ErrorMessage);
+                    }
+                }
+            }
+            catch(Exception)
+            {
+
+            }
+            
         }
 
         private bool disposed = false;

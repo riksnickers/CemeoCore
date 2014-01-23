@@ -1,4 +1,5 @@
 ﻿using CeMeOCore.DAL.Models;
+using CeMeOCore.DAL.UnitsOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,22 @@ namespace CeMeOCore.Logic.Organiser
         /// <summary>
         /// This dictionary holds all the Organiser instansions
         /// </summary>
-        private Dictionary<string, Organiser> dictionary;
+        private static Dictionary<string, Organiser> dictionary;
+     
         /// <summary>
         /// This is the constructor for OrganiserManager
         /// </summary>
-        public OrganiserManager()
+        static OrganiserManager()
         {
             dictionary = new Dictionary<string, Organiser>();
+            SortedList<string, string> sl = new SortedList<string, string>();
+            List<string> l = new List<string>();
+        
+        }
+
+        private OrganiserManager()
+        {
+
         }
 
         /// <summary>
@@ -28,7 +38,7 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         /// <param name="organiserID">This is the ID of the organiser</param>
         /// <returns>Inviter</returns>
-        private Organiser GetOrganiser(string organiserID)
+        private static Organiser GetOrganiser(string organiserID)
         {
             if (dictionary.ContainsKey(organiserID))
             {
@@ -42,7 +52,7 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         /// <param name="organiser">The organiser object</param>
         /// <returns></returns>
-        public Boolean AddOrganiser(Organiser organiser)
+        public static Boolean AddOrganiser(Organiser organiser)
         {
             try
             {
@@ -55,17 +65,17 @@ namespace CeMeOCore.Logic.Organiser
             }
         }
 
-        public Organiser Create( ScheduleMeetingBindingModel model )
+        public static Organiser Create( ScheduleMeetingBindingModel model )
         {
             Organiser o = new Organiser(model.InvitedParticipants, model.BeforeDate, model.Dateindex, model.Creator, model.Duration);
             AddOrganiser(o);
             return o;
         }
 
-        public OrganiserResponse GetOrganiserStatus(string organiserID)
+        public static OrganiserResponse GetOrganiserStatus(string organiserID)
         {
             //TODO: Get the status of the organiser
-            return this.dictionary[organiserID].GetStatus();
+            return dictionary[organiserID].GetStatus();
         }
 
         /// <summary>
@@ -73,9 +83,25 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         /// <param name="model">Passing the InviterAnswerBindingModel</param>
         /// <returns>Boolean</returns>
-        public Boolean NotifyOrganiser(PropositionAnswerBindingModel model)
+        public static Boolean NotifyOrganiser(PropositionAnswerBindingModel model)
         {
-            return GetOrganiser(model.OrganiserID).registerAvailabilityInvitee(model);
+            uow = new OrganiserUoW2();
+            Organiser o = GetOrganiser(uow.InviteeRepository.GetByID(model.InviteeID).OrganiserID);
+            uow.Dispose();
+            o.registerAvailabilityInvitee(model);
+            return true;
+        }
+        private static OrganiserUoW2 uow;
+        public static void Configure()
+        {
+            uow = new OrganiserUoW2();
+            List<string> organiserIDs = uow.OrganiserProcessRepository.GetOrganiserIdWhenNotFinished().ToList();
+            uow.Dispose();
+            foreach(string organiserID in organiserIDs)
+            {
+                Organiser o = new Organiser(organiserID);
+                AddOrganiser(o);
+            }
         }
 
     }

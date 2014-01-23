@@ -696,5 +696,96 @@
         </reference>
       </references>
     </layer>
+    <layer Id="42050edc-80d9-4a79-9bc8-79a7c8dece9f" name="IPlatform.cs">
+      <references>
+        <reference Id="e72e322e-a28f-4265-bd8a-833417eeeef2" name="IPlatform.cs">
+          <ArtifactNode Label="IPlatform.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=../CeMeOCore/CeMeOCore.csproj File=../CeMeOCore/Logic/PushNotifications/IPlatform.cs)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.PushNotifications Type=IPushPlatform)" Label="IPushPlatform" Category="CodeSchema_Interface">
+            <LinkCategory Ref="Contains" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="750ba208-68c9-4cfb-908c-296c32f338ca" name="Platform.cs">
+      <references>
+        <reference Id="01ff079f-c2d6-4338-b3a9-2484d744a372" name="Platform.cs">
+          <ArtifactNode Label="Platform.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=../CeMeOCore/CeMeOCore.csproj File=../CeMeOCore/Logic/PushNotifications/Platform.cs)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.PushNotifications Type=Platform)" Label="Platform" Category="CodeSchema_Enum">
+            <LinkCategory Ref="Contains" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="218acc3f-3324-46de-a78b-21ccd04ebad9" name="Push.cs">
+      <references>
+        <reference Id="2cbb6fa0-9b6d-45bf-80eb-1d1b7b485cc8" name="Push.cs">
+          <ArtifactNode Label="Push.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=../CeMeOCore/CeMeOCore.csproj File=../CeMeOCore/Logic/PushNotifications/Push.cs)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.PushNotifications Type=Push)" Label="Push" Category="CodeSchema_Class">
+            <LinkCategory Ref="Contains" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="67770383-c0a1-420f-9b23-9666d81a4638" name="PushAndroid.cs">
+      <references>
+        <reference Id="b9fe8ba7-673e-4b69-9aa3-7adaec2e0c39" name="PushAndroid.cs">
+          <ArtifactNode Label="PushAndroid.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=../CeMeOCore/CeMeOCore.csproj File=../CeMeOCore/Logic/PushNotifications/PushAndroid.cs)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.PushNotifications Type=PushAndroid)" Label="PushAndroid" Category="CodeSchema_Class">
+            <LinkCategory Ref="Contains" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="f4c5a560-7cbc-4a51-ae2a-3278ba09619b" name="PushApple.cs">
+      <references>
+        <reference Id="026d6fd8-bf2e-4da9-9097-815577844c6f" name="PushApple.cs">
+          <ArtifactNode Label="PushApple.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=../CeMeOCore/CeMeOCore.csproj File=../CeMeOCore/Logic/PushNotifications/PushApple.cs)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.PushNotifications Type=PushApple)" Label="PushApple" Category="CodeSchema_Class">
+            <LinkCategory Ref="Contains" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="40df5d3e-92e0-4cbd-933f-a9900819236a" name="PushContext.cs">
+      <references>
+        <reference Id="f6f35e3a-0c23-4e2f-b629-0d947b5bb980" name="PushContext.cs">
+          <ArtifactNode Label="PushContext.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=../CeMeOCore/CeMeOCore.csproj File=../CeMeOCore/Logic/PushNotifications/PushContext.cs)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.PushNotifications Type=PushContext)" Label="PushContext" Category="CodeSchema_Class">
+            <LinkCategory Ref="Contains" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="24871919-4073-47f8-aff3-5580b616d182" name="PushPlatform.cs">
+      <references>
+        <reference Id="717e38c4-4bd1-4d92-8909-d90149d59dc6" name="PushPlatform.cs">
+          <ArtifactNode Label="PushPlatform.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=../CeMeOCore/CeMeOCore.csproj File=../CeMeOCore/Logic/PushNotifications/PushPlatform.cs)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=CeMeOCore Namespace=CeMeOCore.Logic.PushNotifications Type=PushPlatform)" Label="PushPlatform" Category="CodeSchema_Class">
+            <LinkCategory Ref="Contains" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
   </layers>
 </layerModel>

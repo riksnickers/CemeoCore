@@ -101,8 +101,10 @@
     <Compile Include="Logic\MeetingOrganiser\Class1.cs" />
     <Compile Include="Logic\MeetingOrganiser\DateRangeTest.cs" />
     <Compile Include="Logic\MeetingOrganiser\MeetingScheduleTest.cs" />
+    <Compile Include="Logic\PushNotifications\UnitTest1.cs" />
     <Compile Include="Logic\Random\SortedListTest.cs" />
     <Compile Include="Logic\Spot\SpotManagerTest.cs" />
+    <Compile Include="Logic\TextAnalysers\TextAnalyserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ValuesControllerTest.cs" />
   </ItemGroup>

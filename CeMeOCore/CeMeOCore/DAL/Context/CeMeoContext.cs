@@ -25,6 +25,7 @@ namespace CeMeOCore.DAL.Context
         public DbSet<GuestUser> GuestUsers { get; set; }
         public DbSet<Invitee> Invitees { get; set; }
         public DbSet<Proposition> Propositions { get; set; }
+        public DbSet<OrganiserProcess> OrganiserProcesses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

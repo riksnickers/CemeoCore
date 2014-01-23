@@ -9,6 +9,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CeMeOCore.DAL.UnitsOfWork;
+using CeMeOCore.Logic.Organiser;
+using CeMeOCore.Logic.PushNotifications;
 
 namespace CeMeOCore.Controllers
 {
@@ -35,10 +37,10 @@ namespace CeMeOCore.Controllers
         /// <param name="model"><seealso cref="PropositionAnswerBindingModel"/></param>
         /// <returns></returns>
         [AcceptVerbs("POST")]
-        [Route("PropositionAnswer")]
+        [Route("Answer")]
         public IHttpActionResult InviteResponse([FromBody]PropositionAnswerBindingModel model)
         {
-            Startup.OrganiserManagerFactory.NotifyOrganiser(model);
+            OrganiserManager.NotifyOrganiser(model);
             return Ok();
         }
 
@@ -48,22 +50,34 @@ namespace CeMeOCore.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [AcceptVerbs("GET")]
-        [Route("Propositions")]
-        public IEnumerable<Proposition> GetPropositions(GetPropositionBindingModel model)
+        [Route("All")]
+        public IEnumerable<ExtendenProposition> GetPropositions()
         {
             //Get UserProfileID
             string aspID = User.Identity.GetUserId();
             int upID = this._propositionUoW.UserProfileRepository.Get(u => u.aspUser == aspID).Select(u => u.UserId).First();
 
 
-            HashSet<Proposition> propositions = new HashSet<Proposition>();
+            HashSet<ExtendenProposition> propositions = new HashSet<ExtendenProposition>();
 
             foreach (Invitee invitee in this._propositionUoW.InviteeRepository.GetInviteeIDsByUserProfileID(upID))
             {
-                Proposition p = invitee.GetProposition();
-                if (p != null)
+                ExtendenProposition extendedProposition = new ExtendenProposition();
+
+                extendedProposition.InviteeID = invitee.InviteeID;
+                extendedProposition.Proposition = invitee.GetProposition();
+                extendedProposition.Answer = invitee.Answer;
+                //Add all other intitees to the return
+                foreach (Invitee other in this._propositionUoW.InviteeRepository.GetInviteeByOrganiserID(invitee.OrganiserID))
                 {
-                    propositions.Add(p);
+                    if(other.UserID != invitee.UserID)
+                    {
+                        extendedProposition.Others.Add(this._propositionUoW.UserProfileRepository.GetByIDCompact(other.UserID));
+                    }
+                }
+                if (extendedProposition != null && extendedProposition.Proposition != null)
+                {
+                    propositions.Add(extendedProposition);
                 }
             }
             return propositions;
@@ -73,6 +87,19 @@ namespace CeMeOCore.Controllers
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
+        }
+
+        [Route("push")]
+        public string GetPush()
+        {
+            Device d = new Device();
+            d.DeviceID = "fc0e50bb4200be9a719e1650c01171d72ec8d9d29c39acc0e14ae8638bc5e4c4";
+            d.Platform = Platform.Apple;
+            d.userID = 1;
+
+            PushContext pc = new PushContext();
+            pc.Send(d, "Hoi jef!");
+            return "test";
         }
 
         // GET api/<controller>/5

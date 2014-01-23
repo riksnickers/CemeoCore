@@ -27,5 +27,10 @@ namespace CeMeOCore.DAL.Repositories
             var users = context.Users.Select(u => new { id = u.UserId, FirstName = u.FirstName, LastName = u.LastName }).ToList();
             return users;
         }
+
+        public UserProfileCompact GetByIDCompact( int id )
+        {
+            return this.dbSet.Where(u => u.UserId == id).Select(u => new UserProfileCompact { FirstName = u.FirstName, LastName = u.LastName, UserId = u.UserId }).FirstOrDefault();
+        }
     }
 }

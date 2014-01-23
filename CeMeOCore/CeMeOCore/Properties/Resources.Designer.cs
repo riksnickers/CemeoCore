@@ -63,9 +63,9 @@ namespace CeMeOCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] CeMeOPush {
+        internal static byte[] Pusharp_PuchCert_Development {
             get {
-                object obj = ResourceManager.GetObject("CeMeOPush", resourceCulture);
+                object obj = ResourceManager.GetObject("Pusharp_PuchCert_Development", resourceCulture);
                 return ((byte[])(obj));
             }
         }

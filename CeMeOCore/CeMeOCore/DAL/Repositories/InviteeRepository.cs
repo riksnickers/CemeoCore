@@ -32,5 +32,11 @@ namespace CeMeOCore.DAL.Repositories
         {
             return this.dbSet.Where(u => u.UserID == upID).Select(u => u).ToList();
         }
+
+
+        public IEnumerable<Invitee> GetInviteeByOrganiserID( string organiserID )
+        {
+            return this.dbSet.Where(u => u.OrganiserID == organiserID).Select(u => u).ToList();
+        }
     }
 }

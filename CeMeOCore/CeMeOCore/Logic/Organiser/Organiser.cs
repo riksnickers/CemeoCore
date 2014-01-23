@@ -20,43 +20,45 @@ namespace CeMeOCore.Logic.Organiser
     /// </summary>
     public class Organiser : IOrganiser
     {
+        public event EventHandler DeadLineChanged;
+
         /// <summary>
         /// The id of the OrganiserID process that will be used.
         /// </summary>
         public string OrganiserID { get; private set; }
 
-        /// <summary>
-        /// This is who requested to organise a meeting
-        /// </summary>
-        private UserProfile RequestedBy { get; set; }
-        /// <summary>
-        /// This is when the request was send to organise a meeting
-        /// </summary>
-        private DateTime DateRequested{ get; set;}
+
 
         /// <summary>
         /// All Participants for this process
         /// </summary>
         private Dictionary<string, Invitee> _invitees { get; set; }
-        
-        /// <summary>
-        /// This is the deadline when the meeting must be planned
-        /// </summary>
-        public int DeadLineInDays { get; set; }
 
-
-        private int TotalInvitees { get; set; }
-        private int TotalInviteesAbsent { get; set; }
-        private int TotalImporantInviteesAbsent { get; set; }
-        private int TotalInviteesOnline { get; set; }
-        private int TotalInviteesUnanswered { get; set; }
-
-        private double Duration { get; set; }
+        private OrganiserProcess _organiserProcess { get; set; }
 
         private OrganiserUoW _organiserUoW { get; set; }
 
         private ILog logger = log4net.LogManager.GetLogger(typeof(Organiser));
         
+        public Organiser( string organiserID/*, OrganiserProcess organiserProcess, Dictionary<string, Invitee> invitees */) 
+        {
+            OrganiserID = organiserID;
+            this._organiserUoW = new OrganiserUoW();
+            this._invitees = new Dictionary<string, Invitee>();
+            try
+            {
+                this._organiserProcess = this._organiserUoW.OrganiserProcessRepository.Get(op => op.OrganiserID == OrganiserID).FirstOrDefault();
+                foreach (Invitee inv in this._organiserUoW.InviteeRepository.GetInviteeByOrganiserID(organiserID))
+                {
+                    this._invitees.Add(inv.InviteeID, inv);
+                }
+            }
+            catch(Exception)
+            {
+
+            }
+        }
+
         /// <summary>
         /// To start organising a meeting the constructor must be called
         /// </summary>
@@ -69,20 +71,16 @@ namespace CeMeOCore.Logic.Organiser
             //Init organiserUoW
             this._organiserUoW = new OrganiserUoW();
 
-            //Set counters to 0
-            TotalImporantInviteesAbsent = 0;
-            TotalInvitees = 0;
-            TotalInviteesAbsent = 0;
-            TotalInviteesOnline = 0;
-            TotalInviteesUnanswered = 0;
-
-            //Resolve requestedBy
-            RequestedBy = resolveRequestedBy(requestedById);
             //Create unique ID
             OrganiserID = DateHash();
 
+            this._organiserProcess = new OrganiserProcess( OrganiserID, requestedById );
+            this._organiserUoW.OrganiserProcessRepository.Insert(this._organiserProcess);
+            this._organiserUoW.Save();
+            
+
             //Set the duration
-            this.Duration = duration;
+            this._organiserProcess.Duration = duration;
 
             //Resolve invitedParticipants
             ConvertParticipantsToInvitees(participants);
@@ -108,6 +106,7 @@ namespace CeMeOCore.Logic.Organiser
         /// <returns>boolean</returns>
         public Boolean ConvertParticipantsToInvitees(IEnumerable<InvitedParticipant> invitedParticipants)
         {
+            this._organiserProcess.Status = OrganiserStatus.ConvertingParticipants;
             if( this._invitees == null)
             {
                 this._invitees = new Dictionary<string, Invitee>();
@@ -119,8 +118,8 @@ namespace CeMeOCore.Logic.Organiser
                     Invitee invitee = new Invitee(OrganiserID, invitedParticipant.id, invitedParticipant.Important);
                     this._invitees.Add(invitee.InviteeID, invitee);
                     this._organiserUoW.InviteeRepository.Insert(invitee);
-                    TotalInviteesUnanswered++;
-                    TotalInvitees++;
+                    this._organiserProcess.TotalInviteesUnanswered++;
+                    this._organiserProcess.TotalInvitees++;
                 }
                 return true;
             }
@@ -174,10 +173,12 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         private void CalculateEarliestProposition()
         {
+            this._organiserProcess.Status = OrganiserStatus.CalculatingEarliestProposition;
+            UpdateOrganiserProcess();
             //TODO: Add more room logic
             //HACK: Refactor Person available logic.
             //This is our start proposal daterange
-            ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this.Duration));
+            ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this._organiserProcess.Duration));
             Room proposalRoom = null;
 
             //A reserved spot will be added to the list to reserve this proposition.
@@ -228,9 +229,14 @@ namespace CeMeOCore.Logic.Organiser
             }
             catch (Exception)
             {
+                this._organiserProcess.Status = OrganiserStatus.Error;
+                UpdateOrganiserProcess();
+                return;
                 //Something went wrong while find a room
                 //TODO: Logging
-            }          
+            }
+            this._organiserProcess.Status = OrganiserStatus.WaitingOnResponses;
+            UpdateOrganiserProcess();
         }
 
         /// <summary>
@@ -265,7 +271,7 @@ namespace CeMeOCore.Logic.Organiser
                     catch (PersonNotAvailableException)
                     {
                         //Set the end time from the overlapping daterange as the start time for the proposalDateRange
-                        proposalDateRange.ModifyStartDateTime(personBlackSpotDateRange.End, Duration);
+                        proposalDateRange.ModifyStartDateTime(personBlackSpotDateRange.End, this._organiserProcess.Duration);
                         ChangeReservedSpot(reservedSpot, proposalDateRange.Start, proposalDateRange.End);
                     }
                     catch (Exception)
@@ -447,6 +453,8 @@ namespace CeMeOCore.Logic.Organiser
             if (this._invitees.ContainsKey(model.InviteeID))
             {
                 this._invitees[model.InviteeID].Answer = model.Answer;
+                this._organiserUoW.InviteeRepository.Update(this._invitees[model.InviteeID]);
+                this._organiserUoW.Save();
                 CheckAnswer(model.InviteeID);
             }
 
@@ -465,6 +473,7 @@ namespace CeMeOCore.Logic.Organiser
         /// <returns></returns>
         private Boolean CheckAnswer(string id)
         {
+            bool returnVal = false;
             //TODO: If their is send a new proposition reduce Totals!
             if (this._invitees[id].Important == true && this._invitees[id].Answer == Availability.Absent)
             {
@@ -472,19 +481,16 @@ namespace CeMeOCore.Logic.Organiser
                 //Let the System know that it need to reschedule everything
                 //But add a blackspot to the existing list
 
-                TotalImporantInviteesAbsent++;
-                TotalInviteesAbsent++;
-
-                return false;
+                this._organiserProcess.TotalImporantInviteesAbsent++;
+                this._organiserProcess.TotalInviteesAbsent++;
             }
             else if (this._invitees[id].Answer == Availability.Absent)
             {
                 //TODO:Let the system decide if their is a new proposition needed.
                 //If their is no new proposition the meeting will continue (unless he joins online)
 
-                TotalInviteesAbsent++;
+                this._organiserProcess.TotalInviteesAbsent++;
 
-                return false;
             }
             else if ( this._invitees[id].Answer == Availability.Online )
             {
@@ -493,10 +499,13 @@ namespace CeMeOCore.Logic.Organiser
                 //When the person chose Absent they get another message 
                 //from the system asking if they want to be present Online
                 //Increase the OnlineCounter for this organisation. 
-                TotalInviteesOnline++;
+                this._organiserProcess.TotalInviteesOnline++;
+                returnVal = true;
             }
-            TotalInviteesUnanswered--;
-            return true;
+            this._organiserProcess.TotalInviteesUnanswered--;
+            UpdateOrganiserProcess();
+            return returnVal;
+
         }
 
         /// <summary>
@@ -517,6 +526,24 @@ namespace CeMeOCore.Logic.Organiser
         public Proposition GetProposition(string inviteeID)
         {
             throw new NotImplementedException();
+        }
+
+
+        private void UpdateOrganiserProcess()
+        {
+            try
+            {
+                this._organiserUoW.OrganiserProcessRepository.Update(this._organiserProcess);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            finally
+            {
+                this._organiserUoW.Save();
+            }
         }
     }
 

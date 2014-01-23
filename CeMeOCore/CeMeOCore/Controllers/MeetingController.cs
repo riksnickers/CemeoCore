@@ -72,11 +72,11 @@ namespace CeMeOCore.Controllers
         ///</summary>
         ///<param name="latest">This is how many meetings you want</param>
         [AcceptVerbs("GET")]
-        [Route("Upcomming")]
+        [Route("Upcoming")]
         public IEnumerable<String> GetUpcomming(int latest = 1)
         {
-            log.Debug("GetUpcomming");
-            return new string[]{"Latest "+ latest +" Upcomming "};
+            log.Debug("GetUpcoming");
+            return new string[]{"Latest "+ latest +" Upcoming "};
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace CeMeOCore.Controllers
         [ResponseType(typeof(ScheduleMeetingBindingModel))]
         public IHttpActionResult Schedule(HttpRequestMessage mes, [FromBody]ScheduleMeetingBindingModel model)
         {
-            Startup.OrganiserManagerFactory.Create(model);
+            OrganiserManager.Create(model);
 
             return Ok();
         }
@@ -108,19 +108,6 @@ namespace CeMeOCore.Controllers
             return false;
         }
 
-        /// <summary>
-        /// Not used, can be maybe deleted.
-        /// If you provide a InviteeID and a OrganiserID you get a proposition returned.
-        /// </summary>
-        /// <param name="Invitee_id"></param>
-        /// <returns></returns>
-        [AcceptVerbs("POST")]
-        [Route("Proposition")]
-        public Proposition GetProposition([FromBody] GetPropositionBindingModel model)
-        {
-            //Startup.OrganiserManagerFactory().GetProposition(model);
-            return null;
-        }
 
         /// <summary>
         /// Not used, can be maybe deleted.

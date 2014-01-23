@@ -18,7 +18,7 @@ namespace CeMeOCore.DAL.Models
 
         public int UserID { get; set; }
 
-        private string OrganiserID { get; set; }
+        public string OrganiserID { get; set; }
 
         public Boolean Important { get; set; }
 
