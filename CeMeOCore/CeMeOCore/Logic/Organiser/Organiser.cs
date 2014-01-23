@@ -503,8 +503,17 @@ namespace CeMeOCore.Logic.Organiser
                 returnVal = true;
             }
             this._organiserProcess.TotalInviteesUnanswered--;
+            if( this._organiserProcess.TotalInviteesUnanswered == 0 )
+            {
+                OrganiseMeeting();
+            }
             UpdateOrganiserProcess();
             return returnVal;
+
+        }
+
+        public void OrganiseMeeting()
+        {
 
         }
 
@@ -533,7 +542,8 @@ namespace CeMeOCore.Logic.Organiser
         {
             try
             {
-                this._organiserUoW.OrganiserProcessRepository.Update(this._organiserProcess);
+                OrganiserProcess o = this._organiserProcess;
+                this._organiserUoW.OrganiserProcessRepository.Update(o);
             }
             catch (Exception)
             {
@@ -544,6 +554,11 @@ namespace CeMeOCore.Logic.Organiser
             {
                 this._organiserUoW.Save();
             }
+        }
+
+        public bool IncludesInvitee(string inviteeID)
+        {
+            return this._invitees.Keys.Contains(inviteeID);
         }
     }
 

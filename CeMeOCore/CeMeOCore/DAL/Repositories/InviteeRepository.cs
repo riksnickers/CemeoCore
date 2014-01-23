@@ -3,6 +3,7 @@ using CeMeOCore.DAL.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -37,6 +38,16 @@ namespace CeMeOCore.DAL.Repositories
         public IEnumerable<Invitee> GetInviteeByOrganiserID( string organiserID )
         {
             return this.dbSet.Where(u => u.OrganiserID == organiserID).Select(u => u).ToList();
+        }
+
+        /// <summary>
+        /// Update the specific entity (will check for changed fields, not whole objects)
+        /// </summary>
+        /// <param name="entityToUpdate"></param>
+        public override void Update(Invitee entityToUpdate)
+        {
+            dbSet.Attach(entityToUpdate);
+            context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }
