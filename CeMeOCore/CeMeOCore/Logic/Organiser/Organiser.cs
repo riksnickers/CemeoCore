@@ -16,7 +16,7 @@ using System.Web;
 namespace CeMeOCore.Logic.Organiser
 {
     /// <summary>
-    /// The organiser will organise a meeting
+    /// The organiser will organise a meeting.
     /// </summary>
     public class Organiser : IOrganiser
     {
