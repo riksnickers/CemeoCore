@@ -85,22 +85,23 @@ namespace CeMeOCore.Logic.Organiser
         /// <returns>Boolean</returns>
         public static Boolean NotifyOrganiser(PropositionAnswerBindingModel model)
         {
-            OrganiserUoW uow = new OrganiserUoW();
-            GetOrganiser(uow.InviteeRepository.GetByID(model.InviteeID).OrganiserID).registerAvailabilityInvitee(model);
+            uow = new OrganiserUoW2();
+            Organiser o = GetOrganiser(uow.InviteeRepository.GetByID(model.InviteeID).OrganiserID);
             uow.Dispose();
+            o.registerAvailabilityInvitee(model);
             return true;
         }
-
+        private static OrganiserUoW2 uow;
         public static void Configure()
         {
-            OrganiserUoW uow = new OrganiserUoW();
-            IEnumerable<string> organiserIDs = uow.OrganiserProcessRepository.GetOrganiserIdWhenNotFinished();
+            uow = new OrganiserUoW2();
+            List<string> organiserIDs = uow.OrganiserProcessRepository.GetOrganiserIdWhenNotFinished().ToList();
+            uow.Dispose();
             foreach(string organiserID in organiserIDs)
             {
                 Organiser o = new Organiser(organiserID);
                 AddOrganiser(o);
             }
-            uow.Dispose();
         }
 
     }

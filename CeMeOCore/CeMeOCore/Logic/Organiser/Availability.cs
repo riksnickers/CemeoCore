@@ -8,7 +8,7 @@ namespace CeMeOCore.Logic.Organiser
     /// <summary>
     /// This is an enumartion for the Availability options
     /// </summary>
-    public enum Availability : int 
+    public enum Availability
     {
         Unanswered = 0,
         Present = 1,

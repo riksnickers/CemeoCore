@@ -41,11 +41,11 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -203,6 +203,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="DAL\Models\OrganiserProcess.cs" />
     <Compile Include="DAL\Repositories\OrganiserProcessRepository.cs" />
+    <Compile Include="DAL\UnitsOfWork\OrganiserUoW2.cs" />
     <Compile Include="Logic\Organiser\OrganiserStatus.cs" />
     <Compile Include="Logic\PushNotifications\IPlatform.cs" />
     <Compile Include="Logic\PushNotifications\Push.cs" />
@@ -393,8 +394,10 @@
     <Content Include="Assets\font-awesome\scss\_spinning.scss" />
     <Content Include="Assets\font-awesome\scss\_stacked.scss" />
     <Content Include="Assets\font-awesome\scss\_variables.scss" />
+    <None Include="Properties\PublishProfiles\cemeo %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Cemeo PXL.pubxml" />
     <None Include="Properties\PublishProfiles\cemeo.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Resources\CeMeOPush.p12" />
     <None Include="Resources\Pusharp.PuchCert.Development.p12" />
     <None Include="Resources\PushSharp.p12" />

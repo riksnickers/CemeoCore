@@ -452,9 +452,8 @@ namespace CeMeOCore.Logic.Organiser
             //HACK: Change the propositionAnswerBindingModel
             if (this._invitees.ContainsKey(model.InviteeID))
             {
-                Invitee invitee = this._invitees[model.InviteeID];
-                invitee.Answer = model.Answer;
-                this._organiserUoW.InviteeRepository.Update(invitee);
+                this._invitees[model.InviteeID].Answer = model.Answer;
+                this._organiserUoW.InviteeRepository.Update(this._invitees[model.InviteeID]);
                 this._organiserUoW.Save();
                 CheckAnswer(model.InviteeID);
             }
@@ -535,12 +534,15 @@ namespace CeMeOCore.Logic.Organiser
             try
             {
                 this._organiserUoW.OrganiserProcessRepository.Update(this._organiserProcess);
-                this._organiserUoW.Save();
             }
             catch (Exception)
             {
                 
                 throw;
+            }
+            finally
+            {
+                this._organiserUoW.Save();
             }
         }
     }

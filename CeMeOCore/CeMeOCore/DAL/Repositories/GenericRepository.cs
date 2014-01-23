@@ -123,7 +123,6 @@ namespace CeMeOCore.DAL.Repositories
             var entry = context.Entry(entityToUpdate);
 
             entry.CurrentValues.SetValues(entityToUpdate);
-
         }
     }
 }
