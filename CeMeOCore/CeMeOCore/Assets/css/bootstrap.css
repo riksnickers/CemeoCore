@@ -218,6 +218,10 @@ table {
     width: 300px;
 }
 
+#smallerinput input{
+    width: 300px;
+}
+
 #bigger{
     width: 100px;
     text-align:left;
@@ -7124,4 +7128,23 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+}
+
+.thumbnail {
+    position:relative;
+    overflow:hidden;
+}
+ 
+.caption {
+    position:absolute;
+    top:0;
+    right:0;
+    background:rgba(66, 139, 202, 0.75);
+    width:100%;
+    height:100%;
+    padding:2%;
+    display: none;
+    text-align:center;
+    color:#fff !important;
+    z-index:2;
 }

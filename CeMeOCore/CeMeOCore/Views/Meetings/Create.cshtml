@@ -18,24 +18,28 @@
             <span id="bigger" class="input-group-addon">MeetingDate:</span>
             @Html.TextBoxFor(model => model.Creator, new { @class = "form-control", @placeholder = "MeetingDate", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.MeetingDate)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">MeetingUser:</span>
             @Html.TextBoxFor(model => model.MeetingUser, new { @class = "form-control", @placeholder = "MeetingUser", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.MeetingUser)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Location:</span>
             @Html.TextBoxFor(model => model.Location.Name, new { @class = "form-control", @placeholder = "Location", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.Location.Name)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">State:</span>
             @Html.TextBoxFor(model => model.State, new { @class = "form-control", @placeholder = "State", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.State)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="form-group">

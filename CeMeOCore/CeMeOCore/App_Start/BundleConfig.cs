@@ -22,21 +22,27 @@ namespace CeMeOCore
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/assets/css/home.css",
                       "~/Content/site.css"));
 
             //Load Cemeo bundle jqeury
             bundles.Add(new ScriptBundle("~/bundles/cemeo").Include(
-                "~/Scripts/cemeo.js"));
+                "~/Scripts/cemeo.js",
+                "~/assets/js/images.js"
+                ));
 
             bundles.Add(new StyleBundle("~/Content/admincss").Include(
                       "~/assets/css/bootstrap.css",
                       "~/assets/css/sb-admin.css",
-                      "~/assets/css/font-awesome.min.css"
+                      "~/assets/css/font-awesome.min.css",
+                      "~/assets/css/jquery-ui.css"
                     ));
 
             bundles.Add(new ScriptBundle("~/bundles/adminjs").Include(
                 "~/assets/js/jquery-1.10.2.js",
+                "~/assets/js/jquery-ui.js",
                 "~/assets/js/bootstrap.js",
+                "~/assets/js/images.js",
                 "~/assets/js/tablesorter/jquery.tablesorter.js",
                 "~/assets/js/tablesorter/tables.js"
                 ));

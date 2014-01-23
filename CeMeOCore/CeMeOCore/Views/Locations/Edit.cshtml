@@ -17,48 +17,57 @@
             <span id="bigger" class="input-group-addon">Name:</span>
             @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.Name)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Street:</span>
             @Html.TextBoxFor(model => model.Street, new { @class = "form-control", @placeholder = "Street", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.Street)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Number:</span>
             @Html.TextBoxFor(model => model.Number, new { @class = "form-control", @placeholder = "Number", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.Number)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Zip:</span>
             @Html.TextBoxFor(model => model.Zip, new { @class = "form-control", @placeholder = "Zip", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.Zip)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">City:</span>
             @Html.TextBoxFor(model => model.City, new { @class = "form-control", @placeholder = "City", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.City)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Country:</span>
             @Html.TextBoxFor(model => model.Country, new { @class = "form-control", @placeholder = "Country", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.Country)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">State:</span>
             @Html.TextBoxFor(model => model.State, new { @class = "form-control", @placeholder = "State", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.State)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Addition:</span>
             @Html.TextBoxFor(model => model.Addition, new { @class = "form-control", @placeholder = "Addition", @id = "smaller"})
             @Html.ValidationMessageFor(model => model.Addition)
+            <span class="label label-primary">Not required</span>
+
         </div>
         <br />
         <div class="form-group">

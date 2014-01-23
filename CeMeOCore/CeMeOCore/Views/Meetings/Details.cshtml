@@ -12,32 +12,33 @@
         @Html.HiddenFor(model => model.MeetingID)
         <fieldset disabled>
             <div class="input-group input-group-sm">
-                <span id="bigger" class="input-group-addon">Name:</span>
-                @Html.TextBoxFor(model => model.Creator, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
+                <span id="bigger" class="input-group-addon">Creator:</span>
+                @Html.TextBoxFor(model => model.Creator, new { @class = "form-control", @placeholder = "Creator", @id = "smaller" })
                 @Html.ValidationMessageFor(model => model.Creator)
             </div>
             <br />
             <div class="input-group input-group-sm">
-                <span id="bigger" class="input-group-addon">Street:</span>
-                @Html.TextBoxFor(model => model.MeetingDate, new { @class = "form-control", @placeholder = "Street", @id = "smaller" })
+                <span id="bigger" class="input-group-addon">MeetingDate:</span>
+                @Html.TextBoxFor(model => model.MeetingDate, new { @class = "form-control", @placeholder = "MeetingDate", @id = "smaller" })
                 @Html.ValidationMessageFor(model => model.MeetingDate)
+
             </div>
             <br />
             <div class="input-group input-group-sm">
-                <span id="bigger" class="input-group-addon">Number:</span>
-                @Html.TextBoxFor(model => model.MeetingUser, new { @class = "form-control", @placeholder = "Number", @id = "smaller" })
+                <span id="bigger" class="input-group-addon">MeetingUser:</span>
+                @Html.TextBoxFor(model => model.MeetingUser, new { @class = "form-control", @placeholder = "MeetingUser", @id = "smaller" })
                 @Html.ValidationMessageFor(model => model.MeetingUser)
             </div>
             <br />
             <div class="input-group input-group-sm">
-                <span id="bigger" class="input-group-addon">Zip:</span>
-                @Html.TextBoxFor(model => model.Location.Name, new { @class = "form-control", @placeholder = "Zip", @id = "smaller" })
+                <span id="bigger" class="input-group-addon">Location:</span>
+                @Html.TextBoxFor(model => model.Location.Name, new { @class = "form-control", @placeholder = "Location", @id = "smaller" })
                 @Html.ValidationMessageFor(model => model.Location.Name)
             </div>
             <br />
             <div class="input-group input-group-sm">
-                <span id="bigger" class="input-group-addon">City:</span>
-                @Html.TextBoxFor(model => model.State, new { @class = "form-control", @placeholder = "City", @id = "smaller" })
+                <span id="bigger" class="input-group-addon">State:</span>
+                @Html.TextBoxFor(model => model.State, new { @class = "form-control", @placeholder = "State", @id = "smaller" })
                 @Html.ValidationMessageFor(model => model.State)
             </div>
             <br />

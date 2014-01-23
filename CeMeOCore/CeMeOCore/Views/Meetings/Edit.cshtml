@@ -11,35 +11,45 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.MeetingID)
-        <fieldset disabled>
+        <fieldset id="smallerinput" disabled>
             <div class="input-group input-group-sm">
                 <span id="bigger" class="input-group-addon">Name:</span>
                 @Html.TextBoxFor(model => model.Creator, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
                 @Html.ValidationMessageFor(model => model.Creator)
+                <span class="label label-danger">Required</span>
             </div>
             <br />
             <div class="input-group input-group-sm">
                 <span id="bigger" class="input-group-addon">Meetingdates:</span>
-                @Html.TextBoxFor(model => model.MeetingDate, new { @class = "form-control", @placeholder = "Meeting date", @id = "smaller" })
+                @Html.TextBoxFor(model => model.MeetingDate, new { @class = "form-control", @placeholder = "Meeting date", @id = "datepicker" })
                 @Html.ValidationMessageFor(model => model.MeetingDate)
+                <span class="label label-danger">Required</span>
+                <script>
+                    $(function () {
+                        $("#datepicker").datepicker();
+                    });
+                </script>
             </div>
             <br />
             <div class="input-group input-group-sm">
                 <span id="bigger" class="input-group-addon">Meetingsusers:</span>
                 @Html.TextBoxFor(model => model.MeetingUser, new { @class = "form-control", @placeholder = "Meeting users", @id = "smaller" })
                 @Html.ValidationMessageFor(model => model.MeetingUser)
+                <span class="label label-primary">Not required</span>
             </div>
             <br />
             <div class="input-group input-group-sm">
                 <span id="bigger" class="input-group-addon">Location:</span>
                 @Html.TextBoxFor(model => model.Location.Name, new { @class = "form-control", @placeholder = "Location", @id = "smaller" })
                 @Html.ValidationMessageFor(model => model.Location.Name)
+                <span class="label label-danger">Required</span>
             </div>
             <br />
             <div class="input-group input-group-sm">
                 <span id="bigger" class="input-group-addon">State:</span>
                 @Html.TextBoxFor(model => model.State, new { @class = "form-control", @placeholder = "State", @id = "smaller" })
                 @Html.ValidationMessageFor(model => model.State)
+                <span class="label label-danger">Required</span>
             </div>
             <br />
         </fieldset>

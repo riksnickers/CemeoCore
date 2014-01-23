@@ -17,18 +17,21 @@
             <span id="bigger" class="input-group-addon">Name:</span>
             @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.Name)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Type:</span>
             @Html.TextBoxFor(model => model.Type, new { @class = "form-control", @placeholder = "Street", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.Type)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Location:</span>
             @Html.TextBoxFor(model => model.LocationID.Name, new { @class = "form-control", @placeholder = "Number", @id = "smaller" })
             @Html.ValidationMessageFor(model => model.LocationID.Name)
+            <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="form-group">
