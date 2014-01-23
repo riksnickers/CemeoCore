@@ -27,6 +27,7 @@ namespace CeMeOCore.DAL.UnitsOfWork
         private RoomRepository _roomRepository;
         private UserProfileRepository _userProfileRepository;
         private OrganiserProcessRepository _organiserProcessRepository;
+        private MeetingRepository _meetingRepository;
 
         //private OrganiserRepository _organiserRepository;
 
@@ -108,21 +109,19 @@ namespace CeMeOCore.DAL.UnitsOfWork
         }
 
         /// <summary>
-        /// The OrganiserRepository Property
+        /// The MeetingRepository Property
         /// </summary>
-        /// 
-        //
-        /*        public OrganiserRepository OrganiserRepository
+        public MeetingRepository MeetingRepository
         {
             get
             {
-                if (this._organiserRepository == null)
+                if (this._meetingRepository == null)
                 {
-                    this._organiserRepository = new OrganiserRepository(context);
+                    this._meetingRepository = new MeetingRepository(context);
                 }
-                return this._organiserRepository;
+                return this._meetingRepository;
             }
-        }*/
+        }
 
         /// <summary>
         /// Save the context

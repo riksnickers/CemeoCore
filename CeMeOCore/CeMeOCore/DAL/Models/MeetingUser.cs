@@ -47,10 +47,6 @@ namespace CeMeOCore.DAL.Models
 
         [Required]
         [StringLength(100)]
-        public string Room { get; set; }
-
-        public virtual ICollection<UserProfile> users { get; set; }
-        public virtual ICollection<Meeting> meetings { get; set; }
-
+        public Room Room { get; set; }
     }
 }
