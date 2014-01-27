@@ -1,17 +1,24 @@
 ﻿using CeMeOCore.DAL.Models;
+using CeMeOCore.DAL.UnitsOfWork;
+using CeMeOCore.DAL.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
-using CeMeOCore.DAL.Context;
 
 namespace CeMeOCore.Controllers
 {
     public class UserProfileController : Controller
     {
-        private CeMeoContext _db = new CeMeoContext();
+        private UserUoW _UserUoW;
+
+        public UserProfileController()
+        {
+            this._UserUoW = new UserUoW();
+        }
+
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             //Title of the page
@@ -39,7 +46,7 @@ namespace CeMeOCore.Controllers
             ViewBag.CurrentFilter = searchString;
             //End paging
 
-            var users = from s in _db.Users select s;
+            var users = from s in this._UserUoW.UserProfileRepository.Get() select s;
 
             //Searching
             if (!String.IsNullOrEmpty(searchString))
@@ -84,7 +91,7 @@ namespace CeMeOCore.Controllers
         // GET: /UserProfile/Details/5
         public ActionResult Details(int id)
         {
-            var usr = _db.Users.Find(id);
+            var usr = this._UserUoW.UserProfileRepository.dbSet.Find(id);
             return View(usr);
         }
     }
