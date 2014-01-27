@@ -18,6 +18,7 @@ namespace CeMeOCore.DAL.UnitsOfWork
         private CeMeoContext context = new CeMeoContext();
         private UserProfileRepository _userProfileRepository;
         private InviteeRepository _inviteeRepository;
+        private MeetingRepository _meetingRepository;
 
         public UserProfileRepository UserProfileRepository
         {
@@ -41,6 +42,18 @@ namespace CeMeOCore.DAL.UnitsOfWork
                     this._inviteeRepository = new InviteeRepository(context);
                 }
                 return this._inviteeRepository;
+            }
+        }
+
+        public MeetingRepository MeetingRepository
+        {
+            get
+            {
+                if(this._meetingRepository == null)
+                {
+                    this._meetingRepository = new MeetingRepository(context);
+                }
+                return this._meetingRepository;
             }
         }
 
