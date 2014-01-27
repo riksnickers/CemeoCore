@@ -19,6 +19,7 @@ using CeMeOCore.Results;
 using CeMeOCore.DAL.UnitsOfWork;
 using System.Data.Entity.Validation;
 using log4net;
+using CeMeOCore.Logic.PushNotifications;
 
 namespace CeMeOCore.Controllers
 {
@@ -482,7 +483,12 @@ namespace CeMeOCore.Controllers
             return Ok();
         }
 
-        
+        [Route("RegisterDevice")]
+        public void RegisterDevice([FromBody]DeviceBindingModel model)
+        {
+            string aspId = User.Identity.GetUserId();
+            DeviceManager.CreateDevice(model.DeviceID, model.Platform, this._userUoW.UserProfileRepository.Get(u => u.aspUser == aspId).Select(u=>u.UserId).First());
+        }
 
         //Dispose all.
         protected override void Dispose(bool disposing)

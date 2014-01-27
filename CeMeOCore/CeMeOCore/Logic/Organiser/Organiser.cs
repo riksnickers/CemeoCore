@@ -12,6 +12,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Web;
+using CeMeOCore.Logic.PushNotifications;
 
 namespace CeMeOCore.Logic.Organiser
 {
@@ -199,6 +200,7 @@ namespace CeMeOCore.Logic.Organiser
 
                 //Now let's create the proposal.
                 Proposition p = new Proposition(reservedSpot.Guid);
+                p.OrganiserProcess = this._organiserProcess;
                 p.ProposedRoom = proposalRoom;
                 p.BeginTime = proposalDateRange.Start;
                 p.EndTime = proposalDateRange.End;
@@ -408,6 +410,19 @@ namespace CeMeOCore.Logic.Organiser
         {
             //This will need to send the proposition to the right invitee
             //Push notification
+            foreach(Invitee invitee in this._invitees.Values)
+	        {
+		        if(invitee.Answer != Availability.Absent )
+                {
+                    foreach(Device device in DeviceManager.GetDevicesFromUser(invitee.UserID))
+                    {
+                        PushContext pc = new PushContext();
+                        pc.Send(device, "You have a new proposition waiting on you ;)!");
+                    }
+
+                }
+	        }
+            
         }
 
         /// <summary>
@@ -543,6 +558,8 @@ namespace CeMeOCore.Logic.Organiser
             {
 
             }
+
+            sendPropositionToInvitees();
 
             this._organiserProcess.Status = OrganiserStatus.FinishedOrganising;
         }

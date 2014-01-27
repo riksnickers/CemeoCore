@@ -1,4 +1,5 @@
 ﻿using CeMeOCore.Logic.Organiser;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -44,6 +45,7 @@ namespace CeMeOCore.DAL.Models
         //list of users taking part of a meeting
         //public virtual ICollection<MeetingUser> MeetingUser { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Attendee> Attendees { get; set; }
         
         public Meeting()

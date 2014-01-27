@@ -62,22 +62,22 @@ namespace CeMeOCore.Controllers
 
             foreach (Invitee invitee in this._propositionUoW.InviteeRepository.GetInviteeIDsByUserProfileID(upID))
             {
-                ExtendenProposition extendedProposition = new ExtendenProposition();
 
-                extendedProposition.InviteeID = invitee.InviteeID;
-                extendedProposition.Proposition = invitee.GetProposition();
-                extendedProposition.Answer = invitee.Answer;
-                //Add all other intitees to the return
-                foreach (Invitee other in this._propositionUoW.InviteeRepository.GetInviteeByOrganiserID(invitee.OrganiserID))
+                if (invitee.Proposal.OrganiserProcess.Status != OrganiserStatus.FinishedOrganising)
                 {
-                    if(other.UserID != invitee.UserID)
+                    ExtendenProposition extendedProposition = new ExtendenProposition();
+                    extendedProposition.InviteeID = invitee.InviteeID;
+                    extendedProposition.Proposition = invitee.GetProposition();
+                    extendedProposition.Answer = invitee.Answer;
+                    //Add all other intitees to the return
+                    foreach (Invitee other in this._propositionUoW.InviteeRepository.GetInviteeByOrganiserID(invitee.OrganiserID))
                     {
                         extendedProposition.Others.Add(this._propositionUoW.UserProfileRepository.GetByIDCompact(other.UserID));
                     }
-                }
-                if (extendedProposition != null && extendedProposition.Proposition != null)
-                {
-                    propositions.Add(extendedProposition);
+                    if (extendedProposition != null && extendedProposition.Proposition != null)
+                    {
+                        propositions.Add(extendedProposition);
+                    }
                 }
             }
             return propositions;

@@ -12,4 +12,10 @@ namespace CeMeOCore.DAL.Models
         public Platform Platform { get; set; }
         public int userID { get; set; }
     }
+
+    public class DeviceBindingModel
+    {
+        public string DeviceID { get; set; }
+        public Platform Platform { get; set; }
+    }
 }

@@ -14,9 +14,15 @@ namespace CeMeOCore.DAL.Repositories
 
         }
 
-        public IEnumerable<int> GetMeetingIdsbyUserId(int userid)
+        public IEnumerable<Attendee> GetAttendings(int userid)
         {
-            return this.dbSet.Where(a => a.UserId == userid).Select(a => a.MeetingId);
+            return this.dbSet.Where(a => a.UserId == userid).Select(a => a);
         }
+
+        public IEnumerable<int> GetAttendeesIdByMeetingId(int meetingID)
+        {
+            return this.dbSet.Where(a => a.MeetingId == meetingID).Select(a => a.UserId);
+        }
+
     }
 }

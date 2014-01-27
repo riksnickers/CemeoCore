@@ -36,6 +36,14 @@ namespace CeMeOCore.DAL.Context
             modelBuilder.Entity<Attendee>()
                 .HasKey(a => new { a.MeetingId, a.UserId });
 
+            modelBuilder.Entity<Attendee>()
+                .HasMany(a => a.Meetings)
+                .WithMany(m => m.Attendees);
+
+            modelBuilder.Entity<Attendee>()
+                .HasMany(a => a.Users)
+                .WithMany(u => u.Attendees);
+
             //modelBuilder.Entity<UserProfile>()
             //    .HasMany(u => u.MeetingUser)
             //    .WithRequired()

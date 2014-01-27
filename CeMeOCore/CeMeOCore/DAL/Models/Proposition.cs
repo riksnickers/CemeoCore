@@ -1,4 +1,5 @@
 ﻿using CeMeOCore.Logic.Organiser;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,6 +15,8 @@ namespace CeMeOCore.DAL.Models
     {
         [Key]
         public string Id { get; set; }
+        [JsonIgnore]
+        public virtual OrganiserProcess OrganiserProcess { get; set; }
         public Guid ReservedSpotGuid { get; private set; }
         // A proposition is for an invitee wich contains a Room (+location) and a start span
         public Proposition( Guid reservedSpotGuid)

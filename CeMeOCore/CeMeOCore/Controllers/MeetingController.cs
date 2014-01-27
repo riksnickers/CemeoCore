@@ -49,16 +49,35 @@ namespace CeMeOCore.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("All")]
-        public IEnumerable<Meeting> Get()
+        public IEnumerable<MeetingInformation> Get()
         {
-            List<Meeting> meetings = new List<Meeting>();
+            HashSet<MeetingInformation> mih = new HashSet<MeetingInformation>();
             string id = User.Identity.GetUserId();
             int idUP = this._meetingUoW.UserProfileRepository.Get(u => u.aspUser == id).Select(u => u.UserId).First();
-            foreach ( int meetingId in this._meetingUoW.AttendeeRepository.GetMeetingIdsbyUserId(idUP))
+           
+            List<Attendee> attendings = this._meetingUoW.AttendeeRepository.GetAttendings(idUP).ToList();
+            foreach( Attendee attendee in attendings )
             {
-                meetings.Add(this._meetingUoW.MeetingRepository.GetByID(meetingId));
+                MeetingInformation mi = new MeetingInformation();
+                mi.Self = attendee;
+                /*List<int> OtherId = this._meetingUoW.AttendeeRepository.GetAttendeesIdByMeetingId(attendee.MeetingId).ToList();
+                foreach( int userId in OtherId )
+                {
+                    mi.Others.Add(this._meetingUoW.UserProfileRepository.GetByIDCompact(userId));
+                }*/
+                foreach (Meeting meeting in attendee.Meetings)
+                {
+                    mi.Meeting = meeting;
+                    foreach (Attendee other in meeting.Attendees)
+                    {
+                        mi.Others.Add(this._meetingUoW.UserProfileRepository.GetByIDCompact(other.UserId));
+                    }
+                }
+                mih.Add(mi);
             }
-            return meetings;
+           
+
+             return mih;
         }
 
         ///<summary>
@@ -150,7 +169,7 @@ namespace CeMeOCore.Controllers
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            //this.context.Dispose();
+            this._meetingUoW.Dispose();
             base.Dispose(disposing);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,9 +16,22 @@ namespace CeMeOCore.DAL.Models
         public virtual int UserId { get; set; }
 
         [Required]
-        public Room Room { get; set; }
+        public virtual Room Room { get; set; }
 
-        public virtual ICollection<UserProfile> users { get; set; }
-        public virtual ICollection<Meeting> meetings { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<UserProfile> Users { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Meeting> Meetings { get; set; }
+    }
+
+    public class MeetingInformation
+    {
+        public Meeting Meeting { get; set; }
+        public Attendee Self { get; set; }
+        public HashSet<UserProfileCompact> Others { get; set; }
+        public MeetingInformation()
+        {
+            Others = new HashSet<UserProfileCompact>();
+        }
     }
 }
