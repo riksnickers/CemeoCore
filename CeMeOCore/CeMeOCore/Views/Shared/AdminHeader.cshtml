@@ -22,7 +22,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li><a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li>@Html.ActionLink("Dashboard", "Index", "Statistics")</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-table"></i> Tables <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -32,7 +32,6 @@
                             <li>@Html.ActionLink("Users", "Index", "UserProfile")</li>
                         </ul>
                     </li>
-                    <li><a href="bootstrap-grid.html"><i class="fa fa-wrench"></i>Other settings</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
                     <li class="dropdown user-dropdown">
