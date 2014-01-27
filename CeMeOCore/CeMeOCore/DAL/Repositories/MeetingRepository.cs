@@ -2,6 +2,7 @@
 using CeMeOCore.DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,13 @@ namespace CeMeOCore.DAL.Repositories
         public MeetingRepository(CeMeoContext dbContext) : base(dbContext)
         {
 
+        }
+
+
+        public void Update(Meeting entityToUpdate)
+        {
+            dbSet.Attach(entityToUpdate);
+            context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }

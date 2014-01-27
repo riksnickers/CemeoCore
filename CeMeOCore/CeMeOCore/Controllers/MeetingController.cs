@@ -10,6 +10,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CeMeOCore.Controllers
 {
@@ -24,10 +26,11 @@ namespace CeMeOCore.Controllers
         /// Logger instance
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(MeetingController));
+        private MeetingControllerUoW _meetingUoW;
 
         public MeetingController ()
         {
-            
+            this._meetingUoW = new MeetingControllerUoW();
         }
 
         ///<summary>
@@ -39,6 +42,23 @@ namespace CeMeOCore.Controllers
         public IEnumerable<String> Get(int id)
         {
             return new string[] { id.ToString() };
+        }
+
+        /// <summary>
+        /// Get all meetings from logged in user.
+        /// </summary>
+        /// <returns></returns>
+        [Route("All")]
+        public IEnumerable<Meeting> Get()
+        {
+            List<Meeting> meetings = new List<Meeting>();
+            string id = User.Identity.GetUserId();
+            int idUP = this._meetingUoW.UserProfileRepository.Get(u => u.aspUser == id).Select(u => u.UserId).First();
+            foreach ( int meetingId in this._meetingUoW.AttendeeRepository.GetMeetingIdsbyUserId(idUP))
+            {
+                meetings.Add(this._meetingUoW.MeetingRepository.GetByID(meetingId));
+            }
+            return meetings;
         }
 
         ///<summary>

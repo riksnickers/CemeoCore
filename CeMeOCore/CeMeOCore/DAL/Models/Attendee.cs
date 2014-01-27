@@ -15,7 +15,6 @@ namespace CeMeOCore.DAL.Models
         public virtual int UserId { get; set; }
 
         [Required]
-        [StringLength(100)]
         public Room Room { get; set; }
 
         public virtual ICollection<UserProfile> users { get; set; }

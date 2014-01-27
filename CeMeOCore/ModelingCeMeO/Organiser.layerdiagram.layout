@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<layerDiagram dslVersion="1.0.0.0" Id="8dd75c89-7c56-4516-92b4-6857050636ca" absoluteBounds="0, 0, 20.875, 8.5" name="Organiser">
+<layerDiagram dslVersion="1.0.0.0" Id="8dd75c89-7c56-4516-92b4-6857050636ca" absoluteBounds="0, 0, 14, 8.5" name="Organiser">
   <layerModelMoniker Id="62c10dec-2497-4c71-acbf-ca07577795c2" />
   <nestedChildShapes>
     <layerShape Id="1c9e1381-5a3a-4418-bcd4-51fde13d72c6" absoluteBounds="2.375, 2.75, 6.125, 3.75" customColor="161, 199, 231">
@@ -141,26 +141,5 @@
         <layerShapeMoniker Id="b3bd48e3-b2c6-43ed-8f86-ac3e91e6de42" />
       </nodes>
     </dependencyConnector>
-    <layerShape Id="36ca1b0a-d8c8-4f44-8679-98202cf9fc08" absoluteBounds="18.625, 3.25, 2, 0.75" customColor="161, 199, 231">
-      <layerMoniker Id="42050edc-80d9-4a79-9bc8-79a7c8dece9f" />
-    </layerShape>
-    <layerShape Id="2025dd9d-605e-4ee2-81e6-ab07e69353a2" absoluteBounds="16.875, 2.125, 2, 0.75" customColor="161, 199, 231">
-      <layerMoniker Id="750ba208-68c9-4cfb-908c-296c32f338ca" />
-    </layerShape>
-    <layerShape Id="26110071-36a6-47a1-bf50-c0ce6bd2ffa0" absoluteBounds="18.125, 4.75, 2, 0.75" customColor="161, 199, 231">
-      <layerMoniker Id="218acc3f-3324-46de-a78b-21ccd04ebad9" />
-    </layerShape>
-    <layerShape Id="86c69dec-37b1-4596-a550-a7c81e89f542" absoluteBounds="18, 5.625, 2, 0.75" customColor="161, 199, 231">
-      <layerMoniker Id="67770383-c0a1-420f-9b23-9666d81a4638" />
-    </layerShape>
-    <layerShape Id="83d47e46-64b2-45bd-9ab7-92a9e428db11" absoluteBounds="14.875, 3.25, 2, 0.75" customColor="161, 199, 231">
-      <layerMoniker Id="f4c5a560-7cbc-4a51-ae2a-3278ba09619b" />
-    </layerShape>
-    <layerShape Id="a5cb20f5-0edd-44bd-bf36-3e36df72b548" absoluteBounds="15, 4.5, 2, 0.75" customColor="161, 199, 231">
-      <layerMoniker Id="40df5d3e-92e0-4cbd-933f-a9900819236a" />
-    </layerShape>
-    <layerShape Id="e110f151-fa8a-4b87-9d33-526be8f52e0e" absoluteBounds="15.125, 5.375, 2, 0.75" customColor="161, 199, 231">
-      <layerMoniker Id="24871919-4073-47f8-aff3-5580b616d182" />
-    </layerShape>
   </nestedChildShapes>
 </layerDiagram>

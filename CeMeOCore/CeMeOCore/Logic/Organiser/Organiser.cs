@@ -514,17 +514,37 @@ namespace CeMeOCore.Logic.Organiser
 
         public void OrganiseMeeting()
         {
-            Meeting newMeeting = new Meeting();
-            newMeeting.BeginTime = this._invitees.First().Value.Proposal.BeginTime;
-            newMeeting.Duration = this._organiserProcess.Duration;
-            newMeeting.Attendees = new HashSet<Attendee>();
-
-            foreach(Invitee invitee in this._invitees.Values)
+            try
             {
-                MeetingUser mu = new MeetingUser();
-               // mu.Confirmed = MeetingUser
+                Meeting newMeeting = new Meeting();
+                newMeeting.BeginTime = this._invitees.First().Value.Proposal.BeginTime;
+                newMeeting.Duration = this._organiserProcess.Duration;
+
+                this._organiserUoW.MeetingRepository.Insert(newMeeting);
+                //Save the context so the meeting is getting an id
+                this._organiserUoW.Save();
+
+                foreach (Invitee invitee in this._invitees.Values)
+                {
+                    Attendee attendee = new Attendee();
+                    attendee.MeetingId = newMeeting.MeetingID;
+                    attendee.Room = invitee.Proposal.ProposedRoom;
+                    attendee.UserId = invitee.UserID;
+                    newMeeting.Attendees.Add(attendee);
+                    this._organiserUoW.AttendeeRepository.Insert(attendee);
+                }
+
+                this._organiserUoW.MeetingRepository.Update( newMeeting );
+
+
+                this._organiserUoW.Save();
+            }
+            catch( Exception )
+            {
+
             }
 
+            this._organiserProcess.Status = OrganiserStatus.FinishedOrganising;
         }
 
         /// <summary>

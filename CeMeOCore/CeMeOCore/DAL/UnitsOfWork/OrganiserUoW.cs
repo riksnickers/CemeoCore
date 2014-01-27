@@ -28,6 +28,7 @@ namespace CeMeOCore.DAL.UnitsOfWork
         private UserProfileRepository _userProfileRepository;
         private OrganiserProcessRepository _organiserProcessRepository;
         private MeetingRepository _meetingRepository;
+        private AttendeeRepository _attendeeRepository;
 
         //private OrganiserRepository _organiserRepository;
 
@@ -120,6 +121,21 @@ namespace CeMeOCore.DAL.UnitsOfWork
                     this._meetingRepository = new MeetingRepository(context);
                 }
                 return this._meetingRepository;
+            }
+        }
+
+        /// <summary>
+        /// The AttendeeRepository Property
+        /// </summary>
+        public AttendeeRepository AttendeeRepository
+        {
+            get
+            {
+                if(this._attendeeRepository == null)
+                {
+                    this._attendeeRepository = new AttendeeRepository(context);
+                }
+                return this._attendeeRepository;
             }
         }
 

@@ -203,6 +203,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="DAL\Models\Attendee.cs" />
     <Compile Include="DAL\Models\OrganiserProcess.cs" />
+    <Compile Include="DAL\Repositories\AttendeeRepository.cs" />
     <Compile Include="DAL\Repositories\OrganiserProcessRepository.cs" />
     <Compile Include="DAL\UnitsOfWork\OrganiserUoW2.cs" />
     <Compile Include="Logic\Organiser\OrganiserStatus.cs" />
