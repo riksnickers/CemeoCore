@@ -336,6 +336,13 @@
     <Content Include="Assets\font-awesome\css\font-awesome.min.css" />
     <Content Include="Assets\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\img\1.png" />
+    <Content Include="Assets\img\10.png" />
+    <Content Include="Assets\img\11.png" />
+    <Content Include="Assets\img\12.png" />
+    <Content Include="Assets\img\13.png" />
+    <Content Include="Assets\img\14.png" />
+    <Content Include="Assets\img\15.png" />
+    <Content Include="Assets\img\16.png" />
     <Content Include="Assets\img\2.png" />
     <Content Include="Assets\img\3.png" />
     <Content Include="Assets\img\4.png" />

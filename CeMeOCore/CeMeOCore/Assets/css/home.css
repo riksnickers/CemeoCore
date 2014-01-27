@@ -28,6 +28,7 @@
 }
 
 #green{
+    padding: 2%;
     margin-bottom: 7%;
     background-color: #67BB32;
     width: 100%;
@@ -36,6 +37,7 @@
 }
 
 #yellow{
+    padding: 2%;
     margin-bottom: 7%;
     background-color: #F6DC3E;
     width: 100%;
@@ -58,7 +60,6 @@ body {
 .thumbnail {
     position:relative;
     overflow:hidden;
-    background-color: #FF4E2C;
 }
  
 .caption {
@@ -89,4 +90,40 @@ body {
 
 #bluebackground{
     background-color: #6E8DC2;
+}
+
+#background1{
+    background-color: #67BB32;
+}
+
+#background2{
+    background-color: #67BB32;
+}
+
+#background3{
+    background-color: #67BB32;
+}
+
+#background4{
+    background-color: #F6DC3E;
+}
+
+#background5{
+    background-color: #F6DC3E;
+}
+
+#background6{
+    background-color: #F6DC3E;
+}
+
+#background7{
+    background-color: #FF4E2C;
+}
+
+#background8{
+    background-color: #FF4E2C;
+}
+
+#background9{
+    background-color: #FF4E2C;
 }
