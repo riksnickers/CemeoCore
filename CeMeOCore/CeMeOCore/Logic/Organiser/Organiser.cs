@@ -14,6 +14,7 @@ using System.Text;
 using System.Web;
 using CeMeOCore.Logic.PushNotifications;
 
+
 namespace CeMeOCore.Logic.Organiser
 {
     /// <summary>
@@ -21,7 +22,8 @@ namespace CeMeOCore.Logic.Organiser
     /// </summary>
     public class Organiser : IOrganiser
     {
-        public event EventHandler DeadLineChanged;
+        public event GenerateBlackSpots GenerateBlackSpotss;
+        public delegate bool GenerateBlackSpots(string organiserID);
 
         /// <summary>
         /// The id of the OrganiserID process that will be used.
@@ -41,7 +43,7 @@ namespace CeMeOCore.Logic.Organiser
 
         private ILog logger = log4net.LogManager.GetLogger(typeof(Organiser));
         
-        public Organiser( string organiserID/*, OrganiserProcess organiserProcess, Dictionary<string, Invitee> invitees */) 
+        public Organiser( string organiserID ) 
         {
             OrganiserID = organiserID;
             this._organiserUoW = new OrganiserUoW();
@@ -239,6 +241,7 @@ namespace CeMeOCore.Logic.Organiser
             }
             this._organiserProcess.Status = OrganiserStatus.WaitingOnResponses;
             UpdateOrganiserProcess();
+            sendPropositionToInvitees();
         }
 
         /// <summary>
@@ -559,8 +562,6 @@ namespace CeMeOCore.Logic.Organiser
 
             }
 
-            sendPropositionToInvitees();
-
             this._organiserProcess.Status = OrganiserStatus.FinishedOrganising;
         }
 
@@ -607,6 +608,8 @@ namespace CeMeOCore.Logic.Organiser
         {
             return this._invitees.Keys.Contains(inviteeID);
         }
+
+        public event EventHandler DeadLineChanged;
     }
 
     /// <summary>

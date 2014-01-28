@@ -487,7 +487,8 @@ namespace CeMeOCore.Controllers
         public void RegisterDevice([FromBody]DeviceBindingModel model)
         {
             string aspId = User.Identity.GetUserId();
-            DeviceManager.CreateDevice(model.DeviceID, model.Platform, this._userUoW.UserProfileRepository.Get(u => u.aspUser == aspId).Select(u=>u.UserId).First());
+            int userid = this._userUoW.UserProfileRepository.Get(u => u.aspUser == aspId).Select(u=>u.UserId).First();
+            DeviceManager.CreateDevice(model.DeviceID, model.Platform, userid);
         }
 
         //Dispose all.
