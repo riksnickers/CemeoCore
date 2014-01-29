@@ -8,6 +8,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using CeMeOCore.Logic.ActiveDirectory;
+using CeMeOCore.Controllers;
+using CeMeOCore.DAL.Models;
 
 namespace CeMeOCore.Providers
 {
@@ -40,8 +43,30 @@ namespace CeMeOCore.Providers
 
                 if (user == null)
                 {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
-                    return;
+                    //Begin register function
+                    if(CemeoAD.Authenticate(context.UserName, context.Password, "cemeo.be"))
+                    {
+                        //Ok user found in AD let's register him/her
+                        try
+                        {
+                            AccountController ac = new AccountController();
+                            await ac.Register(CemeoAD.GetRegisterBindingModelFromAD(context.UserName, context.Password));
+                            //After register 
+                            user = await userManager.FindAsync(context.UserName, context.Password);
+                        }
+                        catch (Exception)
+                        {
+                            context.SetError("invalid_grant", "The account could not be created.");
+                            return;
+                        }
+                       
+                    }
+                    else
+                    { 
+                    //End  register function
+                        context.SetError("invalid_grant", "The user name or password is incorrect.");
+                        return;
+                    }
                 }
 
                 ClaimsIdentity oAuthIdentity = await userManager.CreateIdentityAsync(user,

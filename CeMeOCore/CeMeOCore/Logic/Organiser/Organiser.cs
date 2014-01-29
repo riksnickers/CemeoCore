@@ -94,7 +94,6 @@ namespace CeMeOCore.Logic.Organiser
             //  CalculateEarliestAppointment - take blackspots in account
             CalculateEarliestProposition();
 
-            sendPropositionToInvitees();
             //  If an attendee denies let it recalucate
 
             //If everyone accepted

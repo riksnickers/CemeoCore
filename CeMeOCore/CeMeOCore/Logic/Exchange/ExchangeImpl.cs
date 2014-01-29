@@ -7,29 +7,37 @@ using System.Web;
 using System.DirectoryServices.AccountManagement;
 using System.DirectoryServices;
 
-namespace CeMeOCore.DAL.Exchange
+namespace CeMeOCore.Logic.Exchange
 {
     public class ExchangeImpl
     {
         public ExchangeImpl()
         {
+            /*
+
+            DirectoryEntry de = new DirectoryEntry("LDAP://cemeo.be/OU=aon,OU=cemeo,DC=cemeo,DC=be", username, password);
+            //de.Path = "LDAP://OU=aon,OU=cemeo,DC=cemeo,DC=be";
+            de.AuthenticationType = AuthenticationTypes.Secure;
+            
+            DirectorySearcher ds = new DirectorySearcher(de);
+            var y = de.Children.Find("");
+            var x = ds.FindOne();
+             */
+        }
+
+
+
+        public void SendMail(string username, string password, string domain)
+        {
             ServicePointManager.ServerCertificateValidationCallback = Exchange.CertificateValidationCallBack;
 
             ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010);
 
-            string username = "aon_1";
-            string password = "jefjef91";
-            string domain = "cemeo.be";
-
-            service.TraceEnabled = true;
-            service.TraceFlags = TraceFlags.All;
+            //service.TraceEnabled = true;
+            //service.TraceFlags = TraceFlags.All;
 
             service.Credentials = new WebCredentials(username, password, domain);
-            
-            //service.UseDefaultCredentials = true;
-
             string EWSUrl = "https://webmail.cemeo.be/EWS/Exchange.asmx";
-
             service.Url = new Uri(EWSUrl);
             //service.AutodiscoverUrl(username, Exchange.RedirectionUrlValidationCallback);
 
@@ -38,7 +46,16 @@ namespace CeMeOCore.DAL.Exchange
             email.Subject = "Email from C#";
             email.Body = new MessageBody("Hellooooooooo it's me C#");
             email.Send();
+        }
 
+        public void GetAppointments(string username, string password, string domain)
+        {
+            ServicePointManager.ServerCertificateValidationCallback = Exchange.CertificateValidationCallBack;
+
+            ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010);
+            service.Credentials = new WebCredentials(username, password, domain);
+            string EWSUrl = "https://webmail.cemeo.be/EWS/Exchange.asmx";
+            service.Url = new Uri(EWSUrl);
 
             CalendarFolder calendarFolder = CalendarFolder.Bind(service, WellKnownFolderName.Calendar, new PropertySet());
 
@@ -55,15 +72,6 @@ namespace CeMeOCore.DAL.Exchange
                 System.Diagnostics.Debug.Write("End: " + a.End.ToString());
                 System.Diagnostics.Debug.Write("\n");
             }
-
-
-            DirectoryEntry de = new DirectoryEntry("LDAP://cemeo.be/OU=aon,OU=cemeo,DC=cemeo,DC=be", username, password);
-            //de.Path = "LDAP://OU=aon,OU=cemeo,DC=cemeo,DC=be";
-            de.AuthenticationType = AuthenticationTypes.Secure;
-            
-            DirectorySearcher ds = new DirectorySearcher(de);
-            var y = de.Children.Find("aon", "group");
-            var x = ds.FindOne();
         }
     }
    // http://www.codeproject.com/Articles/18102/Howto-Almost-Everything-In-Active-Directory-via-C

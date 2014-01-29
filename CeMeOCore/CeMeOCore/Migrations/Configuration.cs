@@ -112,7 +112,7 @@ namespace CeMeOCore.Migrations
                 State = "",
                 Addition = 0
             };
-
+            /*
             context.Locations.AddOrUpdate(KantoorVeenendaal);
             context.Locations.AddOrUpdate(HoofdkantoorHasselt);
             context.Locations.AddOrUpdate(KantoorAntwerpen);
@@ -121,8 +121,8 @@ namespace CeMeOCore.Migrations
             context.Locations.AddOrUpdate(KantoorLuik);
             context.Locations.AddOrUpdate(KantoorBraine);
             context.Locations.AddOrUpdate(KantoorNamen);
-
-            /*context.Locations.AddOrUpdate(
+            
+            context.Locations.AddOrUpdate(
                  l => l.Name,
                    KantoorVeenendaal,
                    HoofdkantoorHasselt,
@@ -177,7 +177,7 @@ namespace CeMeOCore.Migrations
                 Type = "meetingroom for small teammeetings",
                 LocationID = KantoorWetteren
             };
-
+            /*
             context.Rooms.AddOrUpdate(
                   l => l.Name,
                   ConferenceRoomFirstFloor,
@@ -187,7 +187,8 @@ namespace CeMeOCore.Migrations
                   ConferenceRoomSecondFloor,
                   ConferenceRoomThirdFloor,
                   MeetingRoomBasement
-                );
+                );*/
         }
+        
     }
 }

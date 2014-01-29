@@ -207,8 +207,9 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="DAL\Exchange\Exchange.cs" />
-    <Compile Include="DAL\Exchange\ExchangeImpl.cs" />
+    <Compile Include="Logic\ActiveDirectory\CemeoAD.cs" />
+    <Compile Include="Logic\Exchange\Exchange.cs" />
+    <Compile Include="Logic\Exchange\ExchangeImpl.cs" />
     <Compile Include="DAL\Models\Attendee.cs" />
     <Compile Include="DAL\Models\OrganiserProcess.cs" />
     <Compile Include="DAL\Repositories\AttendeeRepository.cs" />

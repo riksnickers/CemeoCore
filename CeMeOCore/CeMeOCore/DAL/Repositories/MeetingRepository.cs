@@ -20,7 +20,7 @@ namespace CeMeOCore.DAL.Repositories
         }
 
 
-        public void Update(Meeting entityToUpdate)
+        public override void Update(Meeting entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
