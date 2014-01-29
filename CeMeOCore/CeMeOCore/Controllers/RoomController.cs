@@ -15,6 +15,7 @@ namespace CeMeOCore.Controllers
 {
     public class RoomController : Controller
     {
+        private LocationIndexList locations = new LocationIndexList();
         private RoomUoW _roomUoW;
 
         public RoomController()
@@ -71,6 +72,7 @@ namespace CeMeOCore.Controllers
                     break;
             }
 
+
             //Paging
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -86,22 +88,29 @@ namespace CeMeOCore.Controllers
 
         public ActionResult Create()
         {
-            Room newRoom = new Room();
-            return View(newRoom);
+            locations.LocationList = (from u in this._roomUoW.locationRepository.Get().AsEnumerable()
+                                      select new SelectListItem
+                                      {
+                                          Text = u.Name,
+                                          Value = u.LocationID.ToString()
+                                      }).AsEnumerable();
+            locations.room = new Room();
+            return View(locations);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Room room)
+        public ActionResult Create(LocationIndexList room)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    this.ViewBag.locationName = new SelectList(this._roomUoW.locationRepository.context.Locations, "locationName", "Name", room.room.LocationID.Name);
                     Room newRoomToAdd = new Room();
-                    newRoomToAdd.Name = room.Name;
-                    newRoomToAdd.Type = room.Type;
-                    newRoomToAdd.LocationID.Name = room.LocationID.Name;
+                    newRoomToAdd.Name = room.room.Name;
+                    newRoomToAdd.Type = room.room.Type;
+                    newRoomToAdd.LocationID = room.room.LocationID;
                     this._roomUoW.roomnRepository.dbSet.Add(newRoomToAdd);
                     this._roomUoW.roomnRepository.context.SaveChanges();
                     return RedirectToAction("Index");

@@ -202,6 +202,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="DAL\Models\Attendee.cs" />
+    <Compile Include="DAL\Models\LocationIndexList.cs" />
     <Compile Include="DAL\Models\OrganiserProcess.cs" />
     <Compile Include="DAL\Repositories\AttendeeRepository.cs" />
     <Compile Include="DAL\Repositories\OrganiserProcessRepository.cs" />
@@ -233,7 +234,6 @@
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
-    <Compile Include="Controllers\MeetingsController.cs" />
     <Compile Include="Controllers\PropositionController.cs" />
     <Compile Include="Controllers\RoomApiController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
@@ -460,17 +460,13 @@
     <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Room\Index.cshtml" />
-    <Content Include="Views\Meetings\Index.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
     <Content Include="Views\Room\Edit.cshtml" />
-    <Content Include="Views\Meetings\Edit.cshtml" />
     <Content Include="Views\Locations\Create.cshtml" />
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Room\Create.cshtml" />
     <Content Include="Views\Room\Details.cshtml" />
-    <Content Include="Views\Meetings\Details.cshtml" />
     <Content Include="Views\UserProfile\Details.cshtml" />
-    <Content Include="Views\Meetings\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

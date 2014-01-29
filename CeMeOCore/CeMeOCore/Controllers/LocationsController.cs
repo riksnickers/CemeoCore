@@ -124,6 +124,7 @@ namespace CeMeOCore.Controllers
         {
             try
             {
+
                 Location newLocationToAdd = new Location();
                 newLocationToAdd.Name = newLocation.Name;
                 newLocationToAdd.Street = newLocation.Street;

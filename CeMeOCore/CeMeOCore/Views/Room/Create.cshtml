@@ -1,4 +1,4 @@
-﻿@model CeMeOCore.DAL.Models.Room
+﻿@model CeMeOCore.DAL.Models.LocationIndexList
 @{
     Layout = "~/Views/Shared/AdminHeader.cshtml";
 }
@@ -11,26 +11,25 @@
         <h4>Location</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.LocationID)
+        @Html.HiddenFor(model => model.room.RoomID)
 
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Name:</span>
-            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
-            @Html.ValidationMessageFor(model => model.Name)
+            @Html.TextBoxFor(model => model.room.Name, new { @class = "form-control", @placeholder = "Name", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.room.Name)
             <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Type:</span>
-            @Html.TextBoxFor(model => model.Type, new { @class = "form-control", @placeholder = "Street", @id = "smaller" })
-            @Html.ValidationMessageFor(model => model.Type)
+            @Html.TextBoxFor(model => model.room.Type, new { @class = "form-control", @placeholder = "Street", @id = "smaller" })
+            @Html.ValidationMessageFor(model => model.room.Type)
             <span class="label label-danger">Required</span>
         </div>
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Location:</span>
-            @Html.TextBoxFor(model => model.LocationID.Name, new { @class = "form-control", @placeholder = "Number", @id = "smaller" })
-            @Html.ValidationMessageFor(model => model.LocationID.Name)
+            @Html.DropDownListFor(x => x.room.LocationID, new SelectList(Model.LocationList, "Value", "Text"), "Select..", new { @class = "form-control"})
             <span class="label label-danger">Required</span>
         </div>
         <br />
