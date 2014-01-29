@@ -23,6 +23,15 @@ namespace CeMeOCore.Controllers
             this._roomUoW = new RoomUoW();
         }
 
+        // GET Room/Index
+        /// <summary>
+        /// Retruns a view with a tbale full of rooms
+        /// </summary>
+        /// <param name="sortOrder">Request message </param>
+        /// <param name="currentFilter">currentsortfilter</param>
+        /// <param name="searchString">searchstring taking care of the searching</param>
+        /// <param name="page">paging parameter</param>
+        /// <returns>vie with table of rooms</returns>
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             //Title of the page
@@ -80,30 +89,45 @@ namespace CeMeOCore.Controllers
             //End sorting
         }
 
+        // GET Room/Details/?
+        /// <summary>
+        /// get the details of a specific room
+        /// </summary>
+        /// <param name="id">specific room </param>
+        /// <returns>view with details of a specific room</returns>
         public ActionResult Details(int id)
         {
             var meetingRoom = this._roomUoW.roomnRepository.dbSet.Find(id);
             return View(meetingRoom);
         }
 
+        // GET Room/Create
+        /// <summary>
+        /// Retruns a view to create a new room
+        /// </summary>
+        /// <returns>view to create a new room</returns>
         public ActionResult Create()
         {
-            LocationIndexList locations = new LocationIndexList();
-            locations.locationId = "";
-           /* locations.LocationList = (from u in this._roomUoW.locationRepository.Get().AsEnumerable()
-                                      select new SelectListItem
-                                      {
-                                          Text = u.Name,
-                                          Value = u.LocationID.ToString()
-                                      }).AsEnumerable();*/
-            ViewBag.locations = new SelectList(this._roomUoW.locationRepository.Get().ToArray(), "LocationID", "Name");
-            locations.room = new Room();
-            return View(locations);
+            CreateRoom model = new CreateRoom();
+            IEnumerable<Location> actionTypes = this._roomUoW.locationRepository.Get();
+            model.ActionsList = from action in actionTypes
+                                select new SelectListItem
+                                {
+                                    Text = action.Name,
+                                    Value = ((int)action.LocationID).ToString()
+                                };
+            return View(model);
         }
 
+        // GET Room/Create
+        /// <summary>
+        /// create a new room
+        /// </summary>
+        /// <param name="Createroom"> data for new room </param>
+        /// <returns>s</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(LocationIndexList room)
+        public ActionResult Create(CreateRoom room)
         {
             try
             {
@@ -112,7 +136,7 @@ namespace CeMeOCore.Controllers
                     Room newRoomToAdd = new Room();
                     newRoomToAdd.Name = room.room.Name;
                     newRoomToAdd.Type = room.room.Type;
-                    newRoomToAdd.LocationID = this._roomUoW.locationRepository.dbSet.Find(int.Parse("6"));
+                    newRoomToAdd.LocationID = this._roomUoW.locationRepository.dbSet.Find(room.ActionId);
                     this._roomUoW.roomnRepository.dbSet.Add(newRoomToAdd);
                     this._roomUoW.roomnRepository.context.SaveChanges();
                     return RedirectToAction("Index");
@@ -125,7 +149,12 @@ namespace CeMeOCore.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: /RoomTest/Edit/5
+        /// GET: /RoomTest/Edit/5
+        /// <summary>
+        /// Retruns a view to edit a sepcific room
+        /// </summary>
+        /// <param name="id"> specific room </param>
+        /// <returns>vie with editable data for room</returns>
         public ActionResult Edit(int? id)
         {
             Room temp = this._roomUoW.roomnRepository.dbSet.Find(id);
@@ -137,9 +166,12 @@ namespace CeMeOCore.Controllers
  
         }
 
-        // POST: /RoomTest/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// POST: /RoomTest/Edit/5
+        /// <summary>
+        /// Retruns a view to edit a specific room
+        /// </summary>
+        /// <param name="temp"> room to edit </param>
+        /// <returns>edit specific room</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Room temp)
@@ -147,7 +179,6 @@ namespace CeMeOCore.Controllers
             try
             {
                 Room room = this._roomUoW.roomnRepository.dbSet.Find(temp.RoomID);
-            
                 if (ModelState.IsValid)
                 {   
                     room.Name = temp.Name;
@@ -164,8 +195,12 @@ namespace CeMeOCore.Controllers
             return RedirectToAction("Index");
         }
 
-        //
-        // POST: /Locations/Delete/5
+        /// POST: /Locations/Delete/?
+        /// <summary>
+        /// method to delete a room
+        /// </summary>
+        /// <param name="id">id of a specific room</param>
+        /// <returns></returns>
         public void DeleteRoom(int id)
         {
             try
