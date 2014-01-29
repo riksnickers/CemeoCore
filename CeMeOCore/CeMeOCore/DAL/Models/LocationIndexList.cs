@@ -10,5 +10,6 @@ namespace CeMeOCore.DAL.Models
     {
         public Room room { get; set; }
         public IEnumerable<SelectListItem> LocationList { get; set; } // dropdown
+        public String locationId { get; set; }
     }
 }

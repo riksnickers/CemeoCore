@@ -15,7 +15,7 @@ namespace CeMeOCore.Controllers
 {
     public class RoomController : Controller
     {
-        private LocationIndexList locations = new LocationIndexList();
+        
         private RoomUoW _roomUoW;
 
         public RoomController()
@@ -88,12 +88,15 @@ namespace CeMeOCore.Controllers
 
         public ActionResult Create()
         {
-            locations.LocationList = (from u in this._roomUoW.locationRepository.Get().AsEnumerable()
+            LocationIndexList locations = new LocationIndexList();
+            locations.locationId = "";
+           /* locations.LocationList = (from u in this._roomUoW.locationRepository.Get().AsEnumerable()
                                       select new SelectListItem
                                       {
                                           Text = u.Name,
                                           Value = u.LocationID.ToString()
-                                      }).AsEnumerable();
+                                      }).AsEnumerable();*/
+            ViewBag.locations = new SelectList(this._roomUoW.locationRepository.Get().ToArray(), "LocationID", "Name");
             locations.room = new Room();
             return View(locations);
         }
@@ -109,7 +112,7 @@ namespace CeMeOCore.Controllers
                     Room newRoomToAdd = new Room();
                     newRoomToAdd.Name = room.room.Name;
                     newRoomToAdd.Type = room.room.Type;
-                    newRoomToAdd.LocationID = room.room.LocationID;
+                    newRoomToAdd.LocationID = this._roomUoW.locationRepository.dbSet.Find(int.Parse("6"));
                     this._roomUoW.roomnRepository.dbSet.Add(newRoomToAdd);
                     this._roomUoW.roomnRepository.context.SaveChanges();
                     return RedirectToAction("Index");
