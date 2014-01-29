@@ -29,7 +29,7 @@
         <br />
         <div class="input-group input-group-sm">
             <span id="bigger" class="input-group-addon">Location:</span>
-            @Html.DropDownListFor(x => x.room.LocationID, new SelectList(Model.LocationList, "Value", "Text"), "Select..", new { @class = "form-control"})
+            @Html.DropDownListFor(x => x.room.LocationID, new SelectList(Model.LocationList, "Value", "Text"), "Select..", new { @class = "form-control", @id = "smaller" })
             <span class="label label-danger">Required</span>
         </div>
         <br />

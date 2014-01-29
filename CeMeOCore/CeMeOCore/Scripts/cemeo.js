@@ -1,25 +1,26 @@
 ﻿$("#signInForm").submit(function (e) {
     event.preventDefault();
-    var postdate = {
+    var postdata = {
+        grant_type: "password",
         username: "admin",
         password: "superadmin"
     };
-    alert("try login");
+   // alert("try login");
     $.ajax({
         type: "POST",
         url: "/Token",
-        data: JSON.stringify(postdata),
-        dataType: "json", //The dataType we get back from the server,
-        contentType: 'application/json; charset=utf-8',
+        data: postdata,
+        //taType: "json", //The dataType we get back from the server,
+        //contentType: 'application/json; charset=utf-8',
         success: onLoginComplete,
         error: onError
     });
-    alert("made it here");
+    //alert("made it here");
 });
 
 function onLoginComplete(result, data) {
-    document.cookie = "token=" + data.access_token;
-    alert("hooray");
+    document.cookie = "token=" + result['access_token'];
+    window.location = "/"
 
 }
 

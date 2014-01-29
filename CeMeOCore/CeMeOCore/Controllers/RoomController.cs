@@ -106,7 +106,6 @@ namespace CeMeOCore.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    this.ViewBag.locationName = new SelectList(this._roomUoW.locationRepository.context.Locations, "locationName", "Name", room.room.LocationID.Name);
                     Room newRoomToAdd = new Room();
                     newRoomToAdd.Name = room.room.Name;
                     newRoomToAdd.Type = room.room.Type;

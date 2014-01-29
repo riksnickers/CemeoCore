@@ -14,5 +14,11 @@ namespace CeMeOCore.Controllers
 
             return View();
         }
+
+        public ActionResult CheckLogin()
+        {
+            //var cookie = null;
+            return null;
+        }
     }
 }
