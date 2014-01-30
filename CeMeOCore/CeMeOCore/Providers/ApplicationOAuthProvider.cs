@@ -9,7 +9,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using CeMeOCore.Logic.ActiveDirectory;
-using CeMeOCore.Controllers;
+using CeMeOCore.api.Controllers;
 using CeMeOCore.DAL.Models;
 
 namespace CeMeOCore.Providers
