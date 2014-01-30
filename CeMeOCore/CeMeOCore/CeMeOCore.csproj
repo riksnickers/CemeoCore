@@ -424,6 +424,8 @@
     <None Include="Properties\PublishProfiles\cemeo - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\cemeo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Cemeo PXL.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Resources\CeMeOPush.p12" />
     <None Include="Resources\Pusharp.PuchCert.Development.p12" />
     <None Include="Resources\PushSharp.p12" />

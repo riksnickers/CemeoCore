@@ -99,6 +99,13 @@ namespace CeMeOCore.Controllers
 
             PushContext pc = new PushContext();
             pc.Send(d, "Hoi jef!");
+
+            Device dd = new Device();
+            dd.DeviceID = "APA91bHA_zPZ2ahh0Y8DPLVhA4erQLTXztBDAPKehXD3jwZO2mS4aFwnsvHz4MDzQ1jFVCiLhkld1FGHVT_s3h7auskWHVdguFKVh7VmtxvrSdRVXch65ZH1e96iTgccp_ka-NIM1MX3oKbnhJzLByFoTcnZTsM0hQ";
+            dd.Platform = Platform.Android;
+            dd.userID = 2;
+
+            pc.Send(dd, "Hoi jordy!");
             return "test";
         }
 

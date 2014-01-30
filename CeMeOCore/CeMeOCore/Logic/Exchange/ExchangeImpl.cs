@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.DirectoryServices.AccountManagement;
 using System.DirectoryServices;
+using CeMeOCore.Logic.Spots;
 
 namespace CeMeOCore.Logic.Exchange
 {
@@ -72,6 +73,34 @@ namespace CeMeOCore.Logic.Exchange
                 System.Diagnostics.Debug.Write("End: " + a.End.ToString());
                 System.Diagnostics.Debug.Write("\n");
             }
+        }
+
+        public void GenerateBlackSpots(string organiserID, CeMeOCore.DAL.Models.UserProfile user, string username, string password = "jefjef91", string domain = "cemeo.be")
+        {
+            ServicePointManager.ServerCertificateValidationCallback = Exchange.CertificateValidationCallBack;
+            ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010);
+            service.Credentials = new WebCredentials(username, password, domain);
+            string EWSUrl = "https://webmail.cemeo.be/EWS/Services.wsdl";
+            service.Url = new Uri(EWSUrl);
+
+            CalendarFolder calendarFolder = CalendarFolder.Bind(service, WellKnownFolderName.Calendar, new PropertySet());
+            CalendarView calendarView = new CalendarView(DateTime.Today, DateTime.Today.AddDays(2));
+            calendarView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End);
+
+            FindItemsResults<Appointment> appointments = calendarFolder.FindAppointments(calendarView);
+
+            foreach (Appointment a in appointments)
+            {
+                System.Diagnostics.Debug.Write("Subject: " + a.Subject.ToString() + " ");
+                System.Diagnostics.Debug.Write("Start: " + a.Start.ToString() + " ");
+                System.Diagnostics.Debug.Write("End: " + a.End.ToString());
+                System.Diagnostics.Debug.Write("\n");
+
+                Startup.SpotManagerFactory.AddSpot(new PersonBlackSpot(a.Start, a.End, user, organiserID));
+            }
+
+
+
         }
     }
    // http://www.codeproject.com/Articles/18102/Howto-Almost-Everything-In-Active-Directory-via-C

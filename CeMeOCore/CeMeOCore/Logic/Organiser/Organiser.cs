@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using CeMeOCore.Logic.PushNotifications;
+using CeMeOCore.Logic.Exchange;
 
 
 namespace CeMeOCore.Logic.Organiser
@@ -141,6 +142,12 @@ namespace CeMeOCore.Logic.Organiser
         private void CheckAvailabilityInvitees()
         {
             //Generate blackspots until the deadline
+            foreach(Invitee i in this._invitees.Values)
+            {
+                ExchangeImpl ex = new ExchangeImpl();
+                UserProfile user = this._organiserUoW.UserProfileRepository.GetByID(i.UserID);
+                ex.GenerateBlackSpots(OrganiserID, user, user.UserName);
+            }
         }
 
         private string DateHash()
