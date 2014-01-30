@@ -207,6 +207,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="DAL\Models\createRoom.cs" />
     <Compile Include="Logic\ActiveDirectory\CemeoAD.cs" />
     <Compile Include="Logic\Exchange\Exchange.cs" />
     <Compile Include="Logic\Exchange\ExchangeImpl.cs" />
@@ -244,7 +246,6 @@
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
-    <Compile Include="Controllers\MeetingsController.cs" />
     <Compile Include="Controllers\PropositionController.cs" />
     <Compile Include="Controllers\RoomApiController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
@@ -347,6 +348,13 @@
     <Content Include="Assets\font-awesome\css\font-awesome.min.css" />
     <Content Include="Assets\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\img\1.png" />
+    <Content Include="Assets\img\10.png" />
+    <Content Include="Assets\img\11.png" />
+    <Content Include="Assets\img\12.png" />
+    <Content Include="Assets\img\13.png" />
+    <Content Include="Assets\img\14.png" />
+    <Content Include="Assets\img\15.png" />
+    <Content Include="Assets\img\16.png" />
     <Content Include="Assets\img\2.png" />
     <Content Include="Assets\img\3.png" />
     <Content Include="Assets\img\4.png" />
@@ -356,6 +364,7 @@
     <Content Include="Assets\img\8.png" />
     <Content Include="Assets\img\9.png" />
     <Content Include="Assets\js\bootstrap.js" />
+    <Content Include="Assets\js\chart-data-flot.js" />
     <Content Include="Assets\js\flot\chart-data-flot.js" />
     <Content Include="Assets\js\flot\excanvas.min.js" />
     <Content Include="Assets\js\flot\jquery.flot.js" />
@@ -365,6 +374,10 @@
     <Content Include="Assets\js\images.js" />
     <Content Include="Assets\js\jquery-1.10.2.js" />
     <Content Include="Assets\js\jquery-ui.js" />
+    <Content Include="Assets\js\jquery.flot.js" />
+    <Content Include="Assets\js\jquery.flot.pie.js" />
+    <Content Include="Assets\js\jquery.flot.resize.js" />
+    <Content Include="Assets\js\jquery.flot.tooltip.min.js" />
     <Content Include="Assets\js\morris-0.4.3.min.js" />
     <Content Include="Assets\js\morris\chart-data-morris.js" />
     <Content Include="Assets\js\raphael-min.js" />
@@ -426,9 +439,7 @@
     <None Include="Properties\PublishProfiles\Cemeo PXL.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
-    <None Include="Resources\CeMeOPush.p12" />
     <None Include="Resources\Pusharp.PuchCert.Development.p12" />
-    <None Include="Resources\PushSharp.p12" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cemeo.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -460,7 +471,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\UserProfile\Index.cshtml" />
+    <Content Include="Views\Statistics\UserProfile\Index.cshtml" />
     <Content Include="Views\Shared\AdminHeader.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
@@ -474,8 +485,9 @@
     <Content Include="Views\Room\Create.cshtml" />
     <Content Include="Views\Room\Details.cshtml" />
     <Content Include="Views\Meetings\Details.cshtml" />
-    <Content Include="Views\UserProfile\Details.cshtml" />
+    <Content Include="Views\Statistics\UserProfile\Details.cshtml" />
     <Content Include="Views\Meetings\Create.cshtml" />
+    <Content Include="Views\Locations\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
