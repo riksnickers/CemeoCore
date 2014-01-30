@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model CeMeOCore.DAL.Models.LoginModel
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -30,7 +31,7 @@
                     <div class="form-group">
                         <input type="password" placeholder="Password" id="password" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-success">Sign in</button>
+                    <button onclick="location.href='@Url.Action("CheckLogin", "Home")'" type="submit" class="btn btn-success">Sign in</button>
                 </form>
             </div>
         </div>

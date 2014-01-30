@@ -26,7 +26,22 @@ namespace CeMeOCore.Controllers
             //Meeting statistics
             //Statistics to get the number of meeting in the forenoon and the afternoon and put them in a pie chart.
             //int countMeetingsForenoon = from n in _db.Meetings where n.
-            //int countMeetingAfternoon = _db.Meetings.Count();
+            DateTime forenoon = new DateTime(2000,1,1,12,00,00);
+            List<Meeting> meetings = new List<Meeting>();
+            for (int i = 0; i < meetings.Count(); i++)
+            {
+                Meeting meet = meetings[i];
+                if(meet.BeginTime.Hour < forenoon.Hour)
+                {
+                    stats.countforenoons++;
+                }
+                else
+                {
+                    stats.countafternoons++;
+                }
+            }
+            System.Console.WriteLine();
+
 
             //Location statistics
 

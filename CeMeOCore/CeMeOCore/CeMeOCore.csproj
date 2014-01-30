@@ -153,6 +153,8 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AspNet.Identity.Core">
@@ -352,6 +354,7 @@
     <Content Include="Assets\img\8.png" />
     <Content Include="Assets\img\9.png" />
     <Content Include="Assets\js\bootstrap.js" />
+    <Content Include="Assets\js\chart-data-flot.js" />
     <Content Include="Assets\js\flot\chart-data-flot.js" />
     <Content Include="Assets\js\flot\excanvas.min.js" />
     <Content Include="Assets\js\flot\jquery.flot.js" />
@@ -361,6 +364,10 @@
     <Content Include="Assets\js\images.js" />
     <Content Include="Assets\js\jquery-1.10.2.js" />
     <Content Include="Assets\js\jquery-ui.js" />
+    <Content Include="Assets\js\jquery.flot.js" />
+    <Content Include="Assets\js\jquery.flot.pie.js" />
+    <Content Include="Assets\js\jquery.flot.resize.js" />
+    <Content Include="Assets\js\jquery.flot.tooltip.min.js" />
     <Content Include="Assets\js\morris-0.4.3.min.js" />
     <Content Include="Assets\js\morris\chart-data-morris.js" />
     <Content Include="Assets\js\raphael-min.js" />
