@@ -17,8 +17,12 @@ namespace CeMeOCore.Controllers
 
         public ActionResult CheckLogin()
         {
+            if (Request.Cookies["key"] != null)
+            {
+                var value = Request.Cookies["key"].Value;
+            }
             //var cookie = null;
-            return null;
+            return RedirectToAction("","",);
         }
     }
 }

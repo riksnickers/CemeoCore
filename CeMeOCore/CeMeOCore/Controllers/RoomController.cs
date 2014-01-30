@@ -201,21 +201,34 @@ namespace CeMeOCore.Controllers
         /// </summary>
         /// <param name="id">id of a specific room</param>
         /// <returns></returns>
-        public void DeleteRoom(int id)
+        /// 
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-                var original = this._roomUoW.roomnRepository.dbSet.Find(id);
-                this._roomUoW.roomnRepository.dbSet.Remove(original);
-                this._roomUoW.roomnRepository.context.SaveChanges();
-                RedirectToAction("Index");
+                var Location = this._roomUoW.roomnRepository.dbSet.Find(id);
+                return View(Location);
             }
             catch
             {
-                RedirectToAction("Details");
+                return RedirectToAction("index");
             }
         }
 
+        [HttpPost]
+        public ActionResult Delete(int id, Location toDel)
+        {
+            try
+            {
+                var original = this._roomUoW.roomnRepository.dbSet.Find(id);
+                this._roomUoW.roomnRepository.dbSet.Remove(original);
+                this._roomUoW.roomnRepository.context.SaveChanges();
+                return RedirectToAction("index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

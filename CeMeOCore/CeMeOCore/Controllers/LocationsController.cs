@@ -16,6 +16,7 @@ namespace CeMeOCore.Controllers
         //
         // GET: /Locations/
         private LocationUoW _locationUoW;
+        private readonly ILog logger = log4net.LogManager.GetLogger(typeof(LocationsController));
 
         public LocationsController()
         {
@@ -204,26 +205,41 @@ namespace CeMeOCore.Controllers
             }
         }
 
+
         /// POST: /Locations/Delete/?
         /// <summary>
         /// This function will delete a location
         /// </summary>
         /// <param name="id"> Specific location to be deletete </param>
         /// <returns></returns>
-        public void DeleteLocation(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-                var original = this._locationUoW.LocationRepository.dbSet.Find(id);
-                this._locationUoW.LocationRepository.dbSet.Remove(original);
-                this._locationUoW.LocationRepository.context.SaveChanges();
-                RedirectToAction("Index");
+                var Location = this._locationUoW.LocationRepository.dbSet.Find(id);
+                return View(Location);
             }
             catch
             {
-                RedirectToAction("Details");
+                return RedirectToAction("index");
             }
         }
+
+        [HttpPost]
+        public ActionResult Delete(int id, Location toDel)
+        {
+            try
+            {
+                var original = this._locationUoW.LocationRepository.dbSet.Find(id);
+                this._locationUoW.LocationRepository.dbSet.Remove(original);
+                this._locationUoW.LocationRepository.context.SaveChanges();
+                return RedirectToAction("index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
     }
 }
