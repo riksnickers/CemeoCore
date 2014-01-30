@@ -86,13 +86,5 @@ namespace CeMeOCore.Controllers
             return View(users.ToPagedList(pageNumber, pageSize));
             //End sorting
         }
-
-        //
-        // GET: /UserProfile/Details/5
-        public ActionResult Details(int id)
-        {
-            var usr = this._UserUoW.UserProfileRepository.dbSet.Find(id);
-            return View(usr);
-        }
     }
 }

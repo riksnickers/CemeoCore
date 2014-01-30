@@ -16,12 +16,22 @@ namespace CeMeOCore.Controllers
         //
         // GET: /Locations/
         private LocationUoW _locationUoW;
+        private readonly ILog logger = log4net.LogManager.GetLogger(typeof(LocationsController));
 
         public LocationsController()
         {
             this._locationUoW = new LocationUoW();
         }
 
+        /// Locations/Index
+        /// <summary>
+        /// The index function that takes care of the sorting, searching and paging
+        /// </summary>
+        /// <param name="sortorder"> order of sorting </param>
+        /// <param name="currentfiler"> filter os sorting </param>
+        /// <param name="currentfiler"> string for searching trhough teh records </param>
+        /// <param name="page"> Paging parameter </param>
+        /// <returns> a sorted and paged view with records from the locationtable</returns>
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             //Title of the page
@@ -101,24 +111,34 @@ namespace CeMeOCore.Controllers
             //End sorting
         }
 
-        //
-        // GET: /Locations/Details/5
+        /// Locations/Details/?
+        /// <summary>
+        /// This function will show you the details of a sepcific location
+        /// </summary>
+        /// <param name="id"> order of sorting </param>
+        /// <returns> a view </returns>
         public ActionResult Details(int id)
         {
             Location detailedLocation = this._locationUoW.LocationRepository.dbSet.Find(id);
             return View(detailedLocation);
         }
 
-        //
-        // GET: /Locations/Create
+        /// GET: /Locations/Create
+        /// <summary>
+        /// This function will show you a view to start creating a new location
+        /// </summary>
+        /// <returns> an empty view with an empty new location </returns>
         public ActionResult Create()
         {
             Location newLocation = new Location();
             return View(newLocation);
         }
 
-        //
-        // POST: /Locations/Create
+        /// POST: /Locations/Create
+        /// <summary>
+        /// This function will handle the event
+        /// </summary>
+        /// <returns> creates a new location </returns>
         [HttpPost]
         public ActionResult Create(Location newLocation)
         {
@@ -143,17 +163,24 @@ namespace CeMeOCore.Controllers
             }
         }
 
-        //
-        // GET: /Locations/Edit/5
-
+        /// GET: /Locations/Edit/?
+        /// <summary>
+        /// This function will show you a view with filled in input boxes so you can edit a certain location
+        /// </summary>
+        /// <param name="id"> Specific location to edit </param>
+        /// <returns> a view to edit the specific location </returns>
         public ActionResult Edit(int id)
         {
             var loca = this._locationUoW.LocationRepository.dbSet.Find(id);
             return View(loca);
         }
 
-        //
-        // POST: /Locations/Edit/5
+        /// POST: /Locations/Edit/?
+        /// <summary>
+        /// This function will handle the post event
+        /// </summary>
+        /// <param name="id"> Specific location to edit </param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(Location loc)
         {
@@ -178,22 +205,41 @@ namespace CeMeOCore.Controllers
             }
         }
 
-        //
-        // POST: /Locations/Delete/5
-        public void DeleteLocation(int id)
+
+        /// POST: /Locations/Delete/?
+        /// <summary>
+        /// This function will delete a location
+        /// </summary>
+        /// <param name="id"> Specific location to be deletete </param>
+        /// <returns></returns>
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-                var original = this._locationUoW.LocationRepository.dbSet.Find(id);
-                this._locationUoW.LocationRepository.dbSet.Remove(original);
-                this._locationUoW.LocationRepository.context.SaveChanges();
-                RedirectToAction("Index");
+                var Location = this._locationUoW.LocationRepository.dbSet.Find(id);
+                return View(Location);
             }
             catch
             {
-                RedirectToAction("Details");
+                return RedirectToAction("index");
             }
         }
+
+        [HttpPost]
+        public ActionResult Delete(int id, Location toDel)
+        {
+            try
+            {
+                var original = this._locationUoW.LocationRepository.dbSet.Find(id);
+                this._locationUoW.LocationRepository.dbSet.Remove(original);
+                this._locationUoW.LocationRepository.context.SaveChanges();
+                return RedirectToAction("index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
     }
 }

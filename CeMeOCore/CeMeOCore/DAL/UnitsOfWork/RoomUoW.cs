@@ -22,6 +22,9 @@ namespace CeMeOCore.DAL.UnitsOfWork
         /// </summary>
         private GenericRepository<Room> _roomRepository;
 
+
+        private LocationRepository _locationRepository;
+
         /// <summary>
         /// The GenericRepository initialized with Location 
         /// </summary>
@@ -35,6 +38,19 @@ namespace CeMeOCore.DAL.UnitsOfWork
                     this._roomRepository = new GenericRepository<Room>(context);
                 }
                 return this._roomRepository;
+            }
+        }
+
+        public LocationRepository locationRepository
+        {
+            get
+            {
+
+                if (this._locationRepository == null)
+                {
+                    this._locationRepository = new LocationRepository(context);
+                }
+                return this._locationRepository;
             }
         }
 

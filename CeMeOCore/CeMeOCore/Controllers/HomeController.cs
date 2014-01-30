@@ -1,8 +1,16 @@
-﻿using System;
+﻿using CeMeOCore.DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using WebMatrix.WebData;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OAuth;
 
 namespace CeMeOCore.Controllers
 {
@@ -14,5 +22,7 @@ namespace CeMeOCore.Controllers
 
             return View();
         }
+
     }
 }
+

@@ -42,6 +42,11 @@ namespace CeMeOCore
                 "~/assets/js/jquery-1.10.2.js",
                 "~/assets/js/jquery-ui.js",
                 "~/assets/js/bootstrap.js",
+                 "~/assets/js/jquery.flot.js",
+                "~/assets/js/jquery.flot.tooltip.min.js",
+                "~/assets/js/jquery.flot.resize.js",
+                "~/assets/js/jquery.flot.pie.js",
+                "~/assets/js/chart-data-flot.js",
                 "~/assets/js/images.js",
                 "~/assets/js/tablesorter/jquery.tablesorter.js",
                 "~/assets/js/tablesorter/tables.js"

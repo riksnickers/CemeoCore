@@ -45,6 +45,7 @@ namespace CeMeOCore.Controllers
         public AccountController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
         {
+
         }
 
 

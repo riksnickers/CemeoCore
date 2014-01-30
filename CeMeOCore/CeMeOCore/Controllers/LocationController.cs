@@ -34,7 +34,6 @@ namespace CeMeOCore.Controllers
             this._locationUoW = new LocationUoW();
         }
 
-
         // GET api/Location
         /// <summary>
         /// Get one or more locations

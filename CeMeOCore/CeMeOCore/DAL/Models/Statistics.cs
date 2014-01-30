@@ -11,5 +11,7 @@ namespace CeMeOCore.DAL.Models
         public int countLocations { get; set; }
         public int countUsers { get; set; }
         public int countRooms { get; set; }
+        public int countforenoons { get; set; }
+        public int countafternoons { get; set; }
     }
 }
