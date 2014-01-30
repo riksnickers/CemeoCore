@@ -23,20 +23,6 @@ namespace CeMeOCore.Controllers
             return View();
         }
 
-        public ActionResult CheckLogin(LoginModel model)
-        {  
-            ident
-        if (result.Succeeded)
-        {
-            await SignInAsync(user, isPersistent: false);
-            return RedirectToAction("Index", "Home");
-                    return RedirectToAction("Index","Statistics", "");
-                
-            
-            // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
-            //var cookie = null;
-            return null;
-        }
     }
 }
+

@@ -108,15 +108,14 @@ namespace CeMeOCore.Controllers
         /// <returns>view to create a new room</returns>
         public ActionResult Create()
         {
-            CreateRoom model = new CreateRoom();
-            IEnumerable<Location> actionTypes = this._roomUoW.locationRepository.Get();
-            model.ActionsList = from action in actionTypes
+            CreateRoom temp = new CreateRoom();
+            temp.ActionsList = (from a in _roomUoW.locationRepository.Get()
                                 select new SelectListItem
                                 {
-                                    Text = action.Name,
-                                    Value = ((int)action.LocationID).ToString()
-                                };
-            return View(model);
+                                    Text = a.Name,
+                                    Value = a.LocationID.ToString()
+                                });
+            return View(temp);
         }
 
         // GET Room/Create
@@ -134,8 +133,8 @@ namespace CeMeOCore.Controllers
                 if (ModelState.IsValid)
                 {
                     Room newRoomToAdd = new Room();
-                    newRoomToAdd.Name = room.room.Name;
-                    newRoomToAdd.Type = room.room.Type;
+                    newRoomToAdd.Name = room.Name;
+                    newRoomToAdd.Type = room.Type;
                     newRoomToAdd.LocationID = this._roomUoW.locationRepository.dbSet.Find(room.ActionId);
                     this._roomUoW.roomnRepository.dbSet.Add(newRoomToAdd);
                     this._roomUoW.roomnRepository.context.SaveChanges();

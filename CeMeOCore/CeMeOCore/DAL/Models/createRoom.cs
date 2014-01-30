@@ -8,14 +8,10 @@ namespace CeMeOCore.DAL.Models
 {
     public class CreateRoom
     {
-        public Room room { get; set; }
+        public String Name { get; set; }
+        public String Type{ get; set; }
         public IEnumerable<SelectListItem> ActionsList { get; set; }  
         public String ActionId { get; set; }
 
-        public CreateRoom()
-        {
-            ActionId = "";
-            ActionsList = new List<SelectListItem>();
-        }
     }
 }

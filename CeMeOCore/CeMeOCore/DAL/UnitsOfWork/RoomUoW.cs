@@ -1,9 +1,6 @@
 ﻿using CeMeOCore.DAL.Context;
 using CeMeOCore.DAL.Repositories;
 using CeMeOCore.DAL.Models;
-using CeMeOCore.DAL.Context;
-using CeMeOCore.DAL.Repositories;
-using CeMeOCore.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
