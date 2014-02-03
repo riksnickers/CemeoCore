@@ -114,7 +114,14 @@ namespace CeMeOCore.Controllers
                                 {
                                     Text = a.Name,
                                     Value = a.LocationID.ToString()
-                                });
+                                }).ToList();
+
+            temp.locs = new List<TempRoom>();
+            foreach (Location element in _roomUoW.locationRepository.Get())
+            {
+                temp.locs.Add(new TempRoom() { ID = element.LocationID, Name = element.Name });
+            }
+
             return View(temp);
         }
 
@@ -135,7 +142,7 @@ namespace CeMeOCore.Controllers
                     Room newRoomToAdd = new Room();
                     newRoomToAdd.Name = room.Name;
                     newRoomToAdd.Type = room.Type;
-                    newRoomToAdd.LocationID = this._roomUoW.locationRepository.dbSet.Find(room.ActionId);
+                    newRoomToAdd.LocationID = _roomUoW.locationRepository.dbSet.Find(Int32.Parse(room.ActionId));
                     this._roomUoW.roomnRepository.dbSet.Add(newRoomToAdd);
                     this._roomUoW.roomnRepository.context.SaveChanges();
                     return RedirectToAction("Index");

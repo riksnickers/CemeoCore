@@ -12,6 +12,6 @@ namespace CeMeOCore.DAL.Models
         public String Type{ get; set; }
         public IEnumerable<SelectListItem> ActionsList { get; set; }  
         public String ActionId { get; set; }
-
+        public List<TempRoom> locs {get; set; }
     }
 }

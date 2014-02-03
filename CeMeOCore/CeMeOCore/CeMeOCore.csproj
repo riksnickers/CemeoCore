@@ -212,6 +212,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="DAL\Models\createRoom.cs" />
+    <Compile Include="DAL\Models\TempRoom.cs" />
     <Compile Include="Logic\ActiveDirectory\CemeoAD.cs" />
     <Compile Include="Logic\Exchange\Exchange.cs" />
     <Compile Include="Logic\Exchange\ExchangeImpl.cs" />
