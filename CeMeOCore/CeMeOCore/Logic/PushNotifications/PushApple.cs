@@ -1,5 +1,6 @@
 ﻿using CeMeOCore.DAL.Models;
 using CeMeOCore.Properties;
+using log4net;
 using PushSharp.Apple;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace CeMeOCore.Logic.PushNotifications
 {
     public class PushApple : PushPlatform
     {
+        private ILog log = LogManager.GetLogger(typeof(PushApple));
         public PushApple()
         {
 
@@ -23,7 +25,7 @@ namespace CeMeOCore.Logic.PushNotifications
             }
             catch (NotificationFailureException ex)
             {
-                Console.WriteLine(ex.ErrorStatusDescription);
+                log.Error(DateTime.Now.ToString() + "\t" + ex.Message + "\t" + ex.Source + "\t" + ex.StackTrace);
                 throw;
             }
             

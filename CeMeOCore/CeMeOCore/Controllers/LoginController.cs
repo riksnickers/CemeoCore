@@ -1,30 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using CeMeOCore.DAL.UnitsOfWork;
 using System.Web.Mvc;
-using CeMeOCore.DAL.Context;
-using CeMeOCore.DAL.UnitsOfWork;
-using CeMeOCore.DAL.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
-using System.Net.Http;
-using System.Web.Http;
-using System.Threading.Tasks;
-using System.Security.Claims;
-using System.Web.Http.ModelBinding;
-using System.Security.Cryptography;
-using System.Data.Entity.Validation;
-using CeMeOCore.DAL.Models;
-using CeMeOCore.Providers;
-using CeMeOCore.Results;
-using CeMeOCore.DAL.UnitsOfWork;
-using log4net;
-using Microsoft.Owin.Host.SystemWeb;
 
 
 namespace CeMeOCore.Controllers

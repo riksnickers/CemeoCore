@@ -32,5 +32,10 @@ namespace CeMeOCore.DAL.Repositories
         {
             return this.dbSet.Where(u => u.UserId == id).Select(u => new UserProfileCompact { FirstName = u.FirstName, LastName = u.LastName, UserId = u.UserId }).FirstOrDefault();
         }
+
+        public int GetUserIdByAspId(string aspId)
+        {
+            return this.dbSet.Where(u => u.aspUser == aspId).Select(u => u.UserId).FirstOrDefault();
+        }
     }
 }

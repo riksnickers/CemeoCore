@@ -78,8 +78,9 @@ namespace CeMeOCore.Logic.Organiser
             //Create unique ID
             OrganiserID = DateHash();
 
-            this._organiserProcess = new OrganiserProcess( OrganiserID, requestedById );
+            this._organiserProcess = new OrganiserProcess( OrganiserID, requestedById, deadLineInDays );
             this._organiserUoW.OrganiserProcessRepository.Insert(this._organiserProcess);
+            this._organiserProcess.DeadLineInDays = deadLineInDays;
             this._organiserUoW.Save();
             
 
@@ -144,9 +145,9 @@ namespace CeMeOCore.Logic.Organiser
             //Generate blackspots until the deadline
             foreach(Invitee i in this._invitees.Values)
             {
-                ExchangeImpl ex = new ExchangeImpl();
                 UserProfile user = this._organiserUoW.UserProfileRepository.GetByID(i.UserID);
-                ex.GenerateBlackSpots(OrganiserID, user, user.UserName);
+                ExchangeImpl ex = new ExchangeImpl(user.UserName, "jefjef91", "cemeo.be");
+                ex.GenerateBlackSpots(OrganiserID, user);
             }
         }
 
@@ -173,10 +174,32 @@ namespace CeMeOCore.Logic.Organiser
         private void ChangeReservedSpot(Guid ReservedSpotGuid, DateTime start, DateTime end)
         {
             ReservedSpot r = Startup.SpotManagerFactory.GetReservedSpot(ReservedSpotGuid);
-            ReservedSpot rnew = new ReservedSpot(){DateRange = new DateRange(start, end), Guid = ReservedSpotGuid};
+            ReservedSpot rnew = new ReservedSpot();
+            rnew = r;
+            rnew.DateRange = new DateRange(start, end);
+            rnew.Guid = ReservedSpotGuid;
             Startup.SpotManagerFactory.ChangeReservedSpot(r.DateRange, rnew);
         }
         
+        private DateTime GetDeadlineDate()
+        {
+            //HACK: Refactor this so it gets better (take weekends in count)..
+            DateTime now = DateTime.Now;
+            switch( this._organiserProcess.DeadLineInDays )
+            {
+                case DateIndex.Today:
+                    return new DateTime(now.Year, now.Month, now.Day, 23, 00, 00);
+                case DateIndex.WithinThisWorkWeek:
+                case DateIndex.Within7Days:
+                    return new DateTime(now.Year, now.Month, now.Day, 23, 00, 00).AddDays(6);
+                case DateIndex.Within30Days:
+                case DateIndex.WithinThisMonth:
+                    return new DateTime(now.Year, now.Month, now.Day, 23, 00, 00).AddDays(29);
+                default:
+                    return new DateTime(now.Year, now.Month, now.Day, 23, 00, 00).AddDays(2);   
+            }
+        }
+
         /// <summary>
         /// This method will calculate the earliest appointment possible.
         /// </summary>
@@ -187,7 +210,9 @@ namespace CeMeOCore.Logic.Organiser
             //TODO: Add more room logic
             //HACK: Refactor Person available logic.
             //This is our start proposal daterange
-            ProposalDateRange proposalDateRange = new ProposalDateRange(DateTime.Now, DateTime.Now.AddSeconds(this._organiserProcess.Duration));
+            DateTime now = DateTime.Now;
+            DateTime temp = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
+            ProposalDateRange proposalDateRange = new ProposalDateRange(temp, temp.AddSeconds(this._organiserProcess.Duration));
             Room proposalRoom = null;
 
             //A reserved spot will be added to the list to reserve this proposition.
@@ -203,7 +228,9 @@ namespace CeMeOCore.Logic.Organiser
             //Try to make a proposal
             try
             {
+                logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\n\t OrganiserID: " + OrganiserID + "\n\tGetProposalDate" );
                 proposalDateRange = GetProposalDate(proposalDateRange, proposition.ReservedSpotGuid);
+                logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\n\t OrganiserID: " + OrganiserID + "\n\tGetProposalRoom");
                 proposalRoom = GetProposalRoom(proposalDateRange, proposition.ReservedSpotGuid);
 
                 //Now let's create the proposal.
@@ -213,6 +240,7 @@ namespace CeMeOCore.Logic.Organiser
                 p.BeginTime = proposalDateRange.Start;
                 p.EndTime = proposalDateRange.End;
                 this._organiserUoW.PropositionRepository.Insert(p);
+
                 foreach (Invitee inv in this._invitees.Values)
                 {
                     try
@@ -237,10 +265,11 @@ namespace CeMeOCore.Logic.Organiser
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 this._organiserProcess.Status = OrganiserStatus.Error;
                 UpdateOrganiserProcess();
+                logger.Error(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\t" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
                 return;
                 //Something went wrong while find a room
                 //TODO: Logging
@@ -266,16 +295,14 @@ namespace CeMeOCore.Logic.Organiser
             {
                 foreach (DateRange personBlackSpotDateRange in pbss.Keys)
                 {
+
                     try
                     {
-                        if (!personBlackSpotDateRange.Includes(proposalDateRange))
+                        if ( !proposalDateRange.Includes(personBlackSpotDateRange.Start) || !proposalDateRange.Includes(personBlackSpotDateRange.End))
+                        //if (!personBlackSpotDateRange.Includes(proposalDateRange))
                         {
-                            //Check if there are other persons who have a meeting at that time
-                            //HACK: Refactor this linq so it has more performance
-                            if (pbss.Keys.Select(dr => dr.Includes(proposalDateRange)).Count() != 0) //Count if a person has a daterange that conflicts with our date.
-                            {
-                                throw new PersonNotAvailableException();
-                            }
+
+                            throw new PersonNotAvailableException();
                             //TODO: Add to check reserved persons..
                         }
                     }
@@ -290,11 +317,12 @@ namespace CeMeOCore.Logic.Organiser
                         //Throw it Up!
                         throw;
                     }
+
                 }
             }
             catch (NoPersonsAvailableException)
             {
-
+                logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\n\t OrganiserID: " + OrganiserID + "\n\tNoPersonsAvailableException..");
             }
             catch (Exception)
             {

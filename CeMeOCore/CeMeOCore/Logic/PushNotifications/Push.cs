@@ -17,34 +17,42 @@ namespace CeMeOCore.Logic.PushNotifications
         private static readonly ILog Logger = log4net.LogManager.GetLogger(typeof(Push));
         private Push() { }
         private static PushBroker pushBroker;
-
+        private static ILog log = LogManager.GetLogger(typeof(Push));
         public static PushBroker Instance
         {
             get 
             {
-                if (pushBroker == null)
+                try
                 {
-                    pushBroker = new PushBroker();
+                    if (pushBroker == null)
+                    {
+                        pushBroker = new PushBroker();
 
-                    pushBroker.OnNotificationSent += NotificationSent;
-                    pushBroker.OnChannelException += ChannelException;
-                    pushBroker.OnServiceException += ServiceException;
-                    pushBroker.OnNotificationFailed += NotificationFailed;
-                    pushBroker.OnDeviceSubscriptionExpired += DeviceSubscriptionExpired;
-                    pushBroker.OnDeviceSubscriptionChanged += DeviceSubscriptionChanged;
-                    pushBroker.OnChannelCreated += ChannelCreated;
-                    pushBroker.OnChannelDestroyed += ChannelDestroyed;
+                        pushBroker.OnNotificationSent += NotificationSent;
+                        pushBroker.OnChannelException += ChannelException;
+                        pushBroker.OnServiceException += ServiceException;
+                        pushBroker.OnNotificationFailed += NotificationFailed;
+                        pushBroker.OnDeviceSubscriptionExpired += DeviceSubscriptionExpired;
+                        pushBroker.OnDeviceSubscriptionChanged += DeviceSubscriptionChanged;
+                        pushBroker.OnChannelCreated += ChannelCreated;
+                        pushBroker.OnChannelDestroyed += ChannelDestroyed;
 
-                    //Register Apple Service
-                    var appleCert = Resources.Pusharp_PuchCert_Development;
-                    pushBroker.RegisterAppleService(new ApplePushChannelSettings(false, appleCert, "!CeMeOKeyPass123"));
-                   /* pushBroker.RegisterService<AppleNotification>(
-                            new ApplePushService(new ApplePushChannelSettings(false, appleCert, "!CeMeOKeyPass123"))); */
+                        //Register Apple Service
+                        var appleCert = Resources.Pusharp_PuchCert_Development;
+                        pushBroker.RegisterAppleService(new ApplePushChannelSettings(false, appleCert, "!CeMeOKeyPass123"));
+                        /* pushBroker.RegisterService<AppleNotification>(
+                                 new ApplePushService(new ApplePushChannelSettings(false, appleCert, "!CeMeOKeyPass123"))); */
 
-                    //Register Android service
-                    pushBroker.RegisterGcmService(new GcmPushChannelSettings("AIzaSyAPRV7yOnM8b2E5rl63X-cbgatBlH1NrFI"));
+                        //Register Android service
+                        pushBroker.RegisterGcmService(new GcmPushChannelSettings("AIzaSyAPRV7yOnM8b2E5rl63X-cbgatBlH1NrFI"));
+                    }
+                    return pushBroker;
                 }
-                return pushBroker; 
+                catch(Exception ex)
+                {
+                    log.Error(DateTime.Now.ToString() + "\t" + ex.Message + "\t" + ex.Source + "\t" + ex.StackTrace);
+                    return null;
+                }
             }
             set 
             { 

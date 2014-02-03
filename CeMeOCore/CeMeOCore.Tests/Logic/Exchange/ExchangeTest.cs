@@ -14,11 +14,8 @@ namespace CeMeOCore.Tests.Logic.Exchange
             string password = "jefjef91";
             string domain = "cemeo.be";
 
-            ExchangeImpl ex = new ExchangeImpl();
-            ex.SendMail(username: username, password: password, domain: domain);
-
+            ExchangeImpl ex = new ExchangeImpl(username: username, password: password, domain: domain);
+            ex.SendMail();
         }
-
-
     }
 }

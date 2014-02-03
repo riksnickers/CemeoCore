@@ -25,10 +25,10 @@ namespace CeMeOCore.Logic.ActiveDirectory
             return authentic;
         }
 
-        public static string GetUserIdFromDisplayName(string displayName)
+        public static string GetUserIdFromDisplayName(string displayName, string password)
         {
             // set up domain context
-            using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "cemeo.be" ,"DC=cemeo,DC=be"))
+            using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "cemeo.be" ,"DC=cemeo,DC=be", displayName, password))
             {
                 // find user by display name
                 UserPrincipal user = UserPrincipal.FindByIdentity(ctx, displayName);
@@ -51,7 +51,7 @@ namespace CeMeOCore.Logic.ActiveDirectory
         {
             try
             {
-                using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "cemeo.be", "DC=cemeo,DC=be"))
+                using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "cemeo.be", "DC=cemeo,DC=be", username,password))
                 {
                     // find user by display name
                     UserPrincipal user = UserPrincipal.FindByIdentity(ctx, username);

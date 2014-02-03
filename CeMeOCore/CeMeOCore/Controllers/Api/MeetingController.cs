@@ -125,11 +125,11 @@ namespace CeMeOCore.Controllers
         /// <returns></returns>
         [AcceptVerbs("POST")]
         [Route("Schedule")]
-        [ResponseType(typeof(ScheduleMeetingBindingModel))]
         public IHttpActionResult Schedule(HttpRequestMessage mes, [FromBody]ScheduleMeetingBindingModel model)
         {
+            log.Debug(DateTime.Now.ToString() + "\t" + "Ok, create meeting..");
             OrganiserManager.Create(model);
-
+            log.Debug(DateTime.Now.ToString() + "\t" + "Ok, meeting created..");
             return Ok();
         }
 

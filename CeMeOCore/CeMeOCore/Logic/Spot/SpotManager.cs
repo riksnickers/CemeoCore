@@ -1,4 +1,5 @@
 ﻿using CeMeOCore.Logic.Range;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace CeMeOCore.Logic.Spots
         private Dictionary<String, SortedList<DateRange, PersonBlackSpot>> _organiserPersonSpots; //Nested collection Dictionary + SortedList
         private SortedList<DateRange, RoomBlackSpot> _roomSpots;
         private SortedList<DateRange, ReservedSpot> _reservedSpots;
-
+        private static readonly ILog logger = log4net.LogManager.GetLogger(typeof(SpotManager));
         /// <summary>
         /// The constructors initializes all collections ( but not the nested SortedList )
         /// </summary>
@@ -82,6 +83,7 @@ namespace CeMeOCore.Logic.Spots
                 if (spot is RoomBlackSpot)
                 {
                     this._roomSpots.Add(spot.DateRange, (RoomBlackSpot)spot);
+                    logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + "Successful added Spot" + "\n" + spot.DateRange.Start + "\n" + spot.DateRange.End);
                 }
                 else if (spot is PersonBlackSpot)
                 {
@@ -95,17 +97,21 @@ namespace CeMeOCore.Logic.Spots
                     }
                     //Now add the PersonBlackSpot to the correct list.
                     this._organiserPersonSpots[pbs.OrganiserID].Add(spot.DateRange, pbs);
+                    logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + "Successful added Spot" + "\n DateRange: " + pbs.DateRange.Start + "\t" + pbs.DateRange.End  +"\n OrganiserId: "+ pbs.OrganiserID + "\n UserProfile: " + pbs.Person.UserId + " - " + pbs.Person.UserName);
                 }
                 else if (spot is ReservedSpot)
                 {
                     this._reservedSpots.Add(spot.DateRange, (ReservedSpot)spot);
+                    logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + "Successful added Spot" + "\n" + spot.DateRange.Start + "\n" + spot.DateRange.End);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //TODO: add logging
+                logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
                 throw;
             }
+            
         }
 
         /// <summary>
@@ -119,10 +125,10 @@ namespace CeMeOCore.Logic.Spots
             {
                 if (this._reservedSpots.ContainsKey(OldDR))
                 {
-                    //Let's first add the new spot, if this fails the old spot will not be removed!
-                    AddSpot(NewDR);
                     //If not exceptions on adding a spot let's now remove the old one.
                     this._reservedSpots.Remove(OldDR);
+                    //Let's first add the new spot, if this fails the old spot will not be removed!
+                    AddSpot(NewDR);
                 }
             }
             catch (Exception)

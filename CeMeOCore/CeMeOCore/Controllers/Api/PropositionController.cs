@@ -53,34 +53,44 @@ namespace CeMeOCore.Controllers
         [Route("All")]
         public IEnumerable<ExtendenProposition> GetPropositions()
         {
-            //Get UserProfileID
-            string aspID = User.Identity.GetUserId();
-            int upID = this._propositionUoW.UserProfileRepository.Get(u => u.aspUser == aspID).Select(u => u.UserId).First();
-
-
-            HashSet<ExtendenProposition> propositions = new HashSet<ExtendenProposition>();
-
-            foreach (Invitee invitee in this._propositionUoW.InviteeRepository.GetInviteeIDsByUserProfileID(upID))
+            try
             {
+                //Get UserProfileID
+                string aspID = User.Identity.GetUserId();
+                int upID = this._propositionUoW.UserProfileRepository.GetUserIdByAspId(aspID);
 
-                if (invitee.Proposal.OrganiserProcess.Status != OrganiserStatus.FinishedOrganising)
+
+                HashSet<ExtendenProposition> propositions = new HashSet<ExtendenProposition>();
+
+                foreach (Invitee invitee in this._propositionUoW.InviteeRepository.GetInviteeIDsByUserProfileID(upID))
                 {
-                    ExtendenProposition extendedProposition = new ExtendenProposition();
-                    extendedProposition.InviteeID = invitee.InviteeID;
-                    extendedProposition.Proposition = invitee.GetProposition();
-                    extendedProposition.Answer = invitee.Answer;
-                    //Add all other intitees to the return
-                    foreach (Invitee other in this._propositionUoW.InviteeRepository.GetInviteeByOrganiserID(invitee.OrganiserID))
+                    if (invitee.Proposal != null)
                     {
-                        extendedProposition.Others.Add(this._propositionUoW.UserProfileRepository.GetByIDCompact(other.UserID));
-                    }
-                    if (extendedProposition != null && extendedProposition.Proposition != null)
-                    {
-                        propositions.Add(extendedProposition);
+                        if (invitee.Proposal.OrganiserProcess.Status != OrganiserStatus.FinishedOrganising)
+                        {
+                            ExtendenProposition extendedProposition = new ExtendenProposition();
+                            extendedProposition.InviteeID = invitee.InviteeID;
+                            extendedProposition.Proposition = invitee.GetProposition();
+                            extendedProposition.Answer = invitee.Answer;
+                            //Add all other intitees to the return
+                            foreach (Invitee other in this._propositionUoW.InviteeRepository.GetInviteeByOrganiserID(invitee.OrganiserID))
+                            {
+                                extendedProposition.Others.Add(this._propositionUoW.UserProfileRepository.GetByIDCompact(other.UserID));
+                            }
+                            if (extendedProposition != null && extendedProposition.Proposition != null)
+                            {
+                                propositions.Add(extendedProposition);
+                            }
+                        }
                     }
                 }
+                return propositions;
             }
-            return propositions;
+            catch(Exception ex)
+            {
+                logger.Error("Date: " + DateTime.Now.ToString() + "\t" +  ex.Message + "\n" + ex.StackTrace + "\n" + ex.Source);
+                throw;
+            }
         }
 
         // GET api/<controller>

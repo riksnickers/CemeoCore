@@ -14,7 +14,7 @@ namespace CeMeOCore.DAL.Models
             //EF
         }
 
-        public OrganiserProcess( string organiserID, int requestedBy )
+        public OrganiserProcess( string organiserID, int requestedBy, DateIndex dateindex )
         {
             id = Guid.NewGuid().ToString();
             OrganiserID = organiserID;
@@ -26,7 +26,7 @@ namespace CeMeOCore.DAL.Models
             TotalInviteesOnline = 0;
             TotalInviteesUnanswered = 0;
             Duration = 30;
-            DateRequested = DateTime.Now;
+            DateRequested = DateTime.Now.ToUniversalTime();
             RequestedByID = requestedBy;
         }
 
@@ -38,7 +38,7 @@ namespace CeMeOCore.DAL.Models
         /// <summary>
         /// This is the deadline when the meeting must be planned
         /// </summary>
-        public int DeadLineInDays { get; set; }
+        public DateIndex DeadLineInDays { get; set; }
 
         public OrganiserStatus Status { get; set; }
 

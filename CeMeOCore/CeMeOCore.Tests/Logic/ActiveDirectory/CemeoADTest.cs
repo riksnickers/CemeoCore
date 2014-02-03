@@ -21,7 +21,7 @@ namespace CeMeOCore.Tests.Logic.ActiveDirectory
         [TestMethod]
         public void GetNameFromUserAD()
         {
-            string name = CemeoAD.GetUserIdFromDisplayName("tycha buekers");
+            string name = CemeoAD.GetUserIdFromDisplayName("tychabuekers", "jefjef91");
             Assert.AreEqual("tycha", name);
         }
 
