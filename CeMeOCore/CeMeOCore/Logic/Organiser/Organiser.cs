@@ -229,8 +229,9 @@ namespace CeMeOCore.Logic.Organiser
             //Try to make a proposal
             try
             {
-                logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\n\t OrganiserID: " + OrganiserID + "\n\tGetProposalDate" );
+                logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\n\t OrganiserID: " + OrganiserID + "\n\tGetProposalDate" + "\n\tProposalDateRange: " + proposalDateRange.Start + "-" + proposalDateRange.End );
                 proposalDateRange = GetProposalDate(proposalDateRange, proposition.ReservedSpotGuid);
+                logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\n\t OrganiserID: " + OrganiserID + "\n\tGetProposalDate" + "\n\tNew - ProposalDateRange: " + proposalDateRange.Start + "-" + proposalDateRange.End);
                 logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\n\t OrganiserID: " + OrganiserID + "\n\tGetProposalRoom");
                 proposalRoom = GetProposalRoom(proposalDateRange, proposition.ReservedSpotGuid);
 
@@ -348,9 +349,10 @@ namespace CeMeOCore.Logic.Organiser
                 //Handle here what needs to be done when a user is not available
                 logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\n\t OrganiserID: " + OrganiserID + "\n\tNoPersonsAvailableException..");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //Throw it up!
+                logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\n\t OrganiserID: " + OrganiserID + "\n\tException in proposalDate! " + ex.Message + "\n\t" + ex.Source + "\n\t" + ex.StackTrace);
                 throw;
             }
             return proposalDateRange;
@@ -364,11 +366,15 @@ namespace CeMeOCore.Logic.Organiser
                 foreach (PersonBlackSpot spot in values)
                 {
                     //Check if the proposal start or end time overlaps with the spot start or end time.
-                    if ((spot.DateRange.Includes(dr.Start)) || (spot.DateRange.Includes(dr.Start)))
+                    logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
+                    logger.Debug("Output: " + !(spot.DateRange.Includes(dr.Start)) + " OR " + !(spot.DateRange.Includes(dr.Start)));
+                    if (!(spot.DateRange.Includes(dr.Start)) || !(spot.DateRange.Includes(dr.Start)))
                     {
                         //if one of the two includes in the other 
                         //Set the end time from the overlapping daterange as the start time for the proposalDateRange
+                        logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
                         dr.ModifyStartDateTime(spot.DateRange.End, this._organiserProcess.Duration);
+                        logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
                         overlap = true;
                         return overlap;
                     }
