@@ -14,6 +14,7 @@ using System.Text;
 using System.Web;
 using CeMeOCore.Logic.PushNotifications;
 using CeMeOCore.Logic.Exchange;
+using System.Collections;
 
 
 namespace CeMeOCore.Logic.Organiser
@@ -289,39 +290,62 @@ namespace CeMeOCore.Logic.Organiser
         {
             ProposalDateRange proposalDateRange = prop;
 
-            SortedList<DateRange, PersonBlackSpot> pbss = Startup.SpotManagerFactory.GetPersonBlackSpots(this.OrganiserID);
+            Dictionary<int, SortedList<DateRange, PersonBlackSpot>> pbss = Startup.SpotManagerFactory.GetPersonBlackSpots(this.OrganiserID);
             //Try to find a good daterange looking at persons
             try
             {
-                foreach (DateRange personBlackSpotDateRange in pbss.Keys)
+                foreach (int userBlackSpotKey in pbss.Keys)
                 {
-
                     try
                     {
-                        if ( !proposalDateRange.Includes(personBlackSpotDateRange.Start) || !proposalDateRange.Includes(personBlackSpotDateRange.End))
-                        //if (!personBlackSpotDateRange.Includes(proposalDateRange))
+                        if(FindSpotOverlaps(pbss[userBlackSpotKey].Values, ref proposalDateRange))
                         {
-
                             throw new PersonNotAvailableException();
-                            //TODO: Add to check reserved persons..
+                        }
+                        else
+                        {
+                            bool doOthersHaveOverlaps = false;
+                            //Check other
+                            foreach(int otherUserSpotKey in pbss.Keys)
+                            {
+                                if( otherUserSpotKey != userBlackSpotKey )
+                                {
+                                    //so it does not overwrite our good proposaldaterange
+                                    ProposalDateRange temp = proposalDateRange;
+                                    doOthersHaveOverlaps = FindSpotOverlaps(pbss[userBlackSpotKey].Values, ref temp);
+                                    if(doOthersHaveOverlaps)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            if (doOthersHaveOverlaps)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                ChangeReservedSpot(reservedSpot, proposalDateRange.Start, proposalDateRange.End);
+                                break;
+                            }
                         }
                     }
                     catch (PersonNotAvailableException)
                     {
-                        //Set the end time from the overlapping daterange as the start time for the proposalDateRange
-                        proposalDateRange.ModifyStartDateTime(personBlackSpotDateRange.End, this._organiserProcess.Duration);
-                        ChangeReservedSpot(reservedSpot, proposalDateRange.Start, proposalDateRange.End);
+                        //This person is not available.. check if it is an important person
+                        //if to many absent then throw NoPersonsAvailableException
+                        throw new NoPersonsAvailableException();
                     }
                     catch (Exception)
                     {
                         //Throw it Up!
                         throw;
                     }
-
                 }
             }
             catch (NoPersonsAvailableException)
             {
+                //Handle here what needs to be done when a user is not available
                 logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(Organiser) + "\n\t OrganiserID: " + OrganiserID + "\n\tNoPersonsAvailableException..");
             }
             catch (Exception)
@@ -330,6 +354,42 @@ namespace CeMeOCore.Logic.Organiser
                 throw;
             }
             return proposalDateRange;
+        }
+
+        private bool FindSpotOverlaps(IList<PersonBlackSpot> values, ref ProposalDateRange dr)
+        {
+            bool overlap = false;
+            try
+            {
+                foreach (PersonBlackSpot spot in values)
+                {
+                    //Check if the proposal start or end time overlaps with the spot start or end time.
+                    if ((spot.DateRange.Includes(dr.Start)) || (spot.DateRange.Includes(dr.Start)))
+                    {
+                        //if one of the two includes in the other 
+                        //Set the end time from the overlapping daterange as the start time for the proposalDateRange
+                        dr.ModifyStartDateTime(spot.DateRange.End, this._organiserProcess.Duration);
+                        overlap = true;
+                        return overlap;
+                    }
+                    else
+                    {
+                        //The spot is ok
+                        overlap = false;
+                        break;
+                    }
+                }
+            }
+            catch(PersonNotAvailableException)
+            {
+                //The person is not available.. but throw it up
+                throw;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+            return overlap;
         }
 
         /// <summary>

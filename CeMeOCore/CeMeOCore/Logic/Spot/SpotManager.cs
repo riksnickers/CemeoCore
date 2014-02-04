@@ -16,7 +16,7 @@ namespace CeMeOCore.Logic.Spots
         /// <summary>
         /// Private SortedLists and a dictionary for saving the spots.
         /// </summary>
-        private Dictionary<String, SortedList<DateRange, PersonBlackSpot>> _organiserPersonSpots; //Nested collection Dictionary + SortedList
+        private Dictionary<string, Dictionary<int, SortedList<DateRange, PersonBlackSpot>>> _organiserPersonSpots; //Nested collection Dictionary + SortedList
         private SortedList<DateRange, RoomBlackSpot> _roomSpots;
         private SortedList<DateRange, ReservedSpot> _reservedSpots;
         private static readonly ILog logger = log4net.LogManager.GetLogger(typeof(SpotManager));
@@ -25,7 +25,7 @@ namespace CeMeOCore.Logic.Spots
         /// </summary>
         public SpotManager()
         {
-            this._organiserPersonSpots = new Dictionary<string, SortedList<DateRange, PersonBlackSpot>>();
+            this._organiserPersonSpots = new Dictionary<string, Dictionary<int, SortedList<DateRange, PersonBlackSpot>>>();
             this._roomSpots = new SortedList<DateRange, RoomBlackSpot>(new DateRange.Comparer());
             this._reservedSpots = new SortedList<DateRange, ReservedSpot>(new DateRange.Comparer());
         }
@@ -35,11 +35,11 @@ namespace CeMeOCore.Logic.Spots
         /// </summary>
         /// <param name="OrganiserID"></param>
         /// <returns></returns>
-        public SortedList<DateRange, PersonBlackSpot> GetPersonBlackSpots(string OrganiserID)
+        public Dictionary<int, SortedList<DateRange, PersonBlackSpot>> GetPersonBlackSpots(string OrganiserID)
         {
             if (!this._organiserPersonSpots.ContainsKey(OrganiserID))
             {
-                this._organiserPersonSpots.Add(OrganiserID, new SortedList<DateRange, PersonBlackSpot>(new DateRange.Comparer()));
+                this._organiserPersonSpots.Add(OrganiserID, new Dictionary<int, SortedList<DateRange, PersonBlackSpot>>());
             }
             return this._organiserPersonSpots[OrganiserID];
         }
@@ -93,10 +93,14 @@ namespace CeMeOCore.Logic.Spots
                     if ( !this._organiserPersonSpots.ContainsKey(pbs.OrganiserID) )
                     {
                         //If not create a new SortedList for the organiser and add it to the dictionary
-                        this._organiserPersonSpots.Add(pbs.OrganiserID, new SortedList<DateRange, PersonBlackSpot>(new DateRange.Comparer()));
+                        this._organiserPersonSpots.Add(pbs.OrganiserID, new Dictionary<int, SortedList<DateRange, PersonBlackSpot>>());
+                        if(!this._organiserPersonSpots[pbs.OrganiserID].ContainsKey(pbs.Person.UserId) )
+                        {
+                            this._organiserPersonSpots[pbs.OrganiserID].Add(pbs.Person.UserId, new SortedList<DateRange, PersonBlackSpot>(new DateRange.Comparer()));
+                        }
                     }
                     //Now add the PersonBlackSpot to the correct list.
-                    this._organiserPersonSpots[pbs.OrganiserID].Add(spot.DateRange, pbs);
+                    this._organiserPersonSpots[pbs.OrganiserID][pbs.Person.UserId].Add(pbs.DateRange, pbs);
                     logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + "Successful added Spot" + "\n DateRange: " + pbs.DateRange.Start + "\t" + pbs.DateRange.End  +"\n OrganiserId: "+ pbs.OrganiserID + "\n UserProfile: " + pbs.Person.UserId + " - " + pbs.Person.UserName);
                 }
                 else if (spot is ReservedSpot)
