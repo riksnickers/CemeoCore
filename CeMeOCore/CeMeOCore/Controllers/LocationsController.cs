@@ -11,6 +11,7 @@ using CeMeOCore.DAL.Context;
 
 namespace CeMeOCore.Controllers
 {
+    [Authorize(Users = "Admin")]
     public class LocationsController : Controller
     {
         //

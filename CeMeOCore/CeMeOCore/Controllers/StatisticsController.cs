@@ -15,6 +15,7 @@ namespace CeMeOCore.Controllers
         private CeMeoContext _db = new CeMeoContext();
         private Statistics stats = new Statistics();
 
+        [Authorize(Users = "Admin")]
         public ActionResult Index()
         {
             //Count statistics
