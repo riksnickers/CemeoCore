@@ -94,10 +94,10 @@ namespace CeMeOCore.Logic.Spots
                     {
                         //If not create a new SortedList for the organiser and add it to the dictionary
                         this._organiserPersonSpots.Add(pbs.OrganiserID, new Dictionary<int, SortedList<DateRange, PersonBlackSpot>>());
-                        if(!this._organiserPersonSpots[pbs.OrganiserID].ContainsKey(pbs.Person.UserId) )
-                        {
-                            this._organiserPersonSpots[pbs.OrganiserID].Add(pbs.Person.UserId, new SortedList<DateRange, PersonBlackSpot>(new DateRange.Comparer()));
-                        }
+                    }
+                    if (!this._organiserPersonSpots[pbs.OrganiserID].ContainsKey(pbs.Person.UserId))
+                    {
+                        this._organiserPersonSpots[pbs.OrganiserID].Add(pbs.Person.UserId, new SortedList<DateRange, PersonBlackSpot>(new DateRange.Comparer()));
                     }
                     //Now add the PersonBlackSpot to the correct list.
                     this._organiserPersonSpots[pbs.OrganiserID][pbs.Person.UserId].Add(pbs.DateRange, pbs);

@@ -221,7 +221,7 @@ namespace CeMeOCore.Logic.Organiser
             //HACK: Refactor Person available logic.
             //This is our start proposal daterange
             DateTime now = DateTime.Now;
-            DateTime temp = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
+            DateTime temp = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0).AddHours(1);
             ProposalDateRange proposalDateRange = new ProposalDateRange(temp, temp.AddSeconds(this._organiserProcess.Duration));
             Room proposalRoom = null;
 
@@ -379,10 +379,13 @@ namespace CeMeOCore.Logic.Organiser
                     {
                         //if one of the two includes in the other 
                         //Set the end time from the overlapping daterange as the start time for the proposalDateRange
-                        dr.ModifyStartDateTime(spot.DateRange.End, this._organiserProcess.Duration);
-                        //logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
-                        overlap = true;
-                        return overlap;
+                        if (spot.DateRange.End >= DateTime.Now.AddMinutes(30))
+                        {
+                            dr.ModifyStartDateTime(spot.DateRange.End, this._organiserProcess.Duration);
+                            //logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
+                            overlap = true;
+                            return overlap;
+                        }
                     }
                     else
                     {
@@ -418,49 +421,48 @@ namespace CeMeOCore.Logic.Organiser
             Room proposalRoom = null;
             //TODO: determine best location
             IEnumerable<Room> rooms = this._organiserUoW.RoomRepository.Get();
-
+            logger.Info(DateTime.Now + " - " + "Got all the rooms: " + rooms.Count());
             //Let's try to find a room
             try
             {
-                //If it is 0 then set the proposal date is good. Wich will mean that everyone is available at that time.
                 //Now let's check if their is a room available
                 //Get a room and check if it's available.
                 foreach (Room room in rooms)
                 {
                     proposalRoom = room;
+                    logger.Info(DateTime.Now + " - " + "Got a room " + proposalRoom.RoomID);
                     try
                     {
+                        logger.Info(DateTime.Now + " - " + "Number of room blackspots: " + rbss.Values.Count());
                         //enumerate all roomblackspots
-                        foreach (DateRange roomBlackSpotDateRange in rbss.Keys)
+                        foreach (RoomBlackSpot roomSpot in rbss.Values)
                         {
+                            logger.Info(DateTime.Now + " - " + "Check if room " + proposalRoom.RoomID + " is available.. with blackspot: " + roomSpot.Room.RoomID + " - " + roomSpot.BegintTime + "-" + roomSpot.EndTime);
+                            logger.Info(DateTime.Now + " - " + (roomSpot.Room.RoomID == proposalRoom.RoomID) + " .. " + roomSpot.Room.RoomID + " - " + proposalRoom.RoomID);
                             //Check if the spot overlaps with the proposaldaterange
-                            if (roomBlackSpotDateRange.Includes(proposalDateRange))
+                            if (roomSpot.Room.RoomID == proposalRoom.RoomID)
                             {
-                                //We have found a overlap in the daterange, is it the room we are looking for?
-                                RoomBlackSpot rs = rbss[roomBlackSpotDateRange];
-                                if (rs.Room.Equals(proposalRoom))
+                                logger.Info(DateTime.Now + " - " + "Found a blackspot for this room!\n" + (roomSpot.DateRange.Includes(proposalDateRange.Start)) + " OR " + (roomSpot.DateRange.Includes(proposalDateRange.Start)));
+                                if ((roomSpot.DateRange.Includes(proposalDateRange.Start)) || (roomSpot.DateRange.Includes(proposalDateRange.Start)))
                                 {
+                                    logger.Info(DateTime.Now + " - " + "Room not available..");
                                     throw new RoomNotAvailableException();
                                 }
                             }
                         }
-
+                        /*
                         //Now check if the proposalroom is reserved at the moment
                         //First check if a daterange overlaps with the proposal daterange
-                        foreach (DateRange reservedSpotDateRange in rss.Keys)
+                        foreach (ReservedSpot reservedspot in rss.Values)
                         {
-                            if (reservedSpotDateRange.Includes(proposalDateRange))
+                            //We have found a overlap in the daterange, is it the room we are looking for?
+                            //Does the reservedSpot includes the room And it's not our reserved spot.
+                            if (reservedspot.Includes(proposalRoom))
                             {
-                                //We have found a overlap in the daterange, is it the room we are looking for?
-                                ReservedSpot rs = rss[reservedSpotDateRange];
-                                //Does the reservedSpot includes the room And it's not our reserved spot.
-                                if (rs.Includes(proposalRoom) && (rs.Guid != reservedSpot))
-                                {
-                                    throw new RoomIsReservedException();
-                                }
+                                throw new RoomIsReservedException();
                             }
                         }
-
+                        */
                         //If we reach this line the room is ok!, let's break out the loop
                         break;
                     }
@@ -470,6 +472,7 @@ namespace CeMeOCore.Logic.Organiser
                         //We have a NO GO for this room!
                         //Let's continue looking for a room
                         proposalRoom = null;
+                        continue;
                     }
                     catch (RoomIsReservedException)
                     {
@@ -477,6 +480,7 @@ namespace CeMeOCore.Logic.Organiser
                         //We have a NO GO for this room! but this room might be available later
                         //TODO: add listener when rooms becomes available..?
                         proposalRoom = null;
+                        continue;
                     }
                     catch (Exception)
                     {
@@ -487,12 +491,15 @@ namespace CeMeOCore.Logic.Organiser
                     //End of room foreach
                 }
                 //When all the rooms are iterated check if we found a room.
+
                 if (proposalRoom == null)
                 {
+                    logger.Info("We did not found the room :( " + proposalRoom.RoomID);
                     throw new NoRoomsFoundException();
                 }
                 else
                 {
+                    logger.Info("We found the room: " + proposalRoom.RoomID);
                     return proposalRoom;
                 }
                 
@@ -683,21 +690,29 @@ namespace CeMeOCore.Logic.Organiser
                 this._organiserUoW.Save();
 
                 RoomBlackSpot LastAddedRoom = null;
+             
                 foreach( Invitee invitee in this._invitees.Values)
                 {
                     ExchangeImpl ex = new ExchangeImpl(invitee.User.UserName, "jefjef91", "cemeo.be", invitee.UserID);
                     ex.CreateAppointment(newMeeting, invitee.Proposal.ProposedRoom, this._invitees.Values.ToList());
-                    if (LastAddedRoom.Room != invitee.Proposal.ProposedRoom)
+                    if(LastAddedRoom == null)
                     {
+                        logger.Info(DateTime.Now + " - " + "Adding first room");
                         LastAddedRoom = new RoomBlackSpot(newMeeting.BeginTime, newMeeting.BeginTime.AddSeconds(newMeeting.Duration), invitee.Proposal.ProposedRoom);
                         Startup.SpotManagerFactory.AddSpot(LastAddedRoom);
                     }
-                    
+                    logger.Info(DateTime.Now + " - " + "LastAddedRoom " + LastAddedRoom.Room.RoomID + " - InviteeRoom " + invitee.Proposal.ProposedRoom.RoomID);
+                    if (LastAddedRoom.Room.RoomID != invitee.Proposal.ProposedRoom.RoomID)
+                    {
+                        logger.Info(DateTime.Now + " - " + "Adding last room");
+                        LastAddedRoom = new RoomBlackSpot(newMeeting.BeginTime, newMeeting.BeginTime.AddSeconds(newMeeting.Duration), invitee.Proposal.ProposedRoom);
+                        Startup.SpotManagerFactory.AddSpot(LastAddedRoom);
+                    }
                 }
             }
-            catch( Exception )
+            catch( Exception ex )
             {
-
+                logger.Error(DateTime.Now + " Class: " + typeof(Organiser) + " - \n" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace );
             }
 
             this._organiserProcess.Status = OrganiserStatus.FinishedOrganising;
