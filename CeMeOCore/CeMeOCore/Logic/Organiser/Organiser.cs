@@ -571,23 +571,22 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         /// <param name="model">Contains the Organiser ID and invitee id</param>
         /// <returns>Boolean</returns>
-        public Boolean registerAvailabilityInvitee(PropositionAnswerBindingModel model)
+        public void registerAvailabilityInvitee(PropositionAnswerBindingModel model)
         {
+            //TODO: if meeting is created other procedure
             //HACK: Change the propositionAnswerBindingModel
             if (this._invitees.ContainsKey(model.InviteeID))
             {
+                CheckAnswer(model.InviteeID, model.Answer);
                 this._invitees[model.InviteeID].Answer = model.Answer;
                 this._organiserUoW.InviteeRepository.Update(this._invitees[model.InviteeID]);
                 this._organiserUoW.Save();
-                CheckAnswer(model.InviteeID);
             }
 
             //TODO:Should this be a new feature? HowManyCantCome()
             //Notify the Creator if to many non-imporant people can't come.
             //Let's say that if X% of the people did not accept it will send a notice to the creator if the meeting should continue
             //Or even another deadline
-
-            return false;
         }
 
         /// <summary>
@@ -595,45 +594,65 @@ namespace CeMeOCore.Logic.Organiser
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        private Boolean CheckAnswer(string id)
+        private void CheckAnswer(string id, Availability answer)
         {
-            bool returnVal = false;
-            //TODO: If their is send a new proposition reduce Totals!
-            if (this._invitees[id].Important == true && this._invitees[id].Answer == Availability.Absent)
+            //Check if the user changed his/her answer
+            
+            switch(this._invitees[id].Answer)
             {
-                //TODO:Reschudele meeting
-                //Let the System know that it need to reschedule everything
-                //But add a blackspot to the existing list
-
-                this._organiserProcess.TotalImporantInviteesAbsent++;
-                this._organiserProcess.TotalInviteesAbsent++;
+                case Availability.Absent:
+                    this._organiserProcess.TotalInviteesAbsent--;
+                    this._organiserProcess.TotalInviteesUnanswered++;
+                    break;
+                case Availability.Online:
+                    this._organiserProcess.TotalInviteesOnline--;
+                    this._organiserProcess.TotalInviteesUnanswered++;
+                    break;
+                case Availability.Present:
+                    this._organiserProcess.TotalInviteesUnanswered++;
+                    break;
+                case Availability.Unanswered:
+                    break;
             }
-            else if (this._invitees[id].Answer == Availability.Absent)
+
+            switch(answer)
             {
-                //TODO:Let the system decide if their is a new proposition needed.
-                //If their is no new proposition the meeting will continue (unless he joins online)
+                case Availability.Absent:
+                    if (this._invitees[id].Important)
+                    {
+                        //TODO:Reschudele meeting
+                        //Let the System know that it need to reschedule everything
+                        //But add a blackspot to the existing list
 
-                this._organiserProcess.TotalInviteesAbsent++;
+                        this._organiserProcess.TotalImporantInviteesAbsent++;
+                    }
+                    //TODO:Let the system decide if their is a new proposition needed.
+                    //If their is no new proposition the meeting will continue (unless he joins online)
+                    this._organiserProcess.TotalInviteesAbsent++;
+                    this._organiserProcess.TotalInviteesUnanswered--;
+                    break;
 
+                case Availability.Online:
+                    //TODO:Proposition may not be online at the first try
+                    //Example: Could you be present at this meeting Present/Absent
+                    //When the person chose Absent they get another message 
+                    //from the system asking if they want to be present Online
+                    //Increase the OnlineCounter for this organisation. 
+                    this._organiserProcess.TotalInviteesOnline++;
+                    this._organiserProcess.TotalInviteesUnanswered--;
+                    break;
+
+                case Availability.Present:
+                    this._organiserProcess.TotalInviteesUnanswered--;
+                    break;
             }
-            else if ( this._invitees[id].Answer == Availability.Online )
-            {
-                //TODO:Proposition may not be online at the first try
-                //Example: Could you be present at this meeting Present/Absent
-                //When the person chose Absent they get another message 
-                //from the system asking if they want to be present Online
-                //Increase the OnlineCounter for this organisation. 
-                this._organiserProcess.TotalInviteesOnline++;
-                returnVal = true;
-            }
-            this._organiserProcess.TotalInviteesUnanswered--;
+
             if( this._organiserProcess.TotalInviteesUnanswered == 0 )
             {
                 OrganiseMeeting();
             }
-            UpdateOrganiserProcess();
-            return returnVal;
 
+            UpdateOrganiserProcess();
         }
 
         public void OrganiseMeeting()
@@ -663,10 +682,17 @@ namespace CeMeOCore.Logic.Organiser
 
                 this._organiserUoW.Save();
 
+                RoomBlackSpot LastAddedRoom = null;
                 foreach( Invitee invitee in this._invitees.Values)
                 {
                     ExchangeImpl ex = new ExchangeImpl(invitee.User.UserName, "jefjef91", "cemeo.be", invitee.UserID);
                     ex.CreateAppointment(newMeeting, invitee.Proposal.ProposedRoom, this._invitees.Values.ToList());
+                    if (LastAddedRoom.Room != invitee.Proposal.ProposedRoom)
+                    {
+                        LastAddedRoom = new RoomBlackSpot(newMeeting.BeginTime, newMeeting.BeginTime.AddSeconds(newMeeting.Duration), invitee.Proposal.ProposedRoom);
+                        Startup.SpotManagerFactory.AddSpot(LastAddedRoom);
+                    }
+                    
                 }
             }
             catch( Exception )
