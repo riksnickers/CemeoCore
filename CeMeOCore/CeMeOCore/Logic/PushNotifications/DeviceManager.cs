@@ -12,12 +12,15 @@ namespace CeMeOCore.Logic.PushNotifications
 
         public static void CreateDevice( string deviceID, Platform platform, int userId)
         {
-            devices.Add(new Device()
+            Device device = devices.Where(d => d.userID == userId && d.Platform == platform).Select(d => d).FirstOrDefault();
+            if (device == null)
             {
-                DeviceID = deviceID,
-                Platform = platform,
-                userID = userId
-            });
+                devices.Add(new Device() { DeviceID = deviceID, Platform = platform, userID = userId });
+            }
+            else
+            {
+                device.DeviceID = deviceID;
+            }
         }
 
         public static IEnumerable<Device> GetDevicesFromUser( int userId )

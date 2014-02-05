@@ -72,12 +72,12 @@ namespace CeMeOCore.Logic.PushNotifications
 
         public static void ServiceException(object sender, Exception error)
         {
-            Logger.Debug("ServiceException");
+            Logger.Debug("ServiceException" + error.Data + "\n" + error.InnerException + "\n" + error.Source + "\n" + error.StackTrace);
         }
 
         public static void NotificationFailed(object sender, INotification notification, Exception error)
         {
-            Logger.Debug("NotificationFailed");
+            Logger.Debug("NotificationFailed" + error.Data + "\n" + error.InnerException + "\n" + error.Source + "\n" + error.StackTrace);
         }
 
         public static void DeviceSubscriptionExpired(object sender, string expiredSubscriptionId, DateTime expirationDateUtc, INotification notification)

@@ -83,7 +83,7 @@ namespace CeMeOCore.Logic.Spots
                 if (spot is RoomBlackSpot)
                 {
                     this._roomSpots.Add(spot.DateRange, (RoomBlackSpot)spot);
-                    logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + "Successful added Spot" + "\n" + spot.DateRange.Start + "\n" + spot.DateRange.End);
+                    logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + "Successful added ROOM Spot" + "\n" + spot.DateRange.Start + "\n" + spot.DateRange.End);
                 }
                 else if (spot is PersonBlackSpot)
                 {
@@ -101,12 +101,12 @@ namespace CeMeOCore.Logic.Spots
                     }
                     //Now add the PersonBlackSpot to the correct list.
                     this._organiserPersonSpots[pbs.OrganiserID][pbs.Person.UserId].Add(pbs.DateRange, pbs);
-                    logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + "Successful added Spot" + "\n DateRange: " + pbs.DateRange.Start + "\t" + pbs.DateRange.End  +"\n OrganiserId: "+ pbs.OrganiserID + "\n UserProfile: " + pbs.Person.UserId + " - " + pbs.Person.UserName);
+                    logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + "Successful PERSON added Spot" + "\n DateRange: " + pbs.DateRange.Start + "\t" + pbs.DateRange.End  +"\n OrganiserId: "+ pbs.OrganiserID + "\n UserProfile: " + pbs.Person.UserId + " - " + pbs.Person.UserName);
                 }
                 else if (spot is ReservedSpot)
                 {
                     this._reservedSpots.Add(spot.DateRange, (ReservedSpot)spot);
-                    logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + "Successful added Spot" + "\n" + spot.DateRange.Start + "\n" + spot.DateRange.End);
+                    logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(SpotManager) + "\t" + "Successful RESERVED added Spot" + "\n" + spot.DateRange.Start + "\n" + spot.DateRange.End);
                 }
             }
             catch (Exception ex)

@@ -344,7 +344,7 @@ namespace CeMeOCore.Logic.Organiser
                     {
                         //This person is not available.. check if it is an important person
                         //if to many absent then throw NoPersonsAvailableException
-                        throw new NoPersonsAvailableException();
+                        continue;
                     }
                     catch (Exception)
                     {
@@ -375,23 +375,24 @@ namespace CeMeOCore.Logic.Organiser
                 foreach (PersonBlackSpot spot in values)
                 {
                     //Check if the proposal start or end time overlaps with the spot start or end time.
+                    logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
+                    logger.Debug("******* !(spot.DateRange.Includes(dr.Start)) = " + !(spot.DateRange.Includes(dr.Start)) + " OR " + " ******* !(spot.DateRange.Includes(dr.Start)) = " + !(spot.DateRange.Includes(dr.Start)));
                     if (!(spot.DateRange.Includes(dr.Start)) || !(spot.DateRange.Includes(dr.Start)))
                     {
                         //if one of the two includes in the other 
                         //Set the end time from the overlapping daterange as the start time for the proposalDateRange
                         if (spot.DateRange.End >= DateTime.Now.AddMinutes(30))
                         {
-                            dr.ModifyStartDateTime(spot.DateRange.End, this._organiserProcess.Duration);
-                            //logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
+                            dr.ModifyStartDateTime(spot.DateRange.End.AddMinutes(5), this._organiserProcess.Duration);
                             overlap = true;
-                            return overlap;
+                            continue;
                         }
+                        //logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End)
+           
                     }
                     else
                     {
-                        //The spot is ok
-                        overlap = false;
-                        break;
+                        return false;
                     }
                 }
             }

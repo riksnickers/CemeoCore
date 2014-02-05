@@ -58,7 +58,7 @@ namespace CeMeOCore.Logic.Range
         /// <returns>True or False</returns>
         public bool Includes(DateTime value)
         {
-            return (Start >= value) && (value <= End);
+            return (Start > value) && (value < End);
         }
 
         /// <summary>
