@@ -148,7 +148,7 @@ namespace CeMeOCore.Logic.Organiser
             //Generate blackspots until the deadline
             foreach(Invitee i in this._invitees.Values)
             {
-                ExchangeImpl ex = new ExchangeImpl(i.User.UserName, "jefjef91", "cemeo.be");
+                ExchangeImpl ex = new ExchangeImpl(i.User.UserName, "jefjef91", "cemeo.be", i.UserID);
                 ex.GenerateBlackSpots(OrganiserID, i.User);
             }
         }
@@ -662,6 +662,12 @@ namespace CeMeOCore.Logic.Organiser
 
 
                 this._organiserUoW.Save();
+
+                foreach( Invitee invitee in this._invitees.Values)
+                {
+                    ExchangeImpl ex = new ExchangeImpl(invitee.User.UserName, "jefjef91", "cemeo.be", invitee.UserID);
+                    ex.CreateAppointment(newMeeting, invitee.Proposal.ProposedRoom, this._invitees.Values.ToList());
+                }
             }
             catch( Exception )
             {
