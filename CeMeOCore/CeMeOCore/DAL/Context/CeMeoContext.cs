@@ -1,4 +1,5 @@
 ﻿using CeMeOCore.DAL.Models;
+using CeMeOCore.DAL.Models.Unused;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

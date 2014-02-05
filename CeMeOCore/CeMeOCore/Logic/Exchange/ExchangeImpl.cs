@@ -9,6 +9,7 @@ using System.DirectoryServices;
 using CeMeOCore.Logic.Spots;
 using log4net;
 using System.Text;
+using CeMeOCore.DAL.Models;
 
 namespace CeMeOCore.Logic.Exchange
 {
@@ -21,14 +22,16 @@ namespace CeMeOCore.Logic.Exchange
         private string _username;
         private string _password;
         private string _domain;
+        private int _userId;
     
-        public ExchangeImpl(string username, string password, string domain)
+        public ExchangeImpl(string username, string password, string domain, int userId)
         {
             try
             {
                 this._username = username;
                 this._password = password;
                 this._domain = domain;
+                this._userId = userId;
 
                 ServicePointManager.ServerCertificateValidationCallback = Exchange.CertificateValidationCallBack;
                 this._service = new ExchangeService(ExchangeVersion.Exchange2010);
@@ -73,13 +76,13 @@ namespace CeMeOCore.Logic.Exchange
                 CalendarView calendarView = new CalendarView(DateTime.Today, DateTime.Today.AddDays(2));
                 calendarView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End);
 
-                FindItemsResults<Appointment> appointments = calendarFolder.FindAppointments(calendarView);
+                FindItemsResults<Microsoft.Exchange.WebServices.Data.Appointment> appointments = calendarFolder.FindAppointments(calendarView);
 
                 StringBuilder sb = new StringBuilder();
 
                 sb.AppendLine(DateTime.Now.ToString() + "\t" + "Class: " + typeof(ExchangeImpl));
                 sb.AppendLine("\tOrganiserID:" + organiserID);
-                foreach (Appointment a in appointments)
+                foreach (Microsoft.Exchange.WebServices.Data.Appointment a in appointments)
                 {
                     if (a.Subject != null)
                     {
@@ -98,6 +101,37 @@ namespace CeMeOCore.Logic.Exchange
             catch(Exception ex)
             {
                 logger.Debug(DateTime.Now.ToString() + "\t" + "Class: " + typeof(ExchangeImpl) + "\t" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
+            }
+        }
+
+        public void CreateAppointment(Meeting meeting, Room room, List<Invitee> invitees)
+        {
+            try
+            {
+                Appointment appointment = new Appointment(this._service);
+
+                appointment.Subject = "Meeting by Cemeo";
+                appointment.Body = "This meeting is created by the Cemeo app!";
+                appointment.Start = meeting.BeginTime;
+                appointment.End = meeting.BeginTime.AddSeconds(meeting.Duration);
+                appointment.Location = room.Name + " - " + room.LocationID.Country;
+                foreach (Invitee invitee in invitees)
+                {
+                    if (invitee.Important)
+                    {
+                        appointment.RequiredAttendees.Add(invitee.User.EMail);
+                    }
+                    else
+                    {
+                        appointment.OptionalAttendees.Add(invitee.User.EMail);
+                    }
+                }
+                appointment.Save(SendInvitationsMode.SendToNone);
+            }
+            catch(Exception ex)
+            {
+                logger.Error(DateTime.Now + "\t" + "Class: " + typeof(ExchangeImpl) + "\n" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace );
+                throw;
             }
         }
     }

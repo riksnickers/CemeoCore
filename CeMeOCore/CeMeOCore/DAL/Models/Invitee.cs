@@ -1,4 +1,5 @@
 ﻿using CeMeOCore.Logic.Organiser;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -59,6 +60,22 @@ namespace CeMeOCore.DAL.Models
         public Proposition GetProposition()
         {
             return this.Proposal;
+        }
+
+        [JsonIgnore]
+        private UserProfile _user;
+        [JsonIgnore]
+        public UserProfile User
+        {
+            get
+            {
+                return _user;
+            }
+            set
+            {
+                this._user = value;
+            }
+
         }
     }
 

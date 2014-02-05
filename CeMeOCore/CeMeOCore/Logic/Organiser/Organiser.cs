@@ -57,6 +57,7 @@ namespace CeMeOCore.Logic.Organiser
                 {
                     this._invitees.Add(inv.InviteeID, inv);
                 }
+                ResolveInvitees();
             }
             catch(Exception)
             {
@@ -90,6 +91,7 @@ namespace CeMeOCore.Logic.Organiser
 
             //Resolve invitedParticipants
             ConvertParticipantsToInvitees(participants);
+            ResolveInvitees();
            
             //CheckAttendeesCalendar/appointments
             CheckAvailabilityInvitees();
@@ -146,9 +148,16 @@ namespace CeMeOCore.Logic.Organiser
             //Generate blackspots until the deadline
             foreach(Invitee i in this._invitees.Values)
             {
-                UserProfile user = this._organiserUoW.UserProfileRepository.GetByID(i.UserID);
-                ExchangeImpl ex = new ExchangeImpl(user.UserName, "jefjef91", "cemeo.be");
-                ex.GenerateBlackSpots(OrganiserID, user);
+                ExchangeImpl ex = new ExchangeImpl(i.User.UserName, "jefjef91", "cemeo.be");
+                ex.GenerateBlackSpots(OrganiserID, i.User);
+            }
+        }
+
+        private void ResolveInvitees()
+        {
+            foreach(Invitee invitee in this._invitees.Values)
+            {
+                invitee.User = ResolveUser(invitee.UserID);
             }
         }
 
@@ -366,15 +375,12 @@ namespace CeMeOCore.Logic.Organiser
                 foreach (PersonBlackSpot spot in values)
                 {
                     //Check if the proposal start or end time overlaps with the spot start or end time.
-                    logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
-                    logger.Debug("Output: " + !(spot.DateRange.Includes(dr.Start)) + " OR " + !(spot.DateRange.Includes(dr.Start)));
                     if (!(spot.DateRange.Includes(dr.Start)) || !(spot.DateRange.Includes(dr.Start)))
                     {
                         //if one of the two includes in the other 
                         //Set the end time from the overlapping daterange as the start time for the proposalDateRange
-                        logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
                         dr.ModifyStartDateTime(spot.DateRange.End, this._organiserProcess.Duration);
-                        logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
+                        //logger.Debug("******* dr.Start:" + dr.Start + " -- spot.Start: " + spot.DateRange.Start + "\n**** dr.End" + dr.End + " -- spot.End: " + spot.DateRange.End);
                         overlap = true;
                         return overlap;
                     }
@@ -534,7 +540,7 @@ namespace CeMeOCore.Logic.Organiser
         /// <param name="userProfileId">The id of who requested the meeting
         /// </param>
         /// <returns></returns>
-        private UserProfile resolveRequestedBy( int userProfileId)
+        private UserProfile ResolveUser( int userProfileId )
         {
             try
             {
