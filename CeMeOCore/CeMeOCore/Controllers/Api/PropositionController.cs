@@ -12,7 +12,7 @@ using CeMeOCore.DAL.UnitsOfWork;
 using CeMeOCore.Logic.Organiser;
 using CeMeOCore.Logic.PushNotifications;
 
-namespace CeMeOCore.Controllers
+namespace CeMeOCore.Controllers.Api
 {
     [Authorize]
     [RoutePrefix("api/Proposition")]

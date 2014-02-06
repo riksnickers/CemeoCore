@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace CeMeOCore.Controllers
+namespace CeMeOCore.Controllers.Api
 {
     /// <summary>
     /// This is the locationController. Here you can find the actions for Locations

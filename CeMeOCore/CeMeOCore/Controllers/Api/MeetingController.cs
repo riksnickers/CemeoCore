@@ -13,7 +13,7 @@ using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace CeMeOCore.Controllers
+namespace CeMeOCore.Controllers.Api
 {
     ///<summary>
     ///This is a API controller to maintain meetings

@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace CeMeOCore.Controllers
+namespace CeMeOCore.Controllers.Api
 {
     /// <summary>
     /// The WebAPI Contact controller. This will handle all contact actions

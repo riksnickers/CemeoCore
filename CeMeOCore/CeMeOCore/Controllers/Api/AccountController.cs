@@ -21,7 +21,7 @@ using System.Data.Entity.Validation;
 using log4net;
 using CeMeOCore.Logic.PushNotifications;
 
-namespace CeMeOCore.api.Controllers
+namespace CeMeOCore.Controllers.Api
 {
     [Authorize]
     [RoutePrefix("api/Account")]
