@@ -10,6 +10,7 @@ using PagedList;
 
 namespace CeMeOCore.Controllers
 {
+    [Authorize(Users = "Admin")]
     public class UserProfileController : Controller
     {
         private UserUoW _UserUoW;
@@ -19,6 +20,7 @@ namespace CeMeOCore.Controllers
             this._UserUoW = new UserUoW();
         }
 
+        [Authorize(Users = "Admin")]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             //Title of the page

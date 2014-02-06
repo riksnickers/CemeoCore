@@ -16,7 +16,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                @Html.ActionLink("AdminPanel CeMeo", "Index", "Statistics")
+                Adminpanel
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -36,7 +36,8 @@
                     <li class="dropdown user-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Administrator <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                            <li>@Html.ActionLink("Log out", "LogOff", "Home")</li>
+                            <li>@Html.ActionLink("Go to homepage", "Index", "Home")</li>
                         </ul>
                     </li>
                 </ul>

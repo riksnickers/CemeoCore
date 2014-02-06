@@ -52,6 +52,10 @@
     margin-top:-25%;
 }
 
+body { padding-top: 20px; }
+
+@media (max-width: 480px) { #iphoneimage { visibility: hidden; }}
+
 /* Thumbnails */
 body {
   padding-top: 50px;
@@ -127,3 +131,24 @@ body {
 #background9{
     background-color: #FF4E2C;
 }
+
+body
+{
+    padding-top: 0px;
+}
+#myCarousel .nav a small
+{
+    display: block;
+}
+#myCarousel .nav
+{
+    background: #eee;
+}
+.nav-justified > li > a
+{
+    border-radius: 0px;
+}
+.nav-pills>li[data-slide-to="0"].active a { background-color: #16a085; }
+.nav-pills>li[data-slide-to="1"].active a { background-color: #e67e22; }
+.nav-pills>li[data-slide-to="2"].active a { background-color: #2980b9; }
+.nav-pills>li[data-slide-to="3"].active a { background-color: #8e44ad; }

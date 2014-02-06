@@ -32,6 +32,7 @@ namespace CeMeOCore.Controllers
         /// <param name="searchString">searchstring taking care of the searching</param>
         /// <param name="page">paging parameter</param>
         /// <returns>vie with table of rooms</returns>
+        [Authorize(Users = "Admin")]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             //Title of the page
@@ -95,6 +96,7 @@ namespace CeMeOCore.Controllers
         /// </summary>
         /// <param name="id">specific room </param>
         /// <returns>view with details of a specific room</returns>
+        [Authorize(Users = "Admin")]
         public ActionResult Details(int id)
         {
             var meetingRoom = this._roomUoW.roomnRepository.dbSet.Find(id);
@@ -106,6 +108,7 @@ namespace CeMeOCore.Controllers
         /// Retruns a view to create a new room
         /// </summary>
         /// <returns>view to create a new room</returns>
+        [Authorize(Users = "Admin")]
         public ActionResult Create()
         {
             CreateRoom temp = new CreateRoom();
@@ -114,7 +117,14 @@ namespace CeMeOCore.Controllers
                                 {
                                     Text = a.Name,
                                     Value = a.LocationID.ToString()
-                                });
+                                }).ToList();
+
+            temp.locs = new List<TempRoom>();
+            foreach (Location element in _roomUoW.locationRepository.Get())
+            {
+                temp.locs.Add(new TempRoom() { ID = element.LocationID, Name = element.Name });
+            }
+
             return View(temp);
         }
 
@@ -126,6 +136,7 @@ namespace CeMeOCore.Controllers
         /// <returns>s</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "Admin")]
         public ActionResult Create(CreateRoom room)
         {
             try
@@ -135,7 +146,7 @@ namespace CeMeOCore.Controllers
                     Room newRoomToAdd = new Room();
                     newRoomToAdd.Name = room.Name;
                     newRoomToAdd.Type = room.Type;
-                    newRoomToAdd.LocationID = this._roomUoW.locationRepository.dbSet.Find(room.ActionId);
+                    newRoomToAdd.LocationID = _roomUoW.locationRepository.dbSet.Find(Int32.Parse(room.ActionId));
                     this._roomUoW.roomnRepository.dbSet.Add(newRoomToAdd);
                     this._roomUoW.roomnRepository.context.SaveChanges();
                     return RedirectToAction("Index");
@@ -154,6 +165,7 @@ namespace CeMeOCore.Controllers
         /// </summary>
         /// <param name="id"> specific room </param>
         /// <returns>vie with editable data for room</returns>
+        [Authorize(Users = "Admin")]
         public ActionResult Edit(int? id)
         {
             Room temp = this._roomUoW.roomnRepository.dbSet.Find(id);
@@ -173,6 +185,7 @@ namespace CeMeOCore.Controllers
         /// <returns>edit specific room</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "Admin")]
         public ActionResult Edit(Room temp)
        {
             try
@@ -200,7 +213,7 @@ namespace CeMeOCore.Controllers
         /// </summary>
         /// <param name="id">id of a specific room</param>
         /// <returns></returns>
-        /// 
+        [Authorize(Users = "Admin")]
         public ActionResult Delete(int id)
         {
             try
@@ -214,6 +227,7 @@ namespace CeMeOCore.Controllers
             }
         }
 
+        [Authorize(Users = "Admin")]
         [HttpPost]
         public ActionResult Delete(int id, Location toDel)
         {

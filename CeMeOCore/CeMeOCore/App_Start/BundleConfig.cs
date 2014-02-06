@@ -23,7 +23,7 @@ namespace CeMeOCore
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/assets/css/home.css",
-                      "~/Content/site.css"));
+                      "~/Content/zite.css"));
 
             //Load Cemeo bundle jqeury
             bundles.Add(new ScriptBundle("~/bundles/cemeo").Include(
