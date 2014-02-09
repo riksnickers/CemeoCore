@@ -112,6 +112,7 @@ namespace CeMeOCore.Migrations
                 State = "",
                 Addition = 0
             };
+
             /*
             context.Locations.AddOrUpdate(KantoorVeenendaal);
             context.Locations.AddOrUpdate(HoofdkantoorHasselt);
