@@ -5,7 +5,7 @@ using CeMeOCore;
 using CeMeOCore.DAL.Models;
 using System;
 using System.Web.Http;
-using CeMeOCore.Api.Controllers;
+using CeMeOCore.Controllers.Api;
 
 namespace CeMeOCore.Tests.Controllers
 {
