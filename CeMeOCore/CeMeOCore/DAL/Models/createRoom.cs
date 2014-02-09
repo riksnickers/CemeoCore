@@ -10,11 +10,11 @@ namespace CeMeOCore.DAL.Models
     public class CreateRoom
     {
         [Required(ErrorMessage = "A name is required")]
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "Minimum 1 characters required")]
+        //[StringLength(50, MinimumLength = 1, ErrorMessage = "Minimum 1 characters required")]
         public String Name { get; set; }
 
         [Required(ErrorMessage = "A Type is required")]
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "Minimum 1 characters required")]
+        //[StringLength(50, MinimumLength = 1, ErrorMessage = "Minimum 1 characters required")]
         public String Type{ get; set; }
 
         public IEnumerable<SelectListItem> ActionsList { get; set; }
