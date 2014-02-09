@@ -143,8 +143,11 @@ namespace CeMeOCore.Controllers
         [HttpPost]
         public ActionResult Create(Location newLocation)
         {
+            
             try
             {
+                if (ModelState.IsValid)
+                { 
                 Location newLocationToAdd = new Location();
                 newLocationToAdd.Name = newLocation.Name;
                 newLocationToAdd.Street = newLocation.Street;
@@ -158,10 +161,16 @@ namespace CeMeOCore.Controllers
                 this._locationUoW.LocationRepository.context.SaveChanges();
                 return RedirectToAction("Index");
             }
+                else
+                {
+                    View(newLocation);
+                }
+            }
             catch
             {
                 return View();
             }
+            return View();
         }
 
         /// GET: /Locations/Edit/?

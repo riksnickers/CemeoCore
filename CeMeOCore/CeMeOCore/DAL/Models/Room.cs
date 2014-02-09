@@ -13,14 +13,12 @@ namespace CeMeOCore.DAL.Models
         [Key]
         public int RoomID { get; set; }
 
-        [RegularExpression(@"^.{5,}$", ErrorMessage = "Minimum 1 characters required")]
         [Required(ErrorMessage = "A name is required")]
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "Invalid")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Minimum 1 characters required")]
         public string Name { get; set; }
 
-        [RegularExpression(@"^.{5,}$", ErrorMessage = "Minimum 1 characters required")]
         [Required(ErrorMessage = "A locationname is required")]
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "Invalid")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Minimum 1 characters required")]
         public string Type { get; set; }
 
         [Required]

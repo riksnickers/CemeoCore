@@ -111,21 +111,21 @@ namespace CeMeOCore.Controllers
         [Authorize(Users = "Admin")]
         public ActionResult Create()
         {
-            CreateRoom temp = new CreateRoom();
-            temp.ActionsList = (from a in _roomUoW.locationRepository.Get()
-                                select new SelectListItem
-                                {
-                                    Text = a.Name,
-                                    Value = a.LocationID.ToString()
-                                }).ToList();
 
-            temp.locs = new List<TempRoom>();
-            foreach (Location element in _roomUoW.locationRepository.Get())
-            {
-                temp.locs.Add(new TempRoom() { ID = element.LocationID, Name = element.Name });
-            }
+                CreateRoom temp = new CreateRoom();
+                temp.ActionsList = (from a in _roomUoW.locationRepository.Get()
+                                    select new SelectListItem
+                                    {
+                                        Text = a.Name,
+                                        Value = a.LocationID.ToString()
+                                    }).ToList();
 
-            return View(temp);
+                temp.locs = new List<TempRoom>();
+                foreach (Location element in _roomUoW.locationRepository.Get())
+                {
+                    temp.locs.Add(new TempRoom() { ID = element.LocationID, Name = element.Name });
+                }
+                return View(temp);
         }
 
         // GET Room/Create
@@ -150,6 +150,10 @@ namespace CeMeOCore.Controllers
                     this._roomUoW.roomnRepository.dbSet.Add(newRoomToAdd);
                     this._roomUoW.roomnRepository.context.SaveChanges();
                     return RedirectToAction("Index");
+                }
+                else 
+                { 
+                    View(room); 
                 }
             }
             catch
